@@ -5,7 +5,7 @@ import { Loader2, Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 
-const EVENTS_IMAGE = "/__generating__/img_49eb989c3cbd.png";
+const EVENTS_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/c843088ab_generated_4ee0f178.png";
 
 const CATEGORIES = [
   { key: "all", label: "All" },

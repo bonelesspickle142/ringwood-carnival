@@ -5,7 +5,7 @@ import QuickLinks from "../components/QuickLinks";
 import EventCard from "../components/EventCard";
 import { Loader2 } from "lucide-react";
 
-const HERO_IMAGE = "/__generating__/img_5e94da546ce2.png";
+const HERO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/567951c00_generated_23a2c72b.png";
 
 export default function Home() {
   const [featuredEvents, setFeaturedEvents] = useState([]);

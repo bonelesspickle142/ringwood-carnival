@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink } from "lucide-react";
 
-const INFO_IMAGE = "/__generating__/img_52375018c7ef.png";
+const INFO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/946e44a29_generated_924a7ac6.png";
 
 const SECTIONS = [
   { id: "travel", label: "Travel & Parking", icon: Car },

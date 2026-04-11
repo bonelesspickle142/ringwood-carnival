@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Trophy, Star, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const VOTE_IMAGE = "/__generating__/img_72c71db76c79.png";
+const VOTE_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/904a734ae_generated_85a81533.png";
 
 export default function Vote() {
   const [floats, setFloats] = useState([]);
