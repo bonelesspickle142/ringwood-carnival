@@ -15,24 +15,40 @@ export default function LivePulseHero({ heroImage }) {
   const [progress, setProgress] = useState(0);
   const [currentPoint, setCurrentPoint] = useState(0);
 
+  const [processionLabel, setProcessionLabel] = useState("");
+
   useEffect(() => {
-    // Simulated procession progress
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
+    const totalMins = hours * 60 + minutes;
 
-    // Carnival typically runs 2pm-5pm, simulate progress
-    if (hours >= 14 && hours < 17) {
-      const elapsed = (hours - 14) * 60 + minutes;
-      const total = 180;
+    // Afternoon procession: 14:00 – 16:30
+    if (totalMins >= 840 && totalMins < 990) {
+      const elapsed = totalMins - 840;
+      const total = 150;
       setProgress(Math.min((elapsed / total) * 100, 100));
       setCurrentPoint(Math.min(Math.floor((elapsed / total) * ROUTE_POINTS.length), ROUTE_POINTS.length - 1));
-    } else if (hours >= 17) {
+      setProcessionLabel("Afternoon Procession (14:00)");
+    // Evening procession: 19:15 – 21:45
+    } else if (totalMins >= 1155 && totalMins < 1305) {
+      const elapsed = totalMins - 1155;
+      const total = 150;
+      setProgress(Math.min((elapsed / total) * 100, 100));
+      setCurrentPoint(Math.min(Math.floor((elapsed / total) * ROUTE_POINTS.length), ROUTE_POINTS.length - 1));
+      setProcessionLabel("Evening Procession (19:15)");
+    } else if (totalMins >= 1305) {
       setProgress(100);
       setCurrentPoint(ROUTE_POINTS.length - 1);
+      setProcessionLabel("Evening Procession Complete");
+    } else if (totalMins >= 990 && totalMins < 1155) {
+      setProgress(0);
+      setCurrentPoint(0);
+      setProcessionLabel("Next: Evening Procession at 19:15");
     } else {
       setProgress(0);
       setCurrentPoint(0);
+      setProcessionLabel("Next: Afternoon Procession at 14:00");
     }
   }, []);
 
@@ -91,11 +107,14 @@ export default function LivePulseHero({ heroImage }) {
             transition={{ delay: 0.3 }}
             className="bg-white/10 backdrop-blur-lg rounded-xl p-4 md:p-6 max-w-2xl border border-white/10"
           >
-            <div className="flex items-center gap-2 mb-3">
-              <Radio className="w-4 h-4 text-secondary" />
-              <span className="text-white/90 font-heading text-sm font-semibold">
-                Procession Route
-              </span>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Radio className="w-4 h-4 text-secondary" />
+                <span className="text-white/90 font-heading text-sm font-semibold">Procession Route</span>
+              </div>
+              {processionLabel && (
+                <span className="text-secondary text-xs font-heading font-bold">{processionLabel}</span>
+              )}
             </div>
 
             {/* Progress bar */}

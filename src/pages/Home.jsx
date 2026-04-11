@@ -42,7 +42,7 @@ export default function Home() {
           </div>
           <div className="w-px bg-white/20" />
           <div>
-            <div className="font-heading text-3xl md:text-4xl font-bold">19:30</div>
+            <div className="font-heading text-3xl md:text-4xl font-bold">19:15</div>
             <div className="text-white/70 text-sm">Evening Procession</div>
           </div>
         </div>
