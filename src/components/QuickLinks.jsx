@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, Award, MapPin, BookOpen } from "lucide-react";
+import { Calendar, Users, MapPin, ImageIcon } from "lucide-react";
 
 const links = [
   {
@@ -8,27 +8,27 @@ const links = [
     icon: Calendar,
     label: "Events & Pop-ups",
     desc: "Full schedule",
+    color: "bg-primary text-primary-foreground",
+  },
+  {
+    to: "/gallery",
+    icon: ImageIcon,
+    label: "Gallery",
+    desc: "Photos & memories",
     color: "bg-secondary text-secondary-foreground",
   },
   {
-    to: "/vote",
-    icon: Award,
-    label: "Best in Show",
-    desc: "Vote for floats",
-    color: "bg-accent text-accent-foreground",
+    to: "/team",
+    icon: Users,
+    label: "Meet the Team",
+    desc: "Our volunteers",
+    color: "bg-muted text-foreground",
   },
   {
     to: "/info",
     icon: MapPin,
     label: "Getting Here",
     desc: "Travel & parking",
-    color: "bg-primary text-primary-foreground",
-  },
-  {
-    to: "/info",
-    icon: BookOpen,
-    label: "Carnival History",
-    desc: "Our heritage",
     color: "bg-muted text-foreground",
   },
 ];

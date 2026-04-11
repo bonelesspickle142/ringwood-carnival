@@ -1,11 +1,12 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Home, Calendar, Award, Info } from "lucide-react";
+import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
 
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/schedule", icon: Calendar, label: "Events" },
-  { path: "/vote", icon: Award, label: "Vote" },
+  { path: "/gallery", icon: ImageIcon, label: "Gallery" },
   { path: "/info", icon: Info, label: "Info" },
+  { path: "/settings", icon: Settings, label: "Settings" },
 ];
 
 export default function Layout() {

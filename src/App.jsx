@@ -8,7 +8,10 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule';
-import Vote from './pages/Vote';
+import Donate from './pages/Donate';
+import Gallery from './pages/Gallery';
+import Team from './pages/Team';
+import Settings from './pages/Settings';
 import Info from './pages/Info';
 
 const AuthenticatedApp = () => {
@@ -40,8 +43,11 @@ const AuthenticatedApp = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/vote" element={<Vote />} />
+        <Route path="/donate" element={<Donate />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/info" element={<Info />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
