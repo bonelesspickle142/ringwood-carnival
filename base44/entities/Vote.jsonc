@@ -1,0 +1,17 @@
+{
+  "name": "Vote",
+  "type": "object",
+  "properties": {
+    "float_id": {
+      "type": "string",
+      "title": "Float ID"
+    },
+    "float_name": {
+      "type": "string",
+      "title": "Float Name"
+    }
+  },
+  "required": [
+    "float_id"
+  ]
+}

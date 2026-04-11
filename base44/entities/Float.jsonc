@@ -1,0 +1,35 @@
+{
+  "name": "Float",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Float Name"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "organization": {
+      "type": "string",
+      "title": "Organization"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Image URL"
+    },
+    "order_number": {
+      "type": "number",
+      "title": "Order in Procession"
+    },
+    "vote_count": {
+      "type": "number",
+      "title": "Vote Count",
+      "default": 0
+    }
+  },
+  "required": [
+    "name",
+    "organization"
+  ]
+}
