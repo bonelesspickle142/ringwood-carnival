@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,13 +6,13 @@
 
 @layer base {
   :root {
-    --font-heading: 'Space Grotesk', sans-serif;
+    --font-heading: 'Roboto', sans-serif;
     --font-body: 'Inter', sans-serif;
 
-    --background: 40 33% 96%;
-    --foreground: 155 55% 8%;
-    --card: 40 33% 98%;
-    --card-foreground: 155 55% 8%;
+    --background: 226 0% 100%;
+    --foreground: 226 53% 39%;
+    --card: 232 0% 86%;
+    --card-foreground: 155 100% 53%;
     --popover: 40 33% 98%;
     --popover-foreground: 155 55% 8%;
     --primary: 155 55% 8%;
