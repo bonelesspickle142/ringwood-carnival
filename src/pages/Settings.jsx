@@ -138,7 +138,7 @@ export default function Settings() {
           )}
           <div className="border-t border-border p-4">
             <p className="text-xs text-muted-foreground">Ringwood Carnival App v1.0</p>
-            <p className="text-xs text-muted-foreground">Ringwood Carnival App v.0</p>
+            <p className="text-xs text-muted-foreground">Ringwood Carnival App v0.1</p>
           </div>
         </div>
       </div>
