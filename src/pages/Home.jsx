@@ -18,9 +18,9 @@ export default function Home() {
         const events = await base44.entities.Event.list("start_time", 6);
         setFeaturedEvents(events);
       } catch (e) {
+
         // No events yet
-      }
-      setLoading(false);
+      }setLoading(false);
     };
     loadData();
   }, []);
@@ -53,8 +53,8 @@ export default function Home() {
       <div className="mx-6 md:mx-12 mt-4">
         <Link
           to="/donate"
-          className="flex items-center justify-center gap-3 w-full bg-secondary text-white font-heading font-bold text-lg py-4 rounded-2xl hover:bg-secondary/90 transition-all duration-200 shadow-lg shadow-secondary/30"
-        >
+          className="flex items-center justify-center gap-3 w-full bg-secondary text-white font-heading font-bold text-lg py-4 rounded-2xl hover:bg-secondary/90 transition-all duration-200 shadow-lg shadow-secondary/30">
+          
           <Heart className="w-6 h-6" />
           Support the Carnival — Donate Now
         </Link>
@@ -64,27 +64,27 @@ export default function Home() {
 
       {/* Featured Events Preview */}
       <div className="px-6 md:px-12 pb-12">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">
-          What's On Today
+        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">What's On at Carnival:
+
         </h2>
 
-        {loading ? (
-          <div className="flex justify-center py-12">
+        {loading ?
+        <div className="flex justify-center py-12">
             <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
-          </div>
-        ) : featuredEvents.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredEvents.map((event, i) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                index={i}
-                isFeatured={event.is_featured}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12 bg-card rounded-xl border border-border">
+          </div> :
+        featuredEvents.length > 0 ?
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {featuredEvents.map((event, i) =>
+          <EventCard
+            key={event.id}
+            event={event}
+            index={i}
+            isFeatured={event.is_featured} />
+
+          )}
+          </div> :
+
+        <div className="text-center py-12 bg-card rounded-xl border border-border">
             <p className="text-muted-foreground text-lg mb-2">
               Events coming soon!
             </p>
@@ -92,8 +92,8 @@ export default function Home() {
               Check back on carnival day for the full schedule
             </p>
           </div>
-        )}
+        }
       </div>
-    </div>
-  );
+    </div>);
+
 }
