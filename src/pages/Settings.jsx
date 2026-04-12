@@ -124,6 +124,7 @@ export default function Settings() {
         <div className="bg-card rounded-2xl border border-border overflow-hidden">
           {[
             { label: "About Ringwood Carnival", to: "/info" },
+            { label: "Staff Area", to: "/staff" },
             { label: "Meet the Team", to: "/team" },
             { label: "Donate & Support", to: "/donate" },
           ].map((item, i) => (
