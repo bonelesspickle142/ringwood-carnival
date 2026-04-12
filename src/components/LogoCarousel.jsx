@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 
 const SPONSORS = [
-  { name: "Ringwood Town Council", logo: null },
-  { name: "The Furlong", logo: null },
-  { name: "Hampshire County Council", logo: null },
-  { name: "New Forest District", logo: null },
-  { name: "St John Ambulance", logo: null },
-  { name: "Ringwood Lions", logo: null },
-  { name: "Ringwood Rotary", logo: null },
-  { name: "Hampshire Constabulary", logo: null },
+  { name: "Ringwood Town Council", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Ringwood_Town_Council_Logo.png/200px-Ringwood_Town_Council_Logo.png" },
+  { name: "The Furlong", logo: "https://placehold.co/140x60/ffffff/555555?text=The+Furlong" },
+  { name: "Hampshire County Council", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Hampshire_County_Council_logo.svg/200px-Hampshire_County_Council_logo.svg.png" },
+  { name: "New Forest District", logo: "https://placehold.co/140x60/ffffff/555555?text=New+Forest+District" },
+  { name: "St John Ambulance", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/St_John_Ambulance_logo.svg/200px-St_John_Ambulance_logo.svg.png" },
+  { name: "Ringwood Lions", logo: "https://placehold.co/140x60/ffffff/555555?text=Ringwood+Lions" },
+  { name: "Ringwood Rotary", logo: "https://placehold.co/140x60/ffffff/555555?text=Ringwood+Rotary" },
+  { name: "Hampshire Constabulary", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8e/Hampshire_Constabulary_Logo.png/200px-Hampshire_Constabulary_Logo.png" },
 ];
 
 // Duplicate for seamless loop
@@ -35,13 +35,22 @@ export default function LogoCarousel() {
 
   return (
     <div className="overflow-hidden">
-      <div ref={trackRef} className="flex gap-4 will-change-transform">
+      <div ref={trackRef} className="flex gap-4 will-change-transform items-center">
         {ALL.map((s, i) => (
           <div
             key={i}
-            className="flex-shrink-0 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-5 py-3 flex items-center justify-center min-w-[140px]"
+            className="flex-shrink-0 bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 flex items-center justify-center min-w-[140px] h-14"
           >
-            <span className="font-heading font-semibold text-white/80 text-xs text-center leading-tight">
+            <img
+              src={s.logo}
+              alt={s.name}
+              className="max-h-8 max-w-[120px] object-contain"
+              onError={(e) => {
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "block";
+              }}
+            />
+            <span className="font-heading font-semibold text-white/80 text-xs text-center leading-tight hidden">
               {s.name}
             </span>
           </div>
