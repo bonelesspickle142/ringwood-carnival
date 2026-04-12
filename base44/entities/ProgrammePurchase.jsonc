@@ -1,0 +1,17 @@
+{
+  "name": "ProgrammePurchase",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "title": "Email"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    }
+  },
+  "required": [
+    "email"
+  ]
+}

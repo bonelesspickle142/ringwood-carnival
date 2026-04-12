@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 
 const STAFF_PASSWORD = "R1ngW00d!";
@@ -12,6 +12,14 @@ const QUICK_MESSAGES = [
   { label: "Event delay", body: "🕐 There is a short delay to the procession. We'll update you shortly." },
 ];
 
+const ROAD_CLOSURE_MESSAGES = [
+  { label: "High Street closed", body: "🚧 The High Street is now CLOSED to traffic. Please use alternative routes." },
+  { label: "Christchurch Road closed", body: "🚧 Christchurch Road is now CLOSED to traffic. Diversions are in place." },
+  { label: "Roads reopening", body: "✅ Roads are reopening. Thank you for your patience during the procession." },
+  { label: "Parking full – The Furlong", body: "🅿️ The Furlong Car Park is now FULL. Please use Blynkbonnie Way overflow." },
+  { label: "All roads clear", body: "✅ All road closures have now been lifted. Normal traffic can resume." },
+];
+
 export default function Staff() {
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
@@ -19,6 +27,7 @@ export default function Staff() {
   const [title, setTitle] = useState("Ringwood Carnival 🎉");
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
+  const [confirmPending, setConfirmPending] = useState(null); // { title, body }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,14 +39,15 @@ export default function Staff() {
     }
   };
 
-  const sendNotification = async () => {
-    if (!body.trim()) {
-      toast.error("Please enter a message.");
-      return;
-    }
+  const requestConfirm = (notifTitle, notifBody) => {
+    if (!notifBody.trim()) { toast.error("Please enter a message."); return; }
+    setConfirmPending({ title: notifTitle, body: notifBody });
+  };
 
+  const confirmSend = async () => {
     if (!("Notification" in window)) {
-      toast.error("Notifications not supported in this browser.");
+      toast.error("Notifications not supported.");
+      setConfirmPending(null);
       return;
     }
 
@@ -45,15 +55,16 @@ export default function Staff() {
       const perm = await Notification.requestPermission();
       if (perm !== "granted") {
         toast.error("Notification permission denied.");
+        setConfirmPending(null);
         return;
       }
     }
 
     setSending(true);
-    // Small delay for UX
+    setConfirmPending(null);
     await new Promise((r) => setTimeout(r, 600));
-    new Notification(title, { body, icon: "/favicon.ico" });
-    toast.success("Notification sent!");
+    new Notification(confirmPending.title, { body: confirmPending.body, icon: "/favicon.ico" });
+    toast.success("✅ Notification sent successfully!");
     setBody("");
     setSending(false);
   };
@@ -61,11 +72,7 @@ export default function Staff() {
   if (!authenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-sm"
-        >
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
           <div className="bg-card border border-border rounded-2xl p-8 shadow-xl">
             <div className="flex flex-col items-center mb-8">
               <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
@@ -74,7 +81,6 @@ export default function Staff() {
               <h1 className="font-heading text-2xl font-bold text-foreground">Staff Area</h1>
               <p className="text-muted-foreground text-sm mt-1 text-center">Enter the staff password to continue</p>
             </div>
-
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="relative">
                 <input
@@ -85,18 +91,11 @@ export default function Staff() {
                   className="w-full px-4 py-3 pr-12 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
                   autoFocus
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              <button
-                type="submit"
-                className="w-full bg-primary text-primary-foreground font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-colors"
-              >
+              <button type="submit" className="w-full bg-primary text-primary-foreground font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-colors">
                 Enter Staff Area
               </button>
             </form>
@@ -109,24 +108,38 @@ export default function Staff() {
   return (
     <div className="min-h-screen">
       <div className="bg-primary px-6 md:px-12 pt-12 pb-10">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-heading text-3xl md:text-5xl font-bold text-white mb-2"
-        >
+        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-heading text-3xl md:text-5xl font-bold text-white mb-2">
           Staff Area
         </motion.h1>
         <p className="text-white/70 text-sm">Send push notifications to carnival attendees</p>
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
+
+        {/* Road Closures */}
+        <h2 className="font-heading font-bold text-foreground text-lg mb-3 flex items-center gap-2">
+          <AlertTriangle className="w-5 h-5 text-secondary" /> Road Closures
+        </h2>
+        <div className="grid grid-cols-1 gap-2 mb-8">
+          {ROAD_CLOSURE_MESSAGES.map((msg) => (
+            <button
+              key={msg.label}
+              onClick={() => requestConfirm("Ringwood Carnival — Road Update 🚧", msg.body)}
+              className="text-left bg-card border border-border rounded-xl px-4 py-3 hover:border-secondary/50 hover:bg-muted/50 transition-all"
+            >
+              <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
+              <p className="text-muted-foreground text-xs mt-0.5 line-clamp-1">{msg.body}</p>
+            </button>
+          ))}
+        </div>
+
         {/* Quick messages */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">Quick Messages</h2>
         <div className="grid grid-cols-1 gap-2 mb-8">
           {QUICK_MESSAGES.map((msg) => (
             <button
               key={msg.label}
-              onClick={() => setBody(msg.body)}
+              onClick={() => requestConfirm("Ringwood Carnival 🎉", msg.body)}
               className="text-left bg-card border border-border rounded-xl px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
             >
               <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
@@ -136,7 +149,7 @@ export default function Staff() {
         </div>
 
         {/* Custom notification */}
-        <h2 className="font-heading font-bold text-foreground text-lg mb-3">Send Notification</h2>
+        <h2 className="font-heading font-bold text-foreground text-lg mb-3">Custom Notification</h2>
         <div className="bg-card border border-border rounded-2xl p-5 space-y-4">
           <div>
             <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1.5 block">Title</label>
@@ -158,23 +171,47 @@ export default function Staff() {
             />
           </div>
           <button
-            onClick={sendNotification}
+            onClick={() => requestConfirm(title, body)}
             disabled={sending || !body.trim()}
             className="w-full bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {sending ? (
-              <Bell className="w-4 h-4 animate-pulse" />
-            ) : (
-              <Send className="w-4 h-4" />
-            )}
+            {sending ? <Bell className="w-4 h-4 animate-pulse" /> : <Send className="w-4 h-4" />}
             {sending ? "Sending..." : "Send Notification"}
           </button>
         </div>
-
-        <p className="text-xs text-muted-foreground text-center mt-6">
-          Notifications are delivered to users who have enabled them on their device.
-        </p>
       </div>
+
+      {/* Confirm Modal */}
+      {confirmPending && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setConfirmPending(null)}>
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-card rounded-2xl border border-border p-6 w-full max-w-sm shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
+                <Bell className="w-5 h-5 text-secondary" />
+              </div>
+              <h3 className="font-heading font-bold text-lg text-foreground">Confirm Notification</h3>
+            </div>
+            <div className="bg-muted rounded-xl p-4 mb-6">
+              <p className="font-heading font-bold text-sm text-foreground mb-1">{confirmPending.title}</p>
+              <p className="text-muted-foreground text-sm">{confirmPending.body}</p>
+            </div>
+            <p className="text-muted-foreground text-xs mb-4 text-center">Are you sure you want to send this notification?</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmPending(null)} className="flex-1 bg-muted text-foreground font-heading font-bold py-3 rounded-xl hover:bg-muted/80 transition-colors">
+                Cancel
+              </button>
+              <button onClick={confirmSend} className="flex-1 bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2">
+                <Send className="w-4 h-4" /> Send
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
