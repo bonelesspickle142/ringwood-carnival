@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Heart, BookOpen, Lock, Mail, CheckCircle, ExternalLink } from "lucide-react";
+import { Heart, BookOpen, Lock, CheckCircle, ExternalLink, CreditCard } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { toast } from "sonner";
+const isInIframe = window.self !== window.top;
 
-// Replace with your actual JustGiving campaign URL
 const JUSTGIVING_URL = "https://www.justgiving.com/campaign/ringwoodcarnival";
-
 const PROGRAMME_PRICE = "£2.50";
 
 const PROGRAMME_CONTENT = `
@@ -45,28 +44,28 @@ A huge thank you to all our sponsors and supporters who make this event possible
 
 export default function Donate() {
   const [activeTab, setActiveTab] = useState("donate");
-  const [unlocked, setUnlocked] = useState(false);
-  const [showPaywall, setShowPaywall] = useState(false);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
 
-  const handlePurchase = async (e) => {
-    e.preventDefault();
-    if (!email.trim()) { toast.error("Please enter your email."); return; }
+  const handleBuyProgramme = async () => {
+    if (isInIframe) {
+      alert("Checkout is only available from the published app, not the preview.");
+      return;
+    }
     setLoading(true);
     try {
-      await base44.functions.invoke("sendProgrammeEmail", { email, name });
-      setUnlocked(true);
-      setDone(true);
-      setShowPaywall(false);
-      toast.success("Programme unlocked! A copy has been emailed to you.");
+      const res = await base44.functions.invoke("createProgrammeCheckout", {
+        success_url: window.location.origin + "/donate?purchased=1",
+        cancel_url: window.location.href,
+      });
+      window.location.href = res.data.url;
     } catch (err) {
       toast.error("Something went wrong. Please try again.");
+      console.error(err);
     }
     setLoading(false);
   };
+
+  const purchased = new URLSearchParams(window.location.search).get("purchased") === "1";
 
   return (
     <div className="min-h-screen">
@@ -142,118 +141,43 @@ export default function Donate() {
         {/* PROGRAMME TAB */}
         {activeTab === "programme" && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-            {unlocked ? (
-              <div>
-                {done && (
-                  <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <div>
-                      <p className="font-heading font-semibold text-green-800 text-sm">Programme unlocked!</p>
-                      <p className="text-green-700 text-xs">A copy has also been emailed to {email}</p>
-                    </div>
-                  </div>
-                )}
-                <div className="bg-card rounded-2xl border border-border p-6">
-                  <div className="prose prose-sm max-w-none text-foreground">
-                    {PROGRAMME_CONTENT.trim().split('\n').map((line, i) => {
-                      if (line.startsWith('## ')) return <h2 key={i} className="font-heading font-bold text-lg mt-6 mb-2 text-foreground">{line.replace('## ', '')}</h2>;
-                      if (line.startsWith('# ')) return <h1 key={i} className="font-heading font-bold text-2xl mb-4 text-foreground">{line.replace('# ', '')}</h1>;
-                      if (line.startsWith('- **')) {
-                        const [time, ...rest] = line.replace('- **', '').split('**');
-                        return <p key={i} className="text-sm text-muted-foreground my-1"><strong className="text-foreground">{time}</strong>{rest.join('')}</p>;
-                      }
-                      if (/^\d+\./.test(line)) return <p key={i} className="text-sm text-muted-foreground my-0.5 ml-2">{line}</p>;
-                      if (line.startsWith('- ')) return <p key={i} className="text-sm text-muted-foreground my-0.5 ml-2">• {line.slice(2)}</p>;
-                      if (line.startsWith('*') && line.endsWith('*')) return <p key={i} className="text-sm italic text-muted-foreground mt-4">{line.slice(1, -1)}</p>;
-                      if (line === '') return <div key={i} className="h-2" />;
-                      return <p key={i} className="text-sm text-muted-foreground">{line}</p>;
-                    })}
-                  </div>
+            {purchased ? (
+              <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <div>
+                  <p className="font-heading font-semibold text-green-800 text-sm">Purchase complete!</p>
+                  <p className="text-green-700 text-xs">Your programme has been emailed to you. Check your inbox.</p>
                 </div>
               </div>
             ) : (
-              <div>
-                {/* Preview (blurred) */}
-                <div className="relative bg-card rounded-2xl border border-border p-6 mb-4 overflow-hidden">
-                  <div className="blur-sm select-none pointer-events-none">
-                    <h1 className="font-heading font-bold text-2xl mb-2">Ringwood Carnival 2024</h1>
-                    <h2 className="font-heading font-bold text-lg mb-3">Official Programme</h2>
-                    <p className="text-sm text-muted-foreground mb-2">Welcome from the Chair...</p>
-                    <p className="text-sm text-muted-foreground mb-2">Procession order, full events schedule, sponsor listings and much more inside...</p>
-                    <div className="space-y-1">
-                      {[1,2,3,4,5].map(i => <div key={i} className="h-3 bg-muted rounded w-full" />)}
-                    </div>
-                  </div>
-                  {/* Overlay */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-sm">
-                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-3">
-                      <Lock className="w-7 h-7 text-primary" />
-                    </div>
-                    <p className="font-heading font-bold text-foreground text-lg mb-1">Official Programme</p>
-                    <p className="text-muted-foreground text-sm mb-4 text-center px-6">
-                      Unlock the 2024 programme for just {PROGRAMME_PRICE}
-                    </p>
-                    <button
-                      onClick={() => setShowPaywall(true)}
-                      className="bg-secondary text-white font-heading font-bold px-6 py-3 rounded-xl hover:bg-secondary/90 transition-all flex items-center gap-2"
-                    >
-                      <BookOpen className="w-4 h-4" />
-                      Unlock for {PROGRAMME_PRICE}
-                    </button>
+              <div className="relative bg-card rounded-2xl border border-border p-6 overflow-hidden">
+                <div className="blur-sm select-none pointer-events-none">
+                  <h1 className="font-heading font-bold text-2xl mb-2">Ringwood Carnival 2024</h1>
+                  <h2 className="font-heading font-bold text-lg mb-3">Official Programme</h2>
+                  <p className="text-sm text-muted-foreground mb-2">Welcome from the Chair...</p>
+                  <p className="text-sm text-muted-foreground mb-2">Procession order, full events schedule, sponsor listings and much more inside...</p>
+                  <div className="space-y-1">
+                    {[1,2,3,4,5].map(i => <div key={i} className="h-3 bg-muted rounded w-full" />)}
                   </div>
                 </div>
-              </div>
-            )}
-
-            {/* Paywall modal */}
-            {showPaywall && (
-              <div className="fixed inset-0 bg-black/60 z-50 flex items-end md:items-center justify-center p-4" onClick={() => setShowPaywall(false)}>
-                <motion.div
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className="bg-card rounded-2xl border border-border p-6 w-full max-w-sm"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-1">Unlock Programme</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Pay {PROGRAMME_PRICE} via JustGiving, then enter your email to receive your programme copy.
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-sm">
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-3">
+                    <Lock className="w-7 h-7 text-primary" />
+                  </div>
+                  <p className="font-heading font-bold text-foreground text-lg mb-1">Official Programme</p>
+                  <p className="text-muted-foreground text-sm mb-5 text-center px-6">
+                    Get the full 2024 programme for just {PROGRAMME_PRICE} — delivered straight to your inbox.
                   </p>
-
                   <button
-                    onClick={() => window.open(JUSTGIVING_URL, "_blank")}
-                    className="w-full bg-secondary text-white font-heading font-bold py-3 rounded-xl mb-4 flex items-center justify-center gap-2 hover:bg-secondary/90 transition-all"
+                    onClick={handleBuyProgramme}
+                    disabled={loading}
+                    className="bg-secondary text-white font-heading font-bold px-7 py-3 rounded-xl hover:bg-secondary/90 transition-all flex items-center gap-2 disabled:opacity-50"
                   >
-                    <Heart className="w-4 h-4" /> Pay {PROGRAMME_PRICE} on JustGiving <ExternalLink className="w-3 h-3" />
+                    <CreditCard className="w-4 h-4" />
+                    {loading ? "Loading..." : `Buy for ${PROGRAMME_PRICE}`}
                   </button>
-
-                  <p className="text-xs text-muted-foreground mb-3 text-center">After donating, enter your email to unlock:</p>
-
-                  <form onSubmit={handlePurchase} className="space-y-3">
-                    <input
-                      type="text"
-                      placeholder="Your name (optional)"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Your email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full bg-primary text-primary-foreground font-heading font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-primary/90 transition-all disabled:opacity-50"
-                    >
-                      <Mail className="w-4 h-4" />
-                      {loading ? "Sending..." : "Unlock & Email Me"}
-                    </button>
-                  </form>
-                </motion.div>
+                  <p className="text-xs text-muted-foreground mt-3">Secure payment via Stripe · Email delivery</p>
+                </div>
               </div>
             )}
           </motion.div>
