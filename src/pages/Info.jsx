@@ -181,10 +181,11 @@ function SafetySection() {
 
       <div className="space-y-3">
         {[
-          { title: "First Aid", desc: "St John Ambulance stations are located at Market Place and The Furlong." },
-          { title: "Lost Children", desc: "Report to the Information Point at Market Place or any carnival steward." },
-          { title: "Accessibility", desc: "Wheelchair viewing areas are available along the route. Ask any steward for directions." },
-          { title: "Toilets", desc: "Public facilities are available at The Furlong Car Park and additional portaloos near Market Place." },
+          { title: "First Aid", desc: "ACOS Medical are providing their services for Carnival this year You can self-present at Greyfriars Community Centre." },
+          { title: "Security", desc: "For any Security incidents, please find the nearest Uniformed Security officer and they will be able to assist." },
+          { title: "Lost Children", desc: "Report to the nearest Carnival Personnel." },
+          { title: "Toilets", desc: "Public facilities are available at The Furlong Car Park and additional portaloos near at the fairground." },
+          
         ].map((item) => (
           <div key={item.title} className="bg-card rounded-xl p-4 border border-border">
             <h3 className="font-heading font-bold text-foreground mb-1">{item.title}</h3>
