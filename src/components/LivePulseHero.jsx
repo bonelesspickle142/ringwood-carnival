@@ -12,8 +12,6 @@ export default function LivePulseHero({ heroImage }) {
         <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
 
         <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
-          <CarnivalCountdown />
-
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="flex items-center gap-4 flex-wrap mb-2">
             <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
               Ringwood<br /><span className="text-secondary">Carnival</span>
@@ -30,6 +28,8 @@ export default function LivePulseHero({ heroImage }) {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-white/80 font-body text-lg md:text-xl mb-6 max-w-lg leading-relaxed">
             A celebration of community, colour and creativity in the heart of Hampshire
           </motion.p>
+
+          <CarnivalCountdown />
 
           {/* Sponsor logos carousel */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
