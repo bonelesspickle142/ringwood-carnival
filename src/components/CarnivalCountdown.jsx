@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 // Set your carnival date here
-const CARNIVAL_DATE = new Date("2025-09-20T14:00:00");
+const CARNIVAL_DATE = new Date("2026-09-20T14:00:00");
 
 function getTimeLeft() {
   const now = new Date();
