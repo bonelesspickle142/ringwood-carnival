@@ -3,11 +3,11 @@ import { Mail, Heart } from "lucide-react";
 
 const TEAM = [
 {
-  name: "Sarah Mitchell",
+  name: "Ben Salsbury",
   role: "Carnival Chair",
-  bio: "Sarah has been organising the Ringwood Carnival for over 12 years. Her passion for community events is the heartbeat of the whole operation.",
+  bio: "Ben has been involved with Carnival for a while now, leading the team with his brilliant and insightful ideas. Ben is our carnival chair, leading the way and bringing together all skillsets to make Carnival happen!",
   avatar: "https://ss.charleymurphy.xyz/Ben_Salsbury_headshot.jpg?w=200&q=80",
-  email: "chair@ringwoodcarnival.org"
+  email: ""
 },
 {
   name: "James Whitfield",
