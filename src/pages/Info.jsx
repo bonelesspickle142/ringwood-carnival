@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink } from "lucide-react";
+import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink, ZoomIn, X } from "lucide-react";
 
 const INFO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/946e44a29_generated_924a7ac6.png";
 
@@ -66,6 +66,48 @@ export default function Info() {
   );
 }
 
+const PARKING_MAP = "https://ss.charleymurphy.xyz/April_20_2026_10-31-29_zosKQ8Ya.png";
+
+function ParkingMap() {
+  const [enlarged, setEnlarged] = useState(false);
+  return (
+    <>
+      <div
+        className="relative cursor-zoom-in rounded-xl overflow-hidden border border-border group"
+        onClick={() => setEnlarged(true)}
+      >
+        <img src={PARKING_MAP} alt="Ringwood parking map" className="w-full h-auto" />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 rounded-full p-2">
+            <ZoomIn className="w-5 h-5 text-foreground" />
+          </div>
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground mt-1 text-center">Tap to enlarge</p>
+
+      {enlarged && (
+        <div
+          className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setEnlarged(false)}
+        >
+          <button
+            className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition-colors"
+            onClick={() => setEnlarged(false)}
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <img
+            src={PARKING_MAP}
+            alt="Ringwood parking map"
+            className="max-w-full max-h-full rounded-xl shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
+  );
+}
+
 function TravelSection() {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
@@ -93,7 +135,22 @@ function TravelSection() {
         <h2 className="font-heading text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
           <Car className="w-5 h-5 text-accent" /> Parking
         </h2>
-        <div className="space-y-3">
+        <div className="space-y-4 text-muted-foreground leading-relaxed mb-5">
+          <p>
+            There are plenty of car parks in and around Ringwood for you to use on Carnival day (including disabled bays).
+            There are both short and long stay parking areas, some of which are free to use!
+            Please see below our illustrated map of Ringwood showing key locations, however, for more specific information
+            on all car parks please visit the{" "}
+            <a href="https://www.ringwood.gov.uk/information-service/" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80 transition-colors">
+              Ringwood Town Council website
+            </a>.
+          </p>
+        </div>
+
+        {/* Parking Map */}
+        <ParkingMap />
+
+        <div className="space-y-3 mt-5">
           {[
             { name: "The Furlong Car Park", detail: "Main town car park – limited spaces", time: "Opens 8am" },
             { name: "Blynkbonnie Way", detail: "Overflow parking available", time: "Opens 10am" },
