@@ -33,16 +33,6 @@ export default function Home() {
       <div className="min-h-screen">
         <LivePulseHero heroImage={HERO_IMAGE} />
 
-        {/* Donate CTA */}
-        <div className="mx-6 md:mx-12 mt-6">
-          <Link
-            to="/donate"
-            className="flex items-center justify-center gap-3 w-full bg-secondary text-white font-heading font-bold text-lg py-4 rounded-2xl hover:bg-secondary/90 transition-all duration-200 shadow-lg shadow-secondary/30">
-            <Heart className="w-6 h-6" />
-            Support the Carnival — Donate Now
-          </Link>
-        </div>
-
         <QuickLinks />
 
         {/* Featured Events Preview */}
