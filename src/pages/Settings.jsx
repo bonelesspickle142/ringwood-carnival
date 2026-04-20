@@ -34,7 +34,7 @@ export default function Settings() {
         });
       } else {
         setNotificationsEnabled(false);
-        toast.error("Notification permission was denied. Please enable it in your browser settings.");
+        toast.error("Notification permission was denied. Please enable it in your settings.");
       }
     } else {
       setNotificationsEnabled(false);
