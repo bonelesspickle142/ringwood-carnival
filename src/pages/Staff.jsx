@@ -23,10 +23,13 @@ const QUICK_MESSAGES = [
 ];
 
 const ROAD_CLOSURE_MESSAGES = [
-  { label: "High Street closed", body: "🚧 The High Street is now CLOSED to traffic. Please use alternative routes." },
-  { label: "Christchurch Road closed", body: "🚧 Christchurch Road is now CLOSED to traffic. Diversions are in place." },
+  { label: "30 mins - Roads Closing", body: "🚧 The Road Closures will be CLOSED in 30 minutes" },
+  { label: "10 mins - Roads Closing", body: "🚧 The Road Closures will be CLOSED in 10 minutes" },
+  { label: "5 mins - Roads Closing", body: "🚧 The Road Closures will be CLOSED in 5 minutes" },
+  { label: "Roads Closed", body: "🚧 The Roads are now closed. No Vehicle movement will be allowed until the roads reopen." },
   { label: "Roads reopening", body: "✅ Roads are reopening. Thank you for your patience during the procession." },
-  { label: "Parking full – The Furlong", body: "🅿️ The Furlong Car Park is now FULL. Please use Blynkbonnie Way overflow." },
+  { label: "Parking full - Short Stay, The Furlong", body: "🅿️ The Furlong Short Stay Car Park is now FULL. Please seek parking elsewhere." },
+  { label: "Parking full - Long Stay, The Furlong", body: "🅿️ The Furlong Car Park is now FULL. Please seek parking elsewhere." },
   { label: "All roads clear", body: "✅ All road closures have now been lifted. Normal traffic can resume." },
 ];
 
