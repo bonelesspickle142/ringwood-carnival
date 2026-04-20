@@ -16,9 +16,8 @@ async function logAction(name, action) {
 }
 
 const QUICK_MESSAGES = [
-  { label: "Afternoon procession starting", body: "🎉 The afternoon procession is about to begin! Head to Market Place now." },
+  { label: "Afternoon procession starting", body: "🎉 The afternoon procession is about to begin! Head to your spot now." },
   { label: "Evening procession starting", body: "🌟 The evening procession is starting at 19:15! Get your spot on the High Street." },
-  { label: "Route change", body: "⚠️ There is a minor route change today. Please follow steward instructions." },
   { label: "Event delay", body: "🕐 There is a short delay to the procession. We'll update you shortly." },
 ];
 
