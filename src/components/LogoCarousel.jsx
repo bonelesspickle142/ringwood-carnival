@@ -39,12 +39,12 @@ export default function LogoCarousel() {
         {ALL.map((s, i) => (
           <div
             key={i}
-            className="flex-shrink-0 bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2 flex items-center justify-center min-w-[140px] h-14"
+            className="flex-shrink-0 bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-5 py-3 flex items-center justify-center min-w-[160px] h-20"
           >
             <img
               src={s.logo}
               alt={s.name}
-              className="max-h-8 max-w-[120px] object-contain"
+              className="max-h-12 max-w-[140px] object-contain"
               onError={(e) => {
                 e.target.style.display = "none";
                 e.target.nextSibling.style.display = "block";

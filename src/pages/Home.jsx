@@ -5,6 +5,7 @@ import LivePulseHero from "../components/LivePulseHero";
 import QuickLinks from "../components/QuickLinks";
 import EventCard from "../components/EventCard";
 import SplashScreen from "../components/SplashScreen";
+import ProcessionRoute from "../components/ProcessionRoute";
 import { Loader2, Heart } from "lucide-react";
 
 const HERO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/567951c00_generated_23a2c72b.png";
@@ -32,6 +33,8 @@ export default function Home() {
       {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
       <div className="min-h-screen">
         <LivePulseHero heroImage={HERO_IMAGE} />
+
+        <ProcessionRoute />
 
         <QuickLinks />
 
