@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import LogoCarousel from "./LogoCarousel";
+import CarnivalCountdown from "./CarnivalCountdown";
 
 export default function LivePulseHero({ heroImage }) {
   return (
@@ -35,6 +36,8 @@ export default function LivePulseHero({ heroImage }) {
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-white/80 font-body text-lg md:text-xl mb-6 max-w-lg leading-relaxed">
             A celebration of community, colour and creativity in the heart of Hampshire
           </motion.p>
+
+          <CarnivalCountdown />
 
           {/* Sponsor logos carousel */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
