@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2 } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
+import EventsManager from "@/components/staff/EventsManager";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
@@ -112,6 +113,7 @@ export default function Staff() {
   const [staffName, setStaffName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [activeTab, setActiveTab] = useState("notifications");
   const [title, setTitle] = useState("Ringwood Carnival 🎉");
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
@@ -206,15 +208,34 @@ export default function Staff() {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-primary px-6 md:px-12 pt-12 pb-10">
+      <div className="bg-primary px-6 md:px-12 pt-12 pb-6">
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-heading text-3xl md:text-5xl font-bold text-white mb-2">
           Staff Area
         </motion.h1>
-        <p className="text-white/70 text-sm">Logged in as <strong>{currentName}</strong> · Send push notifications to carnival attendees</p>
+        <p className="text-white/70 text-sm mb-5">Logged in as <strong>{currentName}</strong></p>
+
+        {/* Tabs */}
+        <div className="flex gap-2 bg-white/10 rounded-xl p-1 max-w-xs">
+          <button
+            onClick={() => setActiveTab("notifications")}
+            className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "notifications" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
+          >
+            <Bell className="w-4 h-4" /> Notify
+          </button>
+          <button
+            onClick={() => setActiveTab("events")}
+            className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "events" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
+          >
+            <Calendar className="w-4 h-4" /> Events
+          </button>
+        </div>
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
 
+        {activeTab === "events" && <EventsManager />}
+
+        {activeTab === "notifications" && <>
         {/* Road Closures */}
         <NotificationSection
           title="Road Closures"
@@ -274,6 +295,7 @@ export default function Staff() {
             {sending ? "Sending..." : "Send Notification"}
           </button>
         </div>
+        </>}
       </div>
 
       {/* Sent Banner */}
