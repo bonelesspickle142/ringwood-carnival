@@ -150,21 +150,7 @@ function TravelSection() {
         {/* Parking Map */}
         <ParkingMap />
 
-        <div className="space-y-3 mt-5">
-          {[
-            { name: "The Furlong Car Park", detail: "Main town car park – limited spaces", time: "Opens 8am" },
-            { name: "Blynkbonnie Way", detail: "Overflow parking available", time: "Opens 10am" },
-            { name: "Ringwood Recreation Ground", detail: "Event day overflow parking", time: "Opens 11am" },
-          ].map((lot) => (
-            <div key={lot.name} className="bg-card rounded-xl p-4 border border-border">
-              <h3 className="font-heading font-bold text-foreground">{lot.name}</h3>
-              <p className="text-muted-foreground text-sm">{lot.detail}</p>
-              <span className="text-xs text-accent flex items-center gap-1 mt-1">
-                <Clock className="w-3 h-3" /> {lot.time}
-              </span>
-            </div>
-          ))}
-        </div>
+
       </section>
 
       <section className="bg-primary rounded-xl p-6 text-primary-foreground">
