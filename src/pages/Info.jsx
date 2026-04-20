@@ -193,16 +193,7 @@ function SafetySection() {
         ))}
       </div>
 
-      <section className="bg-accent rounded-xl p-6">
-        <h3 className="font-heading font-bold text-lg text-accent-foreground mb-2 flex items-center gap-2">
-          <Phone className="w-5 h-5" /> Emergency Contacts
-        </h3>
-        <div className="space-y-2 text-accent-foreground/90 text-sm">
-          <p>Emergency Services: <strong>999</strong></p>
-          <p>Carnival Committee: <strong>01425 XXX XXX</strong></p>
-          <p>Non-emergency Police: <strong>101</strong></p>
-        </div>
-      </section>
+
     </motion.div>
   );
 }
