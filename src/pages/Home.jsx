@@ -8,7 +8,7 @@ import SplashScreen from "../components/SplashScreen";
 import ProcessionRoute from "../components/ProcessionRoute";
 import { Loader2, Heart } from "lucide-react";
 
-const HERO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/567951c00_generated_23a2c72b.png";
+const HERO_IMAGE = "https://ss.charleymurphy.xyz/20250920_Ringwood-carnival-night-proccesion_0493%20%281%29.jpg";
 
 export default function Home() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
