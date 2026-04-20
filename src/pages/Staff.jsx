@@ -33,11 +33,14 @@ const ROAD_CLOSURE_MESSAGES = [
 function NotificationSection({ title, icon, messages, notifTitle, logPrefix, currentName, onConfirm, onLog, borderColor, mb }) {
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
+  const [lastSent, setLastSent] = useState(null);
 
   const handleSend = () => {
     if (!selected) return;
     onLog(currentName, `${logPrefix}: ${selected.label}`);
     onConfirm(notifTitle, selected.body);
+    setLastSent(selected.label);
+    setSelected(null);
     setOpen(false);
   };
 
@@ -79,6 +82,14 @@ function NotificationSection({ title, icon, messages, notifTitle, logPrefix, cur
           <div className="bg-muted rounded-xl px-4 py-3">
             <p className="text-xs text-muted-foreground mb-1">{notifTitle}</p>
             <p className="text-sm text-foreground">{selected.body}</p>
+          </div>
+        )}
+
+        {lastSent && (
+          <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-xl px-4 py-3 text-sm text-green-800">
+            <span className="text-green-600">✅</span>
+            <span className="font-heading font-semibold">Sent:</span>
+            <span>{lastSent}</span>
           </div>
         )}
 
