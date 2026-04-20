@@ -183,7 +183,7 @@ function SafetySection() {
         {[
           { title: "First Aid", desc: "ACOS Medical are providing their services for Carnival this year. You can self-present at Greyfriars Community Centre." },
           { title: "Security", desc: "For any Security incidents, please find the nearest Uniformed Security Officer and they will be able to assist." },
-          { title: "Lost Children", desc: "Report to the nearest Carnival Personnel." },
+          { title: "Lost/Found Children", desc: "Report to the nearest Carnival Personnel." },
           { title: "Toilets", desc: "Public facilities are available at The Furlong Car Park and additional portaloos near at the fairground." },
           
         ].map((item) => (
