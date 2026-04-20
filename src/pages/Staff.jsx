@@ -1,9 +1,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User } from "lucide-react";
 import { toast } from "sonner";
+import { base44 } from "@/api/base44Client";
 
 const STAFF_PASSWORD = "R1ngW00d!";
+const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
+
+async function logAction(name, action) {
+  try {
+    await base44.functions.invoke("logStaffAction", { name, action });
+  } catch (e) {
+    console.error("Failed to log action:", e);
+  }
+}
 
 const QUICK_MESSAGES = [
   { label: "Afternoon procession starting", body: "🎉 The afternoon procession is about to begin! Head to Market Place now." },
@@ -22,6 +32,7 @@ const ROAD_CLOSURE_MESSAGES = [
 
 export default function Staff() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [staffName, setStaffName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [title, setTitle] = useState("Ringwood Carnival 🎉");
@@ -31,9 +42,15 @@ export default function Staff() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    const trimmedName = staffName.trim();
+    if (!VALID_NAMES.includes(trimmedName)) {
+      toast.error("Name not recognised.");
+      return;
+    }
     if (password === STAFF_PASSWORD) {
       setAuthenticated(true);
-      toast.success("Welcome, staff member!");
+      logAction(trimmedName, "Logged in to staff area");
+      toast.success(`Welcome, ${trimmedName}!`);
     } else {
       toast.error("Incorrect password.");
     }
@@ -43,6 +60,8 @@ export default function Staff() {
     if (!notifBody.trim()) { toast.error("Please enter a message."); return; }
     setConfirmPending({ title: notifTitle, body: notifBody });
   };
+
+  const currentName = staffName.trim();
 
   const confirmSend = async () => {
     if (!("Notification" in window)) {
@@ -61,9 +80,11 @@ export default function Staff() {
     }
 
     setSending(true);
+    const pendingSnapshot = confirmPending;
     setConfirmPending(null);
     await new Promise((r) => setTimeout(r, 600));
-    new Notification(confirmPending.title, { body: confirmPending.body, icon: "/favicon.ico" });
+    new Notification(pendingSnapshot.title, { body: pendingSnapshot.body, icon: "/favicon.ico" });
+    logAction(currentName, `Sent notification — "${pendingSnapshot.title}": ${pendingSnapshot.body}`);
     toast.success("✅ Notification sent successfully!");
     setBody("");
     setSending(false);
@@ -79,9 +100,20 @@ export default function Staff() {
                 <Lock className="w-7 h-7 text-primary" />
               </div>
               <h1 className="font-heading text-2xl font-bold text-foreground">Staff Area</h1>
-              <p className="text-muted-foreground text-sm mt-1 text-center">Enter the staff password to continue</p>
+              <p className="text-muted-foreground text-sm mt-1 text-center">Enter your name and password to continue</p>
             </div>
             <form onSubmit={handleLogin} className="space-y-4">
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={staffName}
+                  onChange={(e) => setStaffName(e.target.value)}
+                  placeholder="Your name"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
+                  autoFocus
+                />
+              </div>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -89,7 +121,6 @@ export default function Staff() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   className="w-full px-4 py-3 pr-12 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
-                  autoFocus
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -111,7 +142,7 @@ export default function Staff() {
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-heading text-3xl md:text-5xl font-bold text-white mb-2">
           Staff Area
         </motion.h1>
-        <p className="text-white/70 text-sm">Send push notifications to carnival attendees</p>
+        <p className="text-white/70 text-sm">Logged in as <strong>{currentName}</strong> · Send push notifications to carnival attendees</p>
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
@@ -124,7 +155,7 @@ export default function Staff() {
           {ROAD_CLOSURE_MESSAGES.map((msg) => (
             <button
               key={msg.label}
-              onClick={() => requestConfirm("Ringwood Carnival — Road Update 🚧", msg.body)}
+              onClick={() => { logAction(currentName, `Initiated road closure message: ${msg.label}`); requestConfirm("Ringwood Carnival — Road Update 🚧", msg.body); }}
               className="text-left bg-card border border-border rounded-xl px-4 py-3 hover:border-secondary/50 hover:bg-muted/50 transition-all"
             >
               <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
@@ -139,7 +170,7 @@ export default function Staff() {
           {QUICK_MESSAGES.map((msg) => (
             <button
               key={msg.label}
-              onClick={() => requestConfirm("Ringwood Carnival 🎉", msg.body)}
+              onClick={() => { logAction(currentName, `Initiated quick message: ${msg.label}`); requestConfirm("Ringwood Carnival 🎉", msg.body); }}
               className="text-left bg-card border border-border rounded-xl px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
             >
               <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
