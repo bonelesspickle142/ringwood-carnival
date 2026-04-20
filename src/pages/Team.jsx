@@ -90,8 +90,8 @@ export default function Team() {
                 <p className="text-secondary text-xs font-semibold mb-2 font-heading">{member.role}</p>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-3">{member.bio}</p>
                 <a
-                href={`mailto:${member.email}`}
-                className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors">
+                href={`mailto:${member.email}`} className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors hidden">
+                
                 
                   <Mail className="w-3 h-3" />
                   {member.email}
