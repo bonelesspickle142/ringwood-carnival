@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 
@@ -29,6 +29,70 @@ const ROAD_CLOSURE_MESSAGES = [
   { label: "Parking full – The Furlong", body: "🅿️ The Furlong Car Park is now FULL. Please use Blynkbonnie Way overflow." },
   { label: "All roads clear", body: "✅ All road closures have now been lifted. Normal traffic can resume." },
 ];
+
+function NotificationSection({ title, icon, messages, notifTitle, logPrefix, currentName, onConfirm, onLog, borderColor, mb }) {
+  const [selected, setSelected] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleSend = () => {
+    if (!selected) return;
+    onLog(currentName, `${logPrefix}: ${selected.label}`);
+    onConfirm(notifTitle, selected.body);
+    setOpen(false);
+  };
+
+  return (
+    <div className={mb}>
+      <h2 className="font-heading font-bold text-foreground text-lg mb-3 flex items-center gap-2">
+        {icon} {title}
+      </h2>
+      <div className="bg-card border border-border rounded-2xl p-4 space-y-3">
+        {/* Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setOpen(!open)}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-border bg-background text-sm hover:bg-muted/50 transition-all"
+          >
+            <span className={selected ? "text-foreground font-heading font-semibold" : "text-muted-foreground"}>
+              {selected ? selected.label : `Select a message…`}
+            </span>
+            <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
+          </button>
+          {open && (
+            <div className="absolute z-10 mt-1 w-full bg-card border border-border rounded-xl shadow-lg overflow-hidden">
+              {messages.map((msg) => (
+                <button
+                  key={msg.label}
+                  onClick={() => { setSelected(msg); setOpen(false); }}
+                  className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors border-b border-border last:border-0"
+                >
+                  <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
+                  <p className="text-muted-foreground text-xs mt-0.5 line-clamp-1">{msg.body}</p>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Preview */}
+        {selected && (
+          <div className="bg-muted rounded-xl px-4 py-3">
+            <p className="text-xs text-muted-foreground mb-1">{notifTitle}</p>
+            <p className="text-sm text-foreground">{selected.body}</p>
+          </div>
+        )}
+
+        <button
+          onClick={handleSend}
+          disabled={!selected}
+          className={`w-full flex items-center justify-center gap-2 font-heading font-bold py-3 rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed bg-secondary text-white hover:bg-secondary/90`}
+        >
+          <Send className="w-4 h-4" /> Send Notification
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function Staff() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -148,36 +212,32 @@ export default function Staff() {
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
 
         {/* Road Closures */}
-        <h2 className="font-heading font-bold text-foreground text-lg mb-3 flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-secondary" /> Road Closures
-        </h2>
-        <div className="grid grid-cols-1 gap-2 mb-8">
-          {ROAD_CLOSURE_MESSAGES.map((msg) => (
-            <button
-              key={msg.label}
-              onClick={() => { logAction(currentName, `Initiated road closure message: ${msg.label}`); requestConfirm("Ringwood Carnival — Road Update 🚧", msg.body); }}
-              className="text-left bg-card border border-border rounded-xl px-4 py-3 hover:border-secondary/50 hover:bg-muted/50 transition-all"
-            >
-              <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
-              <p className="text-muted-foreground text-xs mt-0.5 line-clamp-1">{msg.body}</p>
-            </button>
-          ))}
-        </div>
+        <NotificationSection
+          title="Road Closures"
+          icon={<AlertTriangle className="w-5 h-5 text-secondary" />}
+          messages={ROAD_CLOSURE_MESSAGES}
+          notifTitle="Ringwood Carnival — Road Update 🚧"
+          logPrefix="Initiated road closure message"
+          currentName={currentName}
+          onConfirm={requestConfirm}
+          onLog={logAction}
+          borderColor="border-secondary/50"
+          mb="mb-8"
+        />
 
-        {/* Quick messages */}
-        <h2 className="font-heading font-bold text-foreground text-lg mb-3">Quick Messages</h2>
-        <div className="grid grid-cols-1 gap-2 mb-8">
-          {QUICK_MESSAGES.map((msg) => (
-            <button
-              key={msg.label}
-              onClick={() => { logAction(currentName, `Initiated quick message: ${msg.label}`); requestConfirm("Ringwood Carnival 🎉", msg.body); }}
-              className="text-left bg-card border border-border rounded-xl px-4 py-3 hover:border-primary/50 hover:bg-muted/50 transition-all"
-            >
-              <p className="font-heading font-semibold text-sm text-foreground">{msg.label}</p>
-              <p className="text-muted-foreground text-xs mt-0.5 line-clamp-1">{msg.body}</p>
-            </button>
-          ))}
-        </div>
+        {/* Quick Messages */}
+        <NotificationSection
+          title="Quick Messages"
+          icon={<Bell className="w-5 h-5 text-primary" />}
+          messages={QUICK_MESSAGES}
+          notifTitle="Ringwood Carnival 🎉"
+          logPrefix="Initiated quick message"
+          currentName={currentName}
+          onConfirm={requestConfirm}
+          onLog={logAction}
+          borderColor="border-primary/50"
+          mb="mb-8"
+        />
 
         {/* Custom notification */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">Custom Notification</h2>
