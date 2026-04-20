@@ -28,7 +28,7 @@ export default function SplashScreen({ onDone }) {
             className="flex flex-col items-center gap-6"
           >
             <img
-              src="https://media.base44.com/images/public/69da7ac3061580afda8ac770/567951c00_generated_23a2c72b.png"
+              src="https://ss.charleymurphy.xyz/RWC%20Logo.jpg"
               alt="Ringwood Carnival"
               className="w-48 h-48 rounded-3xl object-cover shadow-2xl"
             />
