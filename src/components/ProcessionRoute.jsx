@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import { Radio } from "lucide-react";
 
 const ROUTE_POINTS = [
-  "Market Place",
-  "High Street",
-  "Christchurch Road",
+  "Parkside",
+  "Castleman Roundabout",
+  "Greyfriars Roundabout",
+  "Market place",
   "Meeting House Lane",
-  "The Furlong",
-  "Carvers Recreation Ground",
+  "Quomp",
+ 
 ];
 
 export default function ProcessionRoute() {
