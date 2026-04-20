@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
+import { Home, Calendar, ImageIcon, Info, Settings, ShieldCheck } from "lucide-react";
 
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
@@ -7,6 +7,7 @@ const navItems = [
   { path: "/gallery", icon: ImageIcon, label: "Gallery" },
   { path: "/info", icon: Info, label: "Info" },
   { path: "/settings", icon: Settings, label: "Settings" },
+  { path: "/staff", icon: ShieldCheck, label: "Staff" },
 ];
 
 export default function Layout() {
