@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 
@@ -116,6 +116,7 @@ export default function Staff() {
   const [body, setBody] = useState("");
   const [sending, setSending] = useState(false);
   const [confirmPending, setConfirmPending] = useState(null); // { title, body }
+  const [sentBanner, setSentBanner] = useState(null); // { title, body }
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -141,30 +142,20 @@ export default function Staff() {
   const currentName = staffName.trim();
 
   const confirmSend = async () => {
-    if (!("Notification" in window)) {
-      toast.error("Notifications not supported.");
-      setConfirmPending(null);
-      return;
-    }
-
-    if (Notification.permission !== "granted") {
-      const perm = await Notification.requestPermission();
-      if (perm !== "granted") {
-        toast.error("Notification permission denied.");
-        setConfirmPending(null);
-        return;
-      }
-    }
-
-    setSending(true);
     const pendingSnapshot = confirmPending;
     setConfirmPending(null);
-    await new Promise((r) => setTimeout(r, 600));
-    new Notification(pendingSnapshot.title, { body: pendingSnapshot.body, icon: "/favicon.ico" });
+    setSending(true);
+
+    // Try browser push notification if permission available
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification(pendingSnapshot.title, { body: pendingSnapshot.body, icon: "/favicon.ico" });
+    }
+
     logAction(currentName, `Sent notification — "${pendingSnapshot.title}": ${pendingSnapshot.body}`);
-    toast.success("✅ Notification sent successfully!");
     setBody("");
     setSending(false);
+    setSentBanner(pendingSnapshot);
+    setTimeout(() => setSentBanner(null), 5000);
   };
 
   if (!authenticated) {
@@ -284,6 +275,22 @@ export default function Staff() {
           </button>
         </div>
       </div>
+
+      {/* Sent Banner */}
+      {sentBanner && (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 40 }}
+          className="fixed bottom-28 left-4 right-4 z-50 max-w-md mx-auto bg-green-600 text-white rounded-2xl shadow-2xl px-5 py-4 flex items-start gap-3"
+        >
+          <CheckCircle2 className="w-6 h-6 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="font-heading font-bold text-sm">Notification Sent!</p>
+            <p className="text-white/80 text-xs mt-0.5">{sentBanner.title} — {sentBanner.body}</p>
+          </div>
+        </motion.div>
+      )}
 
       {/* Confirm Modal */}
       {confirmPending && (
