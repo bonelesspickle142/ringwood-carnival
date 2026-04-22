@@ -113,7 +113,7 @@ export default function Gallery() {
               initial={{ y: 60, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 60, opacity: 0 }}
-              className="bg-card rounded-2xl border border-border p-5 w-full max-w-sm shadow-2xl"
+              className="bg-card rounded-2xl border border-border p-5 w-full max-w-sm shadow-2xl mb-28"
             >
               <h3 className="font-heading font-bold text-lg text-foreground mb-4">Submit your photo</h3>
               {preview && (
