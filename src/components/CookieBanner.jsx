@@ -31,7 +31,7 @@ export default function CookieBanner() {
           <div className="flex-1 min-w-0">
             <p className="font-heading font-bold text-foreground text-sm mb-1">This app uses cookies</p>
             <p className="text-muted-foreground text-xs leading-relaxed">
-              We use essential cookies to keep you signed in to the staff area and to remember your preferences. These are required for the app to work properly.
+              We use essential cookies to remember your preferences and help the app work properly.
             </p>
             <button
               onClick={handleAccept}
