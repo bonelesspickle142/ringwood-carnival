@@ -4,12 +4,20 @@ import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2, Tr
 import { base44 } from "@/api/base44Client";
 
 export default function Gallery() {
-  const [isStaff, setIsStaff] = useState(() => !!document.cookie.split("; ").find(r => r.startsWith("staffAuth=")));
+  const getStaffAuth = () => {
+    try {
+      const item = localStorage.getItem("staffAuth");
+      if (!item) return false;
+      const { expires } = JSON.parse(item);
+      if (Date.now() > expires) { localStorage.removeItem("staffAuth"); return false; }
+      return true;
+    } catch { return false; }
+  };
+
+  const [isStaff, setIsStaff] = useState(() => getStaffAuth());
 
   useEffect(() => {
-    const checkStaff = () => setIsStaff(!!document.cookie.split("; ").find(r => r.startsWith("staffAuth=")));
-    checkStaff();
-    const interval = setInterval(checkStaff, 2000);
+    const interval = setInterval(() => setIsStaff(getStaffAuth()), 2000);
     return () => clearInterval(interval);
   }, []);
   const [photos, setPhotos] = useState([]);

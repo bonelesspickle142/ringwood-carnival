@@ -110,9 +110,17 @@ function NotificationSection({ title, icon, messages, notifTitle, logPrefix, cur
 }
 
 export default function Staff() {
-  const getStaffCookie = () => document.cookie.split("; ").find(r => r.startsWith("staffAuth="))?.split("=")[1] || "";
-  const [authenticated, setAuthenticated] = useState(() => !!getStaffCookie());
-  const [staffName, setStaffName] = useState(() => getStaffCookie());
+  const getStaffAuth = () => {
+    try {
+      const item = localStorage.getItem("staffAuth");
+      if (!item) return "";
+      const { name, expires } = JSON.parse(item);
+      if (Date.now() > expires) { localStorage.removeItem("staffAuth"); return ""; }
+      return name;
+    } catch { return ""; }
+  };
+  const [authenticated, setAuthenticated] = useState(() => !!getStaffAuth());
+  const [staffName, setStaffName] = useState(() => getStaffAuth());
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("notifications");
@@ -131,7 +139,7 @@ export default function Staff() {
     }
     if (password === STAFF_PASSWORD) {
       setAuthenticated(true);
-      document.cookie = `staffAuth=${trimmedName}; max-age=${60 * 60 * 12}; path=/`;
+      localStorage.setItem("staffAuth", JSON.stringify({ name: trimmedName, expires: Date.now() + 12 * 60 * 60 * 1000 }));
       logAction(trimmedName, "Logged in to staff area");
       toast.success(`Welcome, ${trimmedName}!`);
     } else {
