@@ -4,7 +4,7 @@ import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2, Tr
 import { base44 } from "@/api/base44Client";
 
 export default function Gallery() {
-  const isStaff = !!document.cookie.split("; ").find(r => r.startsWith("staffAuth="));
+  const [isStaff] = useState(() => !!document.cookie.split("; ").find(r => r.startsWith("staffAuth=")));
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState(null);
@@ -219,7 +219,7 @@ export default function Gallery() {
                 {isStaff && (
                   <button
                     onClick={(e) => handleDelete(photo.id, e)}
-                    className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-destructive text-white rounded-full flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
+                    className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-destructive text-white rounded-full flex items-center justify-center transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
