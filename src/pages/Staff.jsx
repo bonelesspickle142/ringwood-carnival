@@ -220,7 +220,7 @@ export default function Staff() {
 
   return (
     <div className="min-h-screen">
-      <div className="px-5 md:px-12 pt-14 pb-4">
+      <div className="px-5 pt-14 pb-4 max-w-xl mx-auto w-full">
         <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
           className="text-3xl font-bold text-foreground"
           style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
@@ -249,7 +249,7 @@ export default function Staff() {
         </div>
       </div>
 
-      <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
+      <div className="px-5 py-8 pb-32 max-w-xl mx-auto w-full">
 
         {activeTab === "events" && <EventsManager />}
 
