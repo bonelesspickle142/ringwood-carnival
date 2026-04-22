@@ -47,7 +47,7 @@ export default function Home() {
         <QuickLinks />
 
         {/* Featured Events Preview */}
-        <div className="px-4 md:px-12 pb-12">
+        <div className="px-4 md:px-12 pb-32">
           <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}>What's On at Carnival</h2>
 
           {loading ?
