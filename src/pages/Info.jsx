@@ -16,36 +16,35 @@ export default function Info() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="relative h-48 md:h-64 overflow-hidden">
+      <div className="relative h-40 md:h-52 overflow-hidden">
         <img src={INFO_IMAGE} alt="Ringwood town" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
+        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-12">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-3xl md:text-5xl font-bold text-white"
+            className="text-3xl font-bold text-white"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
           >
             Carnival Info
           </motion.h1>
-          <p className="text-white/70 text-sm md:text-base mt-1">
-            Everything you need to know
-          </p>
+          <p className="text-white/70 text-sm mt-0.5">Everything you need to know</p>
         </div>
       </div>
 
       {/* Sticky sub-header */}
-      <div className="sticky top-1 z-40 bg-background/90 backdrop-blur-lg border-b border-border">
-        <div className="px-6 md:px-12 flex gap-1 overflow-x-auto py-3">
+      <div className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border/50">
+        <div className="px-4 md:px-12 flex gap-1.5 overflow-x-auto py-3">
           {SECTIONS.map((section) => {
             const Icon = section.icon;
             return (
               <button
                 key={section.id}
                 onClick={() => setActiveSection(section.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-heading font-semibold whitespace-nowrap transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
                   activeSection === section.id
                     ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    : "bg-muted text-muted-foreground"
                 }`}
               >
                 <Icon className="w-4 h-4" />

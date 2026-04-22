@@ -57,17 +57,16 @@ export default function Settings() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-primary px-6 md:px-12 pt-12 pb-10">
+      <div className="px-5 md:px-12 pt-14 pb-4">
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="font-heading text-3xl md:text-5xl font-bold text-white mb-2">
-          
+          className="text-3xl font-bold text-foreground"
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
+        >
           Settings
         </motion.h1>
-        <p className="text-white/70 text-sm md:text-base">
-          Options &amp; preferences
-        </p>
+        <p className="text-muted-foreground text-sm mt-0.5">Options &amp; preferences</p>
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">

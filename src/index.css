@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,77 +6,77 @@
 
 @layer base {
   :root {
-    --font-heading: 'Roboto', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
 
-    --background: 0 0% 100%;
-    --foreground: 228 53% 15%;
-    --card: 0 0% 98%;
-    --card-foreground: 228 53% 15%;
+    --background: 0 0% 95%;
+    --foreground: 0 0% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
     --popover: 0 0% 100%;
-    --popover-foreground: 228 53% 15%;
-    --primary: 228 53% 39%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 228 58% 36%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 1 83% 57%;
+    --secondary: 1 83% 55%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 220 14% 94%;
-    --muted-foreground: 228 20% 45%;
-    --accent: 1 83% 57%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 44%;
+    --accent: 228 58% 36%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 14% 88%;
-    --input: 220 14% 88%;
-    --ring: 228 53% 39%;
-    --chart-1: 1 83% 57%;
-    --chart-2: 228 53% 39%;
-    --chart-3: 228 53% 60%;
+    --border: 220 13% 86%;
+    --input: 220 13% 86%;
+    --ring: 228 58% 36%;
+    --chart-1: 1 83% 55%;
+    --chart-2: 228 58% 36%;
+    --chart-3: 228 58% 65%;
     --chart-4: 1 83% 75%;
     --chart-5: 228 30% 70%;
-    --radius: 0.75rem;
-    --sidebar-background: 228 53% 39%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 1 83% 57%;
+    --radius: 0.875rem;
+    --sidebar-background: 0 0% 95%;
+    --sidebar-foreground: 0 0% 7%;
+    --sidebar-primary: 228 58% 36%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 228 40% 50%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 228 40% 50%;
-    --sidebar-ring: 1 83% 57%;
+    --sidebar-accent: 0 0% 90%;
+    --sidebar-accent-foreground: 0 0% 7%;
+    --sidebar-border: 220 13% 86%;
+    --sidebar-ring: 228 58% 36%;
   }
 
   .dark {
-    --background: 228 40% 8%;
+    --background: 0 0% 9%;
     --foreground: 0 0% 96%;
-    --card: 228 35% 12%;
+    --card: 0 0% 13%;
     --card-foreground: 0 0% 96%;
-    --popover: 228 35% 12%;
+    --popover: 0 0% 13%;
     --popover-foreground: 0 0% 96%;
-    --primary: 228 53% 55%;
+    --primary: 228 58% 58%;
     --primary-foreground: 0 0% 100%;
     --secondary: 1 83% 57%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 228 25% 18%;
-    --muted-foreground: 228 15% 60%;
-    --accent: 1 83% 57%;
+    --muted: 0 0% 19%;
+    --muted-foreground: 0 0% 58%;
+    --accent: 228 58% 58%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 42%;
     --destructive-foreground: 0 0% 98%;
-    --border: 228 25% 20%;
-    --input: 228 25% 20%;
-    --ring: 228 53% 55%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 228 58% 58%;
     --chart-1: 1 83% 57%;
-    --chart-2: 228 53% 55%;
+    --chart-2: 228 58% 58%;
     --chart-3: 0 0% 96%;
     --chart-4: 228 30% 40%;
     --chart-5: 1 83% 75%;
-    --sidebar-background: 228 40% 8%;
+    --sidebar-background: 0 0% 9%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 1 83% 57%;
+    --sidebar-primary: 228 58% 58%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 228 35% 15%;
+    --sidebar-accent: 0 0% 16%;
     --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 228 25% 18%;
-    --sidebar-ring: 1 83% 57%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 228 58% 58%;
   }
 }
 
@@ -88,6 +88,8 @@
   body {
     @apply bg-background text-foreground font-body;
     overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   button, a, nav {
@@ -97,5 +99,6 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+    letter-spacing: -0.02em;
   }
 }

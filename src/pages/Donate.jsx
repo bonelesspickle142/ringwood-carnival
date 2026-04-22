@@ -70,33 +70,30 @@ export default function Donate() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-primary px-6 md:px-12 pt-12 pb-6 text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-4 left-8 w-32 h-32 rounded-full bg-secondary" />
-          <div className="absolute bottom-4 right-8 w-24 h-24 rounded-full bg-white" />
-        </div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative z-10">
-          <h1 className="font-heading text-3xl md:text-5xl font-bold text-white mb-2">
+      <div className="px-5 md:px-12 pt-14 pb-4">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+          <h1
+            className="text-3xl font-bold text-foreground"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
+          >
             Support the Carnival
           </h1>
-          <p className="text-white/80 text-sm md:text-base max-w-lg mx-auto">
-            Donate or grab your official programme
-          </p>
+          <p className="text-muted-foreground text-sm mt-0.5">Donate or grab your official programme</p>
         </motion.div>
 
         {/* Tabs */}
-        <div className="relative z-10 flex gap-2 mt-6 bg-white/10 rounded-xl p-1 max-w-xs mx-auto">
+        <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5 max-w-xs">
           <button
             onClick={() => setActiveTab("donate")}
-            className={`flex-1 py-2 rounded-lg font-heading font-bold text-sm transition-all ${activeTab === "donate" ? "bg-white text-primary" : "text-white/80"}`}
+            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "donate" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
           >
-            <Heart className="w-4 h-4 inline mr-1" />Donate
+            <Heart className="w-4 h-4" />Donate
           </button>
           <button
             onClick={() => setActiveTab("programme")}
-            className={`flex-1 py-2 rounded-lg font-heading font-bold text-sm transition-all ${activeTab === "programme" ? "bg-white text-primary" : "text-white/80"}`}
+            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "programme" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
           >
-            <BookOpen className="w-4 h-4 inline mr-1" />Programme
+            <BookOpen className="w-4 h-4" />Programme
           </button>
         </div>
       </div>

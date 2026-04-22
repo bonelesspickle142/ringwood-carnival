@@ -174,8 +174,8 @@ export default function Staff() {
   if (!authenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center px-6">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
-          <div className="bg-card border border-border rounded-2xl p-8 shadow-xl">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-sm">
+          <div className="bg-card border border-border/60 rounded-3xl p-8 shadow-lg">
             <div className="flex flex-col items-center mb-8">
               <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                 <Lock className="w-7 h-7 text-primary" />
@@ -219,29 +219,32 @@ export default function Staff() {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-primary px-6 md:px-12 pt-12 pb-6">
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-heading text-3xl md:text-5xl font-bold text-white mb-2">
+      <div className="px-5 md:px-12 pt-14 pb-4">
+        <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold text-foreground"
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
+        >
           Staff Area
         </motion.h1>
-        <p className="text-white/70 text-sm mb-5">Logged in as <strong>{currentName}</strong></p>
+        <p className="text-muted-foreground text-sm mt-0.5">Logged in as <strong className="text-foreground">{currentName}</strong></p>
 
         {/* Tabs */}
-        <div className="flex gap-2 bg-white/10 rounded-xl p-1">
+        <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5">
           <button
             onClick={() => setActiveTab("notifications")}
-            className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "notifications" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
+            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "notifications" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
           >
             <Bell className="w-4 h-4" /> Notify
           </button>
           <button
             onClick={() => setActiveTab("events")}
-            className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "events" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
+            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "events" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
           >
             <Calendar className="w-4 h-4" /> Events
           </button>
           <button
             onClick={() => setActiveTab("gallery")}
-            className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "gallery" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
+            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "gallery" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
           >
             <ImageIcon className="w-4 h-4" /> Gallery
           </button>

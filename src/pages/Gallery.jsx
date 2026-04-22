@@ -100,23 +100,24 @@ export default function Gallery() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-primary px-6 md:px-12 pt-12 pb-10 flex items-end justify-between">
+      <div className="px-5 md:px-12 pt-14 pb-4 flex items-center justify-between">
         <div>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-3xl md:text-5xl font-bold text-white mb-2"
+            className="text-3xl font-bold text-foreground tracking-tight"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
           >
             Gallery
           </motion.h1>
-          <p className="text-white/70 text-sm md:text-base">Community carnival photos</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Community carnival photos</p>
         </div>
         <button
           onClick={() => fileInputRef.current?.click()}
-          className="flex items-center gap-2 bg-secondary text-white font-heading font-bold px-4 py-3 rounded-xl hover:bg-secondary/90 transition-all shadow-lg"
+          className="flex items-center gap-2 bg-secondary text-white font-semibold text-sm px-4 py-2.5 rounded-full hover:bg-secondary/90 active:scale-95 transition-all shadow-md shadow-secondary/20"
         >
           <Camera className="w-4 h-4" />
-          Upload Photo
+          Upload
         </button>
         <input
           ref={fileInputRef}

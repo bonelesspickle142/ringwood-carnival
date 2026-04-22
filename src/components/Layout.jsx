@@ -1,15 +1,15 @@
 import { useRef } from "react";
-import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
-import BackHeader from "./BackHeader";
+// BackHeader removed — iOS tab bar handles navigation
 
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/schedule", icon: Calendar, label: "Events" },
   { path: "/gallery", icon: ImageIcon, label: "Gallery" },
   { path: "/info", icon: Info, label: "Info" },
-  { path: "/settings", icon: Settings, label: "Settings" },
+  { path: "/settings", icon: Settings, label: "More" },
 ];
 
 export default function Layout() {
@@ -33,18 +33,14 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background relative">
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary z-50" />
-
-      <BackHeader />
-
-      <main className="pb-24">
+      <main className="pb-28">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -20, opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
             onAnimationComplete={handleAnimationComplete}
           >
             <Outlet />
@@ -52,9 +48,13 @@ export default function Layout() {
         </AnimatePresence>
       </main>
 
-      <nav className="fixed bottom-4 left-4 right-4 z-50" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-        <div className="mx-auto max-w-md bg-primary/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 px-2 py-2">
-          <div className="flex items-center justify-around">
+      {/* iOS-style tab bar */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-50"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
+        <div className="bg-white/80 dark:bg-black/80 backdrop-blur-2xl border-t border-black/10 dark:border-white/10">
+          <div className="flex items-center justify-around px-2 pt-2 pb-1">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               const Icon = item.icon;
@@ -63,14 +63,24 @@ export default function Layout() {
                   key={item.path}
                   to={item.path}
                   onClick={(e) => handleNavClick(e, item.path)}
-                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 select-none ${
-                    isActive
-                      ? "bg-secondary text-primary scale-105"
-                      : "text-white/70 hover:text-white hover:bg-white/10"
-                  }`}
+                  className="flex flex-col items-center gap-0.5 px-3 py-1.5 min-w-[56px] select-none"
                 >
-                  <Icon className="w-5 h-5" />
-                  <span className="text-[10px] font-medium font-heading tracking-wide">
+                  <div className="relative flex items-center justify-center w-7 h-7">
+                    <Icon
+                      className={`w-6 h-6 transition-all duration-200 ${
+                        isActive
+                          ? "text-secondary scale-110"
+                          : "text-muted-foreground"
+                      }`}
+                      strokeWidth={isActive ? 2.5 : 1.8}
+                    />
+                  </div>
+                  <span
+                    className={`text-[10px] font-medium tracking-tight transition-colors duration-200 ${
+                      isActive ? "text-secondary" : "text-muted-foreground"
+                    }`}
+                    style={{ fontFamily: "var(--font-body)" }}
+                  >
                     {item.label}
                   </span>
                 </Link>
@@ -78,7 +88,7 @@ export default function Layout() {
             })}
           </div>
         </div>
-      </nav>
+      </div>
     </div>
   );
 }

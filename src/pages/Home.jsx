@@ -47,8 +47,8 @@ export default function Home() {
         <QuickLinks />
 
         {/* Featured Events Preview */}
-        <div className="px-6 md:px-12 pb-12">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6">What's On at Carnival:</h2>
+        <div className="px-4 md:px-12 pb-12">
+          <h2 className="text-xl font-bold text-foreground mb-4" style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}>What's On at Carnival</h2>
 
           {loading ?
             <div className="flex justify-center py-12">

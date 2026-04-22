@@ -50,37 +50,28 @@ export default function Schedule() {
   return (
     <div className="min-h-screen">
       <PullToRefreshIndicator pullDistance={pullDistance} refreshing={refreshing} />
-      {/* Header banner */}
-      <div className="relative h-48 md:h-64 overflow-hidden">
-        <img
-          src={EVENTS_IMAGE}
-          alt="Ringwood Carnival events"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-3xl md:text-5xl font-bold text-white"
-          >
-            Events & Pop-ups
-          </motion.h1>
-          <p className="text-white/70 text-sm md:text-base mt-1">
-            Everything happening at the carnival today
-          </p>
-        </div>
+      {/* Header */}
+      <div className="px-5 md:px-12 pt-14 pb-2">
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold text-foreground"
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
+        >
+          Events &amp; Pop-ups
+        </motion.h1>
+        <p className="text-muted-foreground text-sm mt-0.5">Everything happening at the carnival</p>
       </div>
 
       {/* Filters */}
-      <div className="px-6 md:px-12 py-6">
+      <div className="px-5 md:px-12 py-4">
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
           <Filter className="w-4 h-4 text-muted-foreground flex-shrink-0" />
           {CATEGORIES.map((cat) => (
             <button
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-heading font-semibold transition-all duration-200 ${
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
                 activeFilter === cat.key
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
