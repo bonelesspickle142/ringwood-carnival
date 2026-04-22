@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, BarChart2 } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
 import ModerationQueue from "@/components/staff/ModerationQueue";
+import AnalyticsDashboard from "@/components/staff/AnalyticsDashboard";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
@@ -248,12 +249,27 @@ export default function Staff() {
           >
             <ImageIcon className="w-4 h-4" /> Gallery
           </button>
+          <button
+            onClick={() => setActiveTab("analytics")}
+            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "analytics" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+          >
+            <BarChart2 className="w-4 h-4" /> Stats
+          </button>
         </div>
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
 
         {activeTab === "events" && <EventsManager />}
+
+        {activeTab === "analytics" && (
+          <div>
+            <h2 className="font-heading font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+              <BarChart2 className="w-5 h-5 text-primary" /> App Analytics
+            </h2>
+            <AnalyticsDashboard />
+          </div>
+        )}
 
         {activeTab === "gallery" && (
           <div>
