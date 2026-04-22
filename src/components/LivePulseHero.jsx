@@ -8,7 +8,7 @@ export default function LivePulseHero({ heroImage }) {
   return (
     <div className="relative w-full overflow-hidden">
       {/* Hero image */}
-      <div className="relative h-[62vh] min-h-[420px]">
+      <div className="relative min-h-[520px]" style={{ height: "calc(62vh + env(safe-area-inset-top))" }}>
         <img
           src={heroImage}
           alt="Ringwood Carnival procession"

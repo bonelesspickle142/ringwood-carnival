@@ -33,7 +33,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background relative">
-      <main className="pb-28">
+      <main className="pb-28" style={{ paddingTop: "env(safe-area-inset-top)" }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
