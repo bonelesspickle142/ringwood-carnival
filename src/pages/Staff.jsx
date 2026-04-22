@@ -110,8 +110,8 @@ function NotificationSection({ title, icon, messages, notifTitle, logPrefix, cur
 }
 
 export default function Staff() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [staffName, setStaffName] = useState("");
+  const [authenticated, setAuthenticated] = useState(() => !!sessionStorage.getItem("staffAuth"));
+  const [staffName, setStaffName] = useState(() => sessionStorage.getItem("staffAuth") || "");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("notifications");
@@ -130,6 +130,7 @@ export default function Staff() {
     }
     if (password === STAFF_PASSWORD) {
       setAuthenticated(true);
+      sessionStorage.setItem("staffAuth", trimmedName);
       logAction(trimmedName, "Logged in to staff area");
       toast.success(`Welcome, ${trimmedName}!`);
     } else {

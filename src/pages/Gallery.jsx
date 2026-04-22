@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2 } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2, Trash2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
 export default function Gallery() {
+  const isStaff = !!sessionStorage.getItem("staffAuth");
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState(null);
@@ -70,6 +71,12 @@ export default function Gallery() {
       alert("Upload failed. Please try again.");
     }
     setUploading(false);
+  };
+
+  const handleDelete = async (photoId, e) => {
+    e.stopPropagation();
+    setPhotos((prev) => prev.filter((p) => p.id !== photoId));
+    await base44.entities.CarnivalPhoto.delete(photoId);
   };
 
   const prev = () => setLightbox((i) => (i > 0 ? i - 1 : photos.length - 1));
@@ -188,27 +195,36 @@ export default function Gallery() {
         ) : (
           <div className="columns-2 md:columns-3 gap-3 space-y-3">
             {photos.map((photo, i) => (
-              <motion.button
+              <motion.div
                 key={photo.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: i * 0.03 }}
-                onClick={() => setLightbox(i)}
                 className="break-inside-avoid w-full block relative overflow-hidden rounded-xl group"
               >
-                <img
-                  src={photo.image_url}
-                  alt={photo.caption || "Carnival photo"}
-                  className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-300 flex items-end">
-                  {photo.caption && (
-                    <p className="text-white text-xs font-medium p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {photo.caption}
-                    </p>
-                  )}
-                </div>
-              </motion.button>
+                <button onClick={() => setLightbox(i)} className="w-full block">
+                  <img
+                    src={photo.image_url}
+                    alt={photo.caption || "Carnival photo"}
+                    className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-300 flex items-end">
+                    {photo.caption && (
+                      <p className="text-white text-xs font-medium p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {photo.caption}
+                      </p>
+                    )}
+                  </div>
+                </button>
+                {isStaff && (
+                  <button
+                    onClick={(e) => handleDelete(photo.id, e)}
+                    className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-destructive text-white rounded-full flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
+              </motion.div>
             ))}
           </div>
         )}
