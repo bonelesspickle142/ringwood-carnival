@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import { toast } from "sonner";
 
 export default function Gallery() {
   const [photos, setPhotos] = useState([]);
@@ -12,6 +11,7 @@ export default function Gallery() {
   const [caption, setCaption] = useState("");
   const [uploaderName, setUploaderName] = useState("");
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -59,14 +59,15 @@ export default function Gallery() {
         uploader_name: uploaderName.trim() || undefined,
         is_approved: false,
       });
-      toast.success("Photo submitted! It will appear once approved by staff.");
       setShowUploadForm(false);
+      setShowSuccess(true);
       setSelectedFile(null);
       setPreview(null);
       setCaption("");
       setUploaderName("");
+      setTimeout(() => setShowSuccess(false), 4000);
     } catch (err) {
-      toast.error("Upload failed. Please try again.");
+      alert("Upload failed. Please try again.");
     }
     setUploading(false);
   };
@@ -151,6 +152,24 @@ export default function Gallery() {
               </div>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Success Banner */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-6 left-4 right-4 z-50 max-w-md mx-auto bg-green-600 text-white rounded-2xl shadow-2xl px-5 py-4 flex items-center gap-3"
+          >
+            <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
+            <div>
+              <p className="font-heading font-bold text-sm">Photo Submitted!</p>
+              <p className="text-white/80 text-xs mt-0.5">It will appear in the gallery once approved by staff.</p>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
