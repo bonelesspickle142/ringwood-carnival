@@ -6,6 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from './components/Layout.jsx';
+import CookieBanner from './components/CookieBanner';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule';
 import Donate from './pages/Donate';
@@ -68,6 +69,7 @@ function App() {
           <AuthenticatedApp />
         </Router>
         <Toaster />
+        <CookieBanner />
       </QueryClientProvider>
     </AuthProvider>
   )
