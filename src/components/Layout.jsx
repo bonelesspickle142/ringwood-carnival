@@ -50,7 +50,7 @@ export default function Layout() {
 
       {/* iOS-style tab bar */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50"
+        className="fixed bottom-0 left-0 right-0 z-[100]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="bg-white/80 dark:bg-black/80 backdrop-blur-2xl border-t border-black/10 dark:border-white/10">
