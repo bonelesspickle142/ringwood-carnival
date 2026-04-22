@@ -4,7 +4,7 @@ import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2, Tr
 import { base44 } from "@/api/base44Client";
 
 export default function Gallery() {
-  const isStaff = !!sessionStorage.getItem("staffAuth");
+  const isStaff = !!document.cookie.split("; ").find(r => r.startsWith("staffAuth="));
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState(null);
