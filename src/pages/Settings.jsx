@@ -1,13 +1,25 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Bell, BellOff, Info, ExternalLink, ChevronRight } from "lucide-react";
+import { Bell, BellOff, Info, ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Settings() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [permissionState, setPermissionState] = useState("default");
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
 
   useEffect(() => {
     if ("Notification" in window) {
@@ -139,8 +151,37 @@ export default function Settings() {
           )}
           <div className="border-t border-border p-4">
             <p className="text-xs text-muted-foreground">Ringwood Carnival App v1.0</p>
-            <p className="text-xs text-muted-foreground">Ringwood Carnival App v0.1</p>
           </div>
+        </div>
+
+        {/* Delete Account */}
+        <h2 className="font-heading font-bold text-foreground text-lg mb-3 mt-8">Account</h2>
+        <div className="bg-card rounded-2xl border border-border overflow-hidden">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button className="w-full flex items-center gap-3 p-4 text-destructive hover:bg-destructive/5 transition-colors">
+                <Trash2 className="w-4 h-4" />
+                <span className="font-heading text-sm font-medium">Delete Account</span>
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete your account?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete your account and all associated data. This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  onClick={() => toast.error("Account deletion is not yet available. Please contact support.")}
+                >
+                  Delete Account
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </div>);

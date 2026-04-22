@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Tag, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const CATEGORIES = ["performance", "food", "craft", "music", "family", "stall", "other"];
 
@@ -98,15 +99,16 @@ function EventForm({ event, onSave, onCancel }) {
 
         <div>
           <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Category</label>
-          <select
-            value={form.category}
-            onChange={(e) => set("category", e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-          >
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
-            ))}
-          </select>
+          <Select value={form.category} onValueChange={(value) => set("category", value)}>
+            <SelectTrigger className="w-full rounded-xl">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent>
+              {CATEGORIES.map((c) => (
+                <SelectItem key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div>

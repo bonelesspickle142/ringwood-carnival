@@ -15,6 +15,14 @@ import Settings from './pages/Settings';
 import Info from './pages/Info';
 import Staff from './pages/Staff';
 
+// Sync Tailwind dark class with system color scheme
+if (typeof window !== "undefined") {
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const apply = (e) => document.documentElement.classList.toggle("dark", e.matches);
+  apply(mq);
+  mq.addEventListener("change", apply);
+}
+
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
 

@@ -1,5 +1,7 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
+import BackHeader from "./BackHeader";
 
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
@@ -14,15 +16,27 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background relative">
-      {/* Progress Ribbon - kinetic background line */}
+      {/* Progress Ribbon */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-accent to-secondary z-50" />
 
+      <BackHeader />
+
       <main className="pb-24">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Floating Island Navigation */}
-      <nav className="fixed bottom-4 left-4 right-4 z-50">
+      <nav className="fixed bottom-4 left-4 right-4 z-50" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
         <div className="mx-auto max-w-md bg-primary/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 px-2 py-2">
           <div className="flex items-center justify-around">
             {navItems.map((item) => {
@@ -32,7 +46,7 @@ export default function Layout() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 ${
+                  className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-300 select-none ${
                     isActive
                       ? "bg-secondary text-primary scale-105"
                       : "text-white/70 hover:text-white hover:bg-white/10"
