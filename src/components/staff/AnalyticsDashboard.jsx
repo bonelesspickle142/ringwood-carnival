@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Loader2, Camera, Calendar, Heart, BookOpen, ImageIcon, CheckCircle2, Clock, BarChart2 } from "lucide-react";
+import { Loader2, Camera, Calendar, BookOpen, CheckCircle2, Clock, BarChart2 } from "lucide-react";
 
 function StatCard({ icon: Icon, label, value, color = "text-primary" }) {
   return (
@@ -64,20 +64,13 @@ export default function AnalyticsDashboard() {
         <StatCard icon={Calendar} label="Events" value={data.events_count} color="text-primary" />
         <StatCard icon={BookOpen} label="Programmes Sold" value={data.programme_purchases} color="text-secondary" />
         <StatCard icon={Camera} label="Photos Submitted" value={data.photos_total} color="text-primary" />
-        <StatCard icon={Heart} label="Votes Cast" value={data.votes_cast} color="text-secondary" />
+        <StatCard icon={CheckCircle2} label="Photos Approved" value={data.photos_approved} color="text-secondary" />
       </div>
 
       {/* Photo moderation status */}
       <div>
         <h3 className="font-heading font-bold text-muted-foreground text-xs mb-3 uppercase tracking-wide">Photo Status</h3>
         <div className="bg-card border border-border rounded-2xl divide-y divide-border overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-green-500" />
-              <span className="text-sm font-heading font-semibold text-foreground">Approved</span>
-            </div>
-            <span className="text-sm font-bold text-foreground">{data.photos_approved}</span>
-          </div>
           <div className="flex items-center justify-between px-4 py-3">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-secondary" />
@@ -108,21 +101,7 @@ export default function AnalyticsDashboard() {
         </div>
       )}
 
-      {/* Top voted floats */}
-      {data.top_floats && data.top_floats.length > 0 && (
-        <div>
-          <h3 className="font-heading font-bold text-muted-foreground text-xs mb-3 uppercase tracking-wide">Top Voted Floats</h3>
-          <div className="bg-card border border-border rounded-2xl overflow-hidden divide-y divide-border">
-            {data.top_floats.map((float, i) => (
-              <div key={float.name} className="px-4 py-3 flex items-center gap-3">
-                <span className="text-xs font-bold text-muted-foreground w-5">#{i + 1}</span>
-                <span className="flex-1 text-sm font-heading font-semibold text-foreground truncate">{float.name}</span>
-                <span className="text-xs font-bold text-foreground">{float.count} votes</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+
 
       <p className="text-xs text-muted-foreground text-center">Auto-refreshes every 30 seconds</p>
     </div>

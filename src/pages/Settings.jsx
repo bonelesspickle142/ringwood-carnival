@@ -40,10 +40,27 @@ export default function Settings() {
       if (permission === "granted") {
         setNotificationsEnabled(true);
         toast.success("Notifications enabled! You'll be alerted for procession updates.");
-        new Notification("Ringwood Carnival 🎉", {
-          body: "You're all set! We'll notify you when the procession is about to begin.",
-          icon: "/favicon.ico"
-        });
+        // Show test notification via service worker if available, else fallback
+        if ("serviceWorker" in navigator) {
+          const reg = await navigator.serviceWorker.ready.catch(() => null);
+          if (reg) {
+            reg.showNotification("Ringwood Carnival 🎉", {
+              body: "You're all set! We'll notify you when the procession is about to begin.",
+              icon: "/favicon.ico",
+              badge: "/favicon.ico",
+            });
+          } else {
+            new Notification("Ringwood Carnival 🎉", {
+              body: "You're all set! We'll notify you when the procession is about to begin.",
+              icon: "/favicon.ico",
+            });
+          }
+        } else {
+          new Notification("Ringwood Carnival 🎉", {
+            body: "You're all set! We'll notify you when the procession is about to begin.",
+            icon: "/favicon.ico",
+          });
+        }
       } else {
         setNotificationsEnabled(false);
         toast.error("Notification permission was denied. Please enable it in your settings.");

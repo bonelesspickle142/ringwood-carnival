@@ -9,26 +9,14 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Pull real entity counts as engagement metrics
-    const [events, photos, votes, purchases] = await Promise.all([
+    const [events, photos, purchases] = await Promise.all([
       base44.asServiceRole.entities.Event.list('created_date', 200),
       base44.asServiceRole.entities.CarnivalPhoto.list('created_date', 200),
-      base44.asServiceRole.entities.Vote.list('created_date', 200),
       base44.asServiceRole.entities.ProgrammePurchase.list('created_date', 200),
     ]);
 
     const approvedPhotos = photos.filter(p => p.is_approved);
     const pendingPhotos = photos.filter(p => !p.is_approved);
-
-    // Count votes per float for leaderboard
-    const floatVoteCounts = {};
-    for (const v of votes) {
-      floatVoteCounts[v.float_name || v.float_id] = (floatVoteCounts[v.float_name || v.float_id] || 0) + 1;
-    }
-    const topFloats = Object.entries(floatVoteCounts)
-      .sort(([,a],[,b]) => b - a)
-      .slice(0, 5)
-      .map(([name, count]) => ({ name, count }));
 
     // Photos submitted per day (last 7 days)
     const now = new Date();
@@ -53,9 +41,7 @@ Deno.serve(async (req) => {
       photos_total: photos.length,
       photos_approved: approvedPhotos.length,
       photos_pending: pendingPhotos.length,
-      votes_cast: votes.length,
       programme_purchases: purchases.length,
-      top_floats: topFloats,
       photos_by_day: photosByDay,
     });
   } catch (error) {
