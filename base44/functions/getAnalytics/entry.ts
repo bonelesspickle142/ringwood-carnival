@@ -18,21 +18,24 @@ Deno.serve(async (req) => {
     const approvedPhotos = photos.filter(p => p.is_approved);
     const pendingPhotos = photos.filter(p => !p.is_approved);
 
-    // Photos submitted per day (last 7 days)
+    // Photos submitted per hour (last 6 hours)
     const now = new Date();
-    const photosByDay = {};
-    for (let i = 6; i >= 0; i--) {
+    const photosByHour = {};
+    for (let i = 5; i >= 0; i--) {
       const d = new Date(now);
-      d.setDate(d.getDate() - i);
-      const key = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-      photosByDay[key] = 0;
+      d.setHours(d.getHours() - i, 0, 0, 0);
+      const key = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+      photosByHour[key] = 0;
     }
     for (const p of photos) {
       const d = new Date(p.created_date);
-      const diff = Math.floor((now - d) / 86400000);
-      if (diff <= 6) {
-        const key = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-        if (photosByDay[key] !== undefined) photosByDay[key]++;
+      const diffMs = now - d;
+      if (diffMs <= 6 * 60 * 60 * 1000) {
+        // Round down to the hour slot
+        const slotDate = new Date(d);
+        slotDate.setMinutes(0, 0, 0);
+        const key = slotDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+        if (photosByHour[key] !== undefined) photosByHour[key]++;
       }
     }
 
@@ -42,7 +45,7 @@ Deno.serve(async (req) => {
       photos_approved: approvedPhotos.length,
       photos_pending: pendingPhotos.length,
       programme_purchases: purchases.length,
-      photos_by_day: photosByDay,
+      photos_by_hour: photosByHour,
     });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });

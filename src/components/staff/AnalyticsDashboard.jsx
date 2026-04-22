@@ -54,8 +54,8 @@ export default function AnalyticsDashboard() {
     );
   }
 
-  const photosByDay = data.photos_by_day ? Object.entries(data.photos_by_day) : [];
-  const maxPhotos = Math.max(...photosByDay.map(([, v]) => v), 1);
+  const photosByHour = data.photos_by_hour ? Object.entries(data.photos_by_hour) : [];
+  const maxPhotos = Math.max(...photosByHour.map(([, v]) => v), 1);
 
   return (
     <div className="space-y-6">
@@ -81,19 +81,19 @@ export default function AnalyticsDashboard() {
         </div>
       </div>
 
-      {/* Photos per day chart */}
-      {photosByDay.length > 0 && (
+      {/* Photos per hour chart */}
+      {photosByHour.length > 0 && (
         <div>
-          <h3 className="font-heading font-bold text-muted-foreground text-xs mb-3 uppercase tracking-wide">Photo Submissions — Last 7 Days</h3>
+          <h3 className="font-heading font-bold text-muted-foreground text-xs mb-3 uppercase tracking-wide">Photo Submissions — Last 6 Hours</h3>
           <div className="bg-card border border-border rounded-2xl p-4">
             <div className="flex items-end gap-2 h-24">
-              {photosByDay.map(([day, count]) => (
-                <div key={day} className="flex-1 flex flex-col items-center gap-1">
+              {photosByHour.map(([hour, count]) => (
+                <div key={hour} className="flex-1 flex flex-col items-center gap-1">
                   <div
                     className="w-full bg-primary rounded-t-md transition-all duration-500"
                     style={{ height: `${Math.max((count / maxPhotos) * 80, count > 0 ? 4 : 0)}px` }}
                   />
-                  <span className="text-[9px] text-muted-foreground text-center leading-tight">{day}</span>
+                  <span className="text-[9px] text-muted-foreground text-center leading-tight">{hour}</span>
                 </div>
               ))}
             </div>

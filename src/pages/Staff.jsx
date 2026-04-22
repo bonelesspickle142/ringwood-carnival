@@ -230,31 +230,22 @@ export default function Staff() {
         <p className="text-muted-foreground text-sm mt-0.5">Logged in as <strong className="text-foreground">{currentName}</strong></p>
 
         {/* Tabs */}
-        <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5">
-          <button
-            onClick={() => setActiveTab("notifications")}
-            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "notifications" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
-            <Bell className="w-4 h-4" /> Notify
-          </button>
-          <button
-            onClick={() => setActiveTab("events")}
-            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "events" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
-            <Calendar className="w-4 h-4" /> Events
-          </button>
-          <button
-            onClick={() => setActiveTab("gallery")}
-            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "gallery" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
-            <ImageIcon className="w-4 h-4" /> Gallery
-          </button>
-          <button
-            onClick={() => setActiveTab("analytics")}
-            className={`flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "analytics" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
-            <BarChart2 className="w-4 h-4" /> Stats
-          </button>
+        <div className="flex gap-1 bg-muted rounded-xl p-1 mt-5">
+          {[
+            { key: "notifications", icon: Bell, label: "Notify" },
+            { key: "events", icon: Calendar, label: "Events" },
+            { key: "gallery", icon: ImageIcon, label: "Gallery" },
+            { key: "analytics", icon: BarChart2, label: "Stats" },
+          ].map(({ key, icon: Icon, label }) => (
+            <button
+              key={key}
+              onClick={() => setActiveTab(key)}
+              className={`flex-1 min-w-0 py-2 px-1 rounded-lg font-semibold text-xs transition-all flex flex-col items-center justify-center gap-0.5 ${activeTab === key ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+            >
+              <Icon className="w-4 h-4 flex-shrink-0" />
+              <span className="truncate w-full text-center">{label}</span>
+            </button>
+          ))}
         </div>
       </div>
 
