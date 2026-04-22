@@ -1,0 +1,26 @@
+{
+  "name": "CarnivalPhoto",
+  "type": "object",
+  "properties": {
+    "image_url": {
+      "type": "string",
+      "title": "Image URL"
+    },
+    "caption": {
+      "type": "string",
+      "title": "Caption"
+    },
+    "uploader_name": {
+      "type": "string",
+      "title": "Uploader Name"
+    },
+    "is_approved": {
+      "type": "boolean",
+      "title": "Is Approved",
+      "default": false
+    }
+  },
+  "required": [
+    "image_url"
+  ]
+}

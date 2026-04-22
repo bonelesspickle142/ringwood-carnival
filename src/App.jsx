@@ -9,7 +9,7 @@ import Layout from './components/Layout.jsx';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule';
 import Donate from './pages/Donate';
-import Gallery from './pages/Gallery';
+import Gallery from './pages/Gallery.jsx';
 import Team from './pages/Team';
 import Settings from './pages/Settings';
 import Info from './pages/Info';

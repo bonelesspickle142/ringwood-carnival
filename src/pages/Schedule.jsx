@@ -35,7 +35,11 @@ export default function Schedule() {
     setLoading(false);
   }, []);
 
-  useEffect(() => { loadEvents(); }, [loadEvents]);
+  useEffect(() => {
+    loadEvents();
+    const unsubscribe = base44.entities.Event.subscribe(() => { loadEvents(); });
+    return unsubscribe;
+  }, [loadEvents]);
 
   const { pulling, pullDistance, refreshing } = usePullToRefresh(loadEvents);
 

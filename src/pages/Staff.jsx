@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
+import ModerationQueue from "@/components/staff/ModerationQueue";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
@@ -215,7 +216,7 @@ export default function Staff() {
         <p className="text-white/70 text-sm mb-5">Logged in as <strong>{currentName}</strong></p>
 
         {/* Tabs */}
-        <div className="flex gap-2 bg-white/10 rounded-xl p-1 max-w-xs">
+        <div className="flex gap-2 bg-white/10 rounded-xl p-1">
           <button
             onClick={() => setActiveTab("notifications")}
             className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "notifications" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
@@ -228,12 +229,27 @@ export default function Staff() {
           >
             <Calendar className="w-4 h-4" /> Events
           </button>
+          <button
+            onClick={() => setActiveTab("gallery")}
+            className={`flex-1 py-2 px-3 rounded-lg font-heading font-bold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "gallery" ? "bg-white text-primary" : "text-white/80 hover:text-white"}`}
+          >
+            <ImageIcon className="w-4 h-4" /> Gallery
+          </button>
         </div>
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
 
         {activeTab === "events" && <EventsManager />}
+
+        {activeTab === "gallery" && (
+          <div>
+            <h2 className="font-heading font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+              <ImageIcon className="w-5 h-5 text-primary" /> Moderation Queue
+            </h2>
+            <ModerationQueue />
+          </div>
+        )}
 
         {activeTab === "notifications" && <>
         {/* Road Closures */}

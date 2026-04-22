@@ -27,7 +27,11 @@ export default function Home() {
     setLoading(false);
   }, []);
 
-  useEffect(() => { loadData(); }, [loadData]);
+  useEffect(() => {
+    loadData();
+    const unsubscribe = base44.entities.Event.subscribe(() => { loadData(); });
+    return unsubscribe;
+  }, [loadData]);
 
   const { pulling, pullDistance, refreshing } = usePullToRefresh(loadData);
 

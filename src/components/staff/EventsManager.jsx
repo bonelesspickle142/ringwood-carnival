@@ -166,7 +166,19 @@ export default function EventsManager() {
     setLoading(false);
   };
 
-  useEffect(() => { loadEvents(); }, []);
+  useEffect(() => {
+    loadEvents();
+    const unsubscribe = base44.entities.Event.subscribe((event) => {
+      if (event.type === "create") {
+        setEvents((prev) => [...prev, event.data].sort((a, b) => (a.start_time > b.start_time ? 1 : -1)));
+      } else if (event.type === "update") {
+        setEvents((prev) => prev.map((e) => e.id === event.id ? { ...e, ...event.data } : e));
+      } else if (event.type === "delete") {
+        setEvents((prev) => prev.filter((e) => e.id !== event.id));
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   const handleSave = async (form) => {
     if (editingEvent?.id) {
