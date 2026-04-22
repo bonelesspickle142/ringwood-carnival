@@ -4,7 +4,14 @@ import { X, ChevronLeft, ChevronRight, Camera, Loader2, Upload, CheckCircle2, Tr
 import { base44 } from "@/api/base44Client";
 
 export default function Gallery() {
-  const [isStaff] = useState(() => !!document.cookie.split("; ").find(r => r.startsWith("staffAuth=")));
+  const [isStaff, setIsStaff] = useState(() => !!document.cookie.split("; ").find(r => r.startsWith("staffAuth=")));
+
+  useEffect(() => {
+    const checkStaff = () => setIsStaff(!!document.cookie.split("; ").find(r => r.startsWith("staffAuth=")));
+    checkStaff();
+    const interval = setInterval(checkStaff, 2000);
+    return () => clearInterval(interval);
+  }, []);
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState(null);
