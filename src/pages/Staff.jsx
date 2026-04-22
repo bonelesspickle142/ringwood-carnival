@@ -122,6 +122,13 @@ export default function Staff() {
   };
   const [authenticated, setAuthenticated] = useState(() => !!getStaffAuth());
   const [staffName, setStaffName] = useState(() => getStaffAuth());
+
+  const handleLogout = () => {
+    localStorage.removeItem("staffAuth");
+    setAuthenticated(false);
+    setStaffName("");
+    setPassword("");
+  };
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState("notifications");
@@ -227,7 +234,12 @@ export default function Staff() {
         >
           Staff Area
         </motion.h1>
-        <p className="text-muted-foreground text-sm mt-0.5">Logged in as <strong className="text-foreground">{currentName}</strong></p>
+        <div className="flex items-center justify-between mt-0.5">
+          <p className="text-muted-foreground text-sm">Logged in as <strong className="text-foreground">{currentName}</strong></p>
+          <button onClick={handleLogout} className="text-xs text-muted-foreground hover:text-destructive transition-colors font-heading font-semibold">
+            Log out
+          </button>
+        </div>
 
         {/* Tabs */}
         <div className="flex gap-1 bg-muted rounded-xl p-1 mt-5">
