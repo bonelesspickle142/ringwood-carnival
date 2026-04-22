@@ -41,6 +41,9 @@ export default function Home() {
       <PullToRefreshIndicator pullDistance={pullDistance} refreshing={refreshing} />
       <div className="min-h-screen">
         <LivePulseHero heroImage={HERO_IMAGE} />
+        <div className="px-5 md:px-12 pt-5 pb-1">
+          <p className="text-sm font-semibold text-muted-foreground tracking-wide">📅 19 September 2026</p>
+        </div>
 
         <ProcessionRoute />
 
