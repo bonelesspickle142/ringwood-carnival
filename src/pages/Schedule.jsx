@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import EventCard from "../components/EventCard";
 import { Loader2, Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import PullToRefreshIndicator from "../components/PullToRefreshIndicator";
+import { usePullToRefresh } from "../hooks/usePullToRefresh";
 
 const EVENTS_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/c843088ab_generated_4ee0f178.png";
 
@@ -23,18 +25,19 @@ export default function Schedule() {
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  useEffect(() => {
-    const loadEvents = async () => {
-      try {
-        const data = await base44.entities.Event.list("start_time", 100);
-        setEvents(data);
-      } catch (e) {
-        // empty
-      }
-      setLoading(false);
-    };
-    loadEvents();
+  const loadEvents = useCallback(async () => {
+    try {
+      const data = await base44.entities.Event.list("start_time", 100);
+      setEvents(data);
+    } catch (e) {
+      // empty
+    }
+    setLoading(false);
   }, []);
+
+  useEffect(() => { loadEvents(); }, [loadEvents]);
+
+  const { pulling, pullDistance, refreshing } = usePullToRefresh(loadEvents);
 
   const filtered = activeFilter === "all"
     ? events
@@ -42,6 +45,7 @@ export default function Schedule() {
 
   return (
     <div className="min-h-screen">
+      <PullToRefreshIndicator pullDistance={pullDistance} refreshing={refreshing} />
       {/* Header banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <img

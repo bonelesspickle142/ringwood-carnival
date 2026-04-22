@@ -158,7 +158,6 @@ export default function EventsManager() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
-  const [deletingId, setDeletingId] = useState(null);
 
   const loadEvents = async () => {
     setLoading(true);
@@ -171,23 +170,31 @@ export default function EventsManager() {
 
   const handleSave = async (form) => {
     if (editingEvent?.id) {
+      // Optimistic update for edit
+      setEvents((prev) => prev.map((e) => e.id === editingEvent.id ? { ...e, ...form } : e));
+      setShowForm(false);
+      setEditingEvent(null);
       await base44.entities.Event.update(editingEvent.id, form);
       toast.success("Event updated.");
     } else {
-      await base44.entities.Event.create(form);
+      // Optimistic create: add temp item immediately
+      const tempId = `temp-${Date.now()}`;
+      const optimistic = { ...form, id: tempId, _optimistic: true };
+      setEvents((prev) => [...prev, optimistic]);
+      setShowForm(false);
+      setEditingEvent(null);
+      const created = await base44.entities.Event.create(form);
+      // Replace temp with real record
+      setEvents((prev) => prev.map((e) => e.id === tempId ? { ...created } : e));
       toast.success("Event created.");
     }
-    setShowForm(false);
-    setEditingEvent(null);
-    loadEvents();
   };
 
   const handleDelete = async (id) => {
-    setDeletingId(id);
+    // Optimistic delete
+    setEvents((prev) => prev.filter((e) => e.id !== id));
     await base44.entities.Event.delete(id);
     toast.success("Event deleted.");
-    setDeletingId(null);
-    loadEvents();
   };
 
   const openEdit = (event) => {
@@ -237,55 +244,65 @@ export default function EventsManager() {
         </div>
       ) : (
         <div className="space-y-3">
-          {events.map((event) => (
-            <div key={event.id} className="bg-card border border-border rounded-2xl p-4 flex gap-3 items-start">
-              {event.image_url && (
-                <img src={event.image_url} alt={event.title} className="w-14 h-14 rounded-xl object-cover flex-shrink-0" />
-              )}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="font-heading font-bold text-foreground text-sm">{event.title}</p>
-                    <div className="flex flex-wrap gap-2 mt-1 text-xs text-muted-foreground">
-                      {event.start_time && (
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />{event.start_time}{event.end_time ? ` – ${event.end_time}` : ""}
-                        </span>
-                      )}
-                      {event.location && (
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />{event.location}
-                        </span>
-                      )}
-                      {event.category && (
-                        <span className="flex items-center gap-1">
-                          <Tag className="w-3 h-3" />{event.category}
-                        </span>
+          <AnimatePresence>
+            {events.map((event) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: event._optimistic ? 0.6 : 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="bg-card border border-border rounded-2xl p-4 flex gap-3 items-start overflow-hidden"
+              >
+                {event.image_url && (
+                  <img src={event.image_url} alt={event.title} className="w-14 h-14 rounded-xl object-cover flex-shrink-0" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-heading font-bold text-foreground text-sm">{event.title}</p>
+                      <div className="flex flex-wrap gap-2 mt-1 text-xs text-muted-foreground">
+                        {event.start_time && (
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />{event.start_time}{event.end_time ? ` – ${event.end_time}` : ""}
+                          </span>
+                        )}
+                        {event.location && (
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />{event.location}
+                          </span>
+                        )}
+                        {event.category && (
+                          <span className="flex items-center gap-1">
+                            <Tag className="w-3 h-3" />{event.category}
+                          </span>
+                        )}
+                      </div>
+                      {event.description && (
+                        <p className="text-muted-foreground text-xs mt-1 line-clamp-1">{event.description}</p>
                       )}
                     </div>
-                    {event.description && (
-                      <p className="text-muted-foreground text-xs mt-1 line-clamp-1">{event.description}</p>
+                    {!event._optimistic && (
+                      <div className="flex gap-2 flex-shrink-0">
+                        <button
+                          onClick={() => openEdit(event)}
+                          className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(event.id)}
+                          className="p-2 rounded-lg hover:bg-destructive/10 transition-colors text-muted-foreground hover:text-destructive"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     )}
                   </div>
-                  <div className="flex gap-2 flex-shrink-0">
-                    <button
-                      onClick={() => openEdit(event)}
-                      className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(event.id)}
-                      disabled={deletingId === event.id}
-                      className="p-2 rounded-lg hover:bg-destructive/10 transition-colors text-muted-foreground hover:text-destructive disabled:opacity-50"
-                    >
-                      {deletingId === event.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-                    </button>
-                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       )}
     </div>

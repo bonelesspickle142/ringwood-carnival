@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import LivePulseHero from "../components/LivePulseHero";
@@ -6,6 +6,8 @@ import QuickLinks from "../components/QuickLinks";
 import EventCard from "../components/EventCard";
 import SplashScreen from "../components/SplashScreen";
 import ProcessionRoute from "../components/ProcessionRoute";
+import PullToRefreshIndicator from "../components/PullToRefreshIndicator";
+import { usePullToRefresh } from "../hooks/usePullToRefresh";
 import { Loader2, Heart } from "lucide-react";
 
 const HERO_IMAGE = "https://ss.charleymurphy.xyz/20250920_Ringwood-carnival-night-proccesion_0493%20%281%29.jpg";
@@ -15,22 +17,24 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [splashDone, setSplashDone] = useState(false);
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const events = await base44.entities.Event.list("start_time", 6);
-        setFeaturedEvents(events);
-      } catch (e) {
-        // No events yet
-      }
-      setLoading(false);
-    };
-    loadData();
+  const loadData = useCallback(async () => {
+    try {
+      const events = await base44.entities.Event.list("start_time", 6);
+      setFeaturedEvents(events);
+    } catch (e) {
+      // No events yet
+    }
+    setLoading(false);
   }, []);
+
+  useEffect(() => { loadData(); }, [loadData]);
+
+  const { pulling, pullDistance, refreshing } = usePullToRefresh(loadData);
 
   return (
     <>
       {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
+      <PullToRefreshIndicator pullDistance={pullDistance} refreshing={refreshing} />
       <div className="min-h-screen">
         <LivePulseHero heroImage={HERO_IMAGE} />
 
