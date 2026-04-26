@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { base44 } from "@/api/base44Client";
-import { Heart, CheckCircle2, Loader2, Trophy, Store } from "lucide-react";
+import { Heart, CheckCircle2, Loader2, Store, X } from "lucide-react";
 
 const VOTE_KEY = "shopWindowVote";
 
@@ -25,18 +25,38 @@ export default function Vote() {
   }, []);
 
   const handleVote = async (shop) => {
-    if (votedId || voting) return;
+    if (voting) return;
     setVoting(shop.id);
-    const newCount = (shop.vote_count || 0) + 1;
-    // Optimistic update
-    setShops((prev) => prev.map((s) => s.id === shop.id ? { ...s, vote_count: newCount } : s));
-    localStorage.setItem(VOTE_KEY, shop.id);
-    setVotedId(shop.id);
-    await base44.entities.ShopEntry.update(shop.id, { vote_count: newCount });
+
+    if (votedId === shop.id) {
+      // Remove vote
+      const newCount = Math.max((shop.vote_count || 1) - 1, 0);
+      setShops((prev) => prev.map((s) => s.id === shop.id ? { ...s, vote_count: newCount } : s));
+      localStorage.removeItem(VOTE_KEY);
+      setVotedId(null);
+      await base44.entities.ShopEntry.update(shop.id, { vote_count: newCount });
+    } else {
+      // Switch vote: remove old vote first
+      if (votedId) {
+        const oldShop = shops.find((s) => s.id === votedId);
+        if (oldShop) {
+          const oldCount = Math.max((oldShop.vote_count || 1) - 1, 0);
+          setShops((prev) => prev.map((s) => s.id === votedId ? { ...s, vote_count: oldCount } : s));
+          await base44.entities.ShopEntry.update(votedId, { vote_count: oldCount });
+        }
+      }
+      // Add new vote
+      const newCount = (shop.vote_count || 0) + 1;
+      setShops((prev) => prev.map((s) => s.id === shop.id ? { ...s, vote_count: newCount } : s));
+      localStorage.setItem(VOTE_KEY, shop.id);
+      setVotedId(shop.id);
+      await base44.entities.ShopEntry.update(shop.id, { vote_count: newCount });
+    }
+
     setVoting(null);
   };
 
-  const sortedShops = [...shops].sort((a, b) => (b.vote_count || 0) - (a.vote_count || 0));
+  const sortedShops = [...shops];
 
   return (
     <div className="min-h-screen">
@@ -52,7 +72,7 @@ export default function Vote() {
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
             {votedId
-              ? "Thanks for voting! Your vote has been recorded."
+              ? "Thanks for voting! Tap your choice again to remove your vote."
               : "Vote for your favourite decorated shop window."}
           </p>
         </motion.div>
@@ -103,11 +123,6 @@ export default function Vote() {
                   {shop.image_url && (
                     <div className="relative h-48 overflow-hidden">
                       <img src={shop.image_url} alt={shop.name} className="w-full h-full object-cover" />
-                      {i === 0 && votedId && (
-                        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-yellow-400 text-yellow-900 text-xs font-heading font-bold px-3 py-1 rounded-full shadow">
-                          <Trophy className="w-3.5 h-3.5" /> Leading
-                        </div>
-                      )}
                     </div>
                   )}
                   <div className="p-4">
@@ -118,28 +133,21 @@ export default function Vote() {
                           <p className="text-muted-foreground text-sm mt-1 line-clamp-2">{shop.description}</p>
                         )}
                       </div>
-                      {hasVoted && (
-                        <div className="flex flex-col items-center flex-shrink-0">
-                          <span className="text-2xl font-bold font-heading text-foreground">{shop.vote_count || 0}</span>
-                          <span className="text-[10px] text-muted-foreground uppercase tracking-wide">votes</span>
-                        </div>
-                      )}
+
                     </div>
                     <button
                       onClick={() => handleVote(shop)}
-                      disabled={hasVoted || voting === shop.id}
+                      disabled={voting !== null}
                       className={`mt-4 w-full flex items-center justify-center gap-2 font-heading font-bold py-3 rounded-xl transition-all text-sm ${
                         isVoted
-                          ? "bg-secondary text-white"
-                          : hasVoted
-                          ? "bg-muted text-muted-foreground cursor-not-allowed"
+                          ? "bg-secondary/10 text-secondary border border-secondary/30 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 active:scale-95"
                           : "bg-secondary text-white hover:bg-secondary/90 active:scale-95"
-                      }`}
+                      } disabled:opacity-50`}
                     >
-                      {isVoted ? (
-                        <><CheckCircle2 className="w-4 h-4" /> Your Vote</>
-                      ) : voting === shop.id ? (
+                      {voting === shop.id ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : isVoted ? (
+                        <><CheckCircle2 className="w-4 h-4" /> Your Vote — tap to remove</>
                       ) : (
                         <><Heart className="w-4 h-4" /> Vote for this shop</>
                       )}
