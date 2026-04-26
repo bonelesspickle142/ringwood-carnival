@@ -15,6 +15,7 @@ import Team from './pages/Team';
 import Settings from './pages/Settings';
 import Info from './pages/Info';
 import Staff from './pages/Staff';
+import Vote from './pages/Vote';
 
 // Sync Tailwind dark class with system color scheme
 if (typeof window !== "undefined") {
@@ -55,6 +56,7 @@ const AuthenticatedApp = () => {
         <Route path="/info" element={<Info />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/staff" element={<Staff />} />
+        <Route path="/vote" element={<Vote />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

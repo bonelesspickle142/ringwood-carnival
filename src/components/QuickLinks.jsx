@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, Users, MapPin, ImageIcon } from "lucide-react";
+import { Calendar, Users, MapPin, ImageIcon, Store } from "lucide-react";
 
 const links = [
   {
@@ -12,18 +12,18 @@ const links = [
     iconColor: "text-primary",
   },
   {
-    to: "/gallery",
-    icon: ImageIcon,
-    label: "Gallery",
-    desc: "Photos & memories",
+    to: "/vote",
+    icon: Store,
+    label: "Shop Window Vote",
+    desc: "Vote for your favourite",
     iconBg: "bg-secondary/10",
     iconColor: "text-secondary",
   },
   {
-    to: "/team",
-    icon: Users,
-    label: "Meet the Team",
-    desc: "Our volunteers",
+    to: "/gallery",
+    icon: ImageIcon,
+    label: "Gallery",
+    desc: "Photos & memories",
     iconBg: "bg-muted",
     iconColor: "text-muted-foreground",
   },

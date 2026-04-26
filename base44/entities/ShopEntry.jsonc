@@ -1,0 +1,26 @@
+{
+  "name": "ShopEntry",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Shop Name"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Window Photo URL"
+    },
+    "vote_count": {
+      "type": "number",
+      "title": "Vote Count",
+      "default": 0
+    }
+  },
+  "required": [
+    "name"
+  ]
+}
