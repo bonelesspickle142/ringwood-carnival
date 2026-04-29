@@ -1,0 +1,22 @@
+{
+  "name": "ProgrammeClaim",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "title": "Email"
+    },
+    "used": {
+      "type": "boolean",
+      "title": "Used",
+      "default": false
+    },
+    "donor_name": {
+      "type": "string",
+      "title": "Donor Name"
+    }
+  },
+  "required": [
+    "email"
+  ]
+}
