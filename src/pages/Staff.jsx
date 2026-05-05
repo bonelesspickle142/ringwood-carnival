@@ -12,12 +12,10 @@ import AdminArea from "@/components/staff/AdminArea";
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
 
-async function logAction(name, action) {
-  try {
-    await base44.functions.invoke("logStaffAction", { name, action });
-  } catch (e) {
-    console.error("Failed to log action:", e);
-  }
+function logAction(name, action) {
+  base44.functions.invoke("logStaffAction", { name, action }).catch(() => {
+    // Logging is best-effort; ignore failures silently
+  });
 }
 
 const QUICK_MESSAGES = [
