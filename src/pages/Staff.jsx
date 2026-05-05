@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, BarChart2, Store, Shield } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, BarChart2, Store, Shield, Radio } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
@@ -250,6 +250,7 @@ export default function Staff() {
             { key: "gallery", icon: ImageIcon, label: "Gallery" },
             { key: "shops", icon: Store, label: "Shops" },
             { key: "analytics", icon: BarChart2, label: "Stats" },
+            { key: "radio", icon: Radio, label: "Radio" },
             { key: "admin", icon: Shield, label: "Admin" },
           ].map(({ key, icon: Icon, label }) => (
             <button
@@ -265,6 +266,15 @@ export default function Staff() {
       </div>
 
       <div className="px-5 py-8 pb-32 max-w-xl mx-auto w-full">
+
+        {activeTab === "radio" && (
+          <div>
+            <h2 className="font-heading font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+              <Radio className="w-5 h-5 text-primary" /> Radio Sign In/Out
+            </h2>
+            <RadioLog />
+          </div>
+        )}
 
         {activeTab === "admin" && <AdminArea />}
 
