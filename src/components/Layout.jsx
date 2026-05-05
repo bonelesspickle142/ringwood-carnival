@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
-import { useState } from "react";
+
 // BackHeader removed — iOS tab bar handles navigation
 
 const navItems = [
@@ -16,8 +16,6 @@ const navItems = [
 export default function Layout() {
   const location = useLocation();
   const scrollPositions = useRef({});
-  const [logoTaps, setLogoTaps] = useState(0);
-  const logoTapTimer = useRef(null);
 
   const handleNavClick = (e, path) => {
     const isActive = location.pathname === path;
@@ -27,18 +25,6 @@ export default function Layout() {
       return;
     }
     scrollPositions.current[location.pathname] = window.scrollY;
-  };
-
-  const handleLogoTap = () => {
-    const newCount = logoTaps + 1;
-    setLogoTaps(newCount);
-    clearTimeout(logoTapTimer.current);
-    if (newCount >= 5) {
-      setLogoTaps(0);
-      window.location.href = "/committee";
-    } else {
-      logoTapTimer.current = setTimeout(() => setLogoTaps(0), 2000);
-    }
   };
 
   const handleAnimationComplete = () => {
@@ -70,14 +56,6 @@ export default function Layout() {
       >
         <div className="bg-white/90 dark:bg-black/90 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-2xl shadow-xl">
           <div className="relative flex items-center justify-around px-2 pt-2 pb-2">
-            {/* Carnival logo — 5 taps navigates to /committee (committee only) */}
-            <button
-              onClick={handleLogoTap}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg overflow-hidden opacity-40 hover:opacity-60 transition-opacity"
-              aria-hidden="true"
-            >
-              <img src="https://ss.charleymurphy.xyz/RWC%20Logo.jpg" alt="" className="w-full h-full object-cover" />
-            </button>
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               const Icon = item.icon;

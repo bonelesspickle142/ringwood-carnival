@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Bell, BellOff, Info, ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -20,6 +20,20 @@ export default function Settings() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [permissionState, setPermissionState] = useState("default");
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [logoTaps, setLogoTaps] = useState(0);
+  const logoTapTimer = useRef(null);
+
+  const handleLogoTap = () => {
+    const newCount = logoTaps + 1;
+    setLogoTaps(newCount);
+    clearTimeout(logoTapTimer.current);
+    if (newCount >= 5) {
+      setLogoTaps(0);
+      window.location.href = "/committee";
+    } else {
+      logoTapTimer.current = setTimeout(() => setLogoTaps(0), 2000);
+    }
+  };
 
   useEffect(() => {
     if ("Notification" in window) {
@@ -166,7 +180,10 @@ export default function Settings() {
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </Link>
           )}
-          <div className="border-t border-border p-4">
+          <div className="border-t border-border p-4 flex items-center gap-3">
+            <button onClick={handleLogoTap} className="w-6 h-6 rounded-md overflow-hidden opacity-40 hover:opacity-70 transition-opacity flex-shrink-0" aria-hidden="true">
+              <img src="https://ss.charleymurphy.xyz/RWC%20Logo.jpg" alt="" className="w-full h-full object-cover" />
+            </button>
             <p className="text-xs text-muted-foreground">Ringwood Carnival App v1.0</p>
           </div>
         </div>
