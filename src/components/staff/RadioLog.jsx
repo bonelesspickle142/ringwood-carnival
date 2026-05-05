@@ -55,7 +55,7 @@ function SignOutForm() {
     return (
       <div>
         <h3 className="font-heading font-bold text-foreground text-base mb-1">Please Sign Below</h3>
-        <p className="text-muted-foreground text-xs mb-4">By signing, you confirm you are taking responsibility for Radio {form.radioId}.</p>
+        <p className="text-muted-foreground text-xs mb-4">By signing, you confirm you are taking responsibility for Radio {form.radioId}. and any damage may be charged back to you if deemed negligent.</p>
         <SignaturePad onConfirm={handleSubmit} onCancel={() => setStep("form")} submitting={submitting} />
       </div>
     );
