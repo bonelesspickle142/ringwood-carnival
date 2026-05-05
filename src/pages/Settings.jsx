@@ -154,7 +154,8 @@ export default function Settings() {
           { label: "About Ringwood Carnival", to: "/info" },
           { label: "Meet the Team", to: "/team" },
           { label: "Donate & Support", to: "/donate" },
-          { label: "Staff Area", to: "/staff" }].
+          { label: "Staff Area", to: "/staff" },
+        ].
           map((item, i) =>
           <Link
             key={item.label}

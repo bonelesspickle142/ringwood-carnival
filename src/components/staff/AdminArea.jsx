@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Shield, Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw } from "lucide-react";
+import { Shield, Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, Users } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import MarshalManager from "./MarshalManager";
 
 const SU_SESSION_KEY = "suAuth";
 
@@ -37,6 +38,7 @@ export default function AdminArea() {
   const [showSuPass, setShowSuPass] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
 
+  const [adminTab, setAdminTab] = useState("logins");
   const [staff, setStaff] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -165,8 +167,8 @@ export default function AdminArea() {
             <Shield className="w-4 h-4 text-primary" />
           </div>
           <div>
-            <h2 className="font-heading font-bold text-foreground text-base">Staff Logins</h2>
-            <p className="text-xs text-muted-foreground">Synced to Google Sheets</p>
+            <h2 className="font-heading font-bold text-foreground text-base">Admin</h2>
+            <p className="text-xs text-muted-foreground">Committee &amp; Marshal management</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -188,6 +190,25 @@ export default function AdminArea() {
         </div>
       </div>
 
+      {/* Admin sub-tabs */}
+      <div className="flex gap-1 bg-muted rounded-xl p-1 mb-4">
+        <button
+          onClick={() => setAdminTab("logins")}
+          className={`flex-1 py-2 rounded-lg font-semibold text-xs transition-all flex items-center justify-center gap-1.5 ${adminTab === "logins" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+        >
+          <Shield className="w-3.5 h-3.5" /> Committee Logins
+        </button>
+        <button
+          onClick={() => setAdminTab("marshals")}
+          className={`flex-1 py-2 rounded-lg font-semibold text-xs transition-all flex items-center justify-center gap-1.5 ${adminTab === "marshals" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+        >
+          <Users className="w-3.5 h-3.5" /> Marshal Passwords
+        </button>
+      </div>
+
+      {adminTab === "marshals" && <MarshalManager />}
+
+      {adminTab === "logins" && <>
       <AnimatePresence>
         {showAddForm && (
           <motion.div
@@ -266,6 +287,7 @@ export default function AdminArea() {
       <p className="text-xs text-muted-foreground text-center mt-4">
         <a href="https://docs.google.com/spreadsheets/d/1IARpSN3VmSr5z55W8Tp0EE4oJAkzwnpJSHh_7yC4H3g" target="_blank" rel="noopener noreferrer" className="underline">View in Google Sheets ↗</a>
       </p>
+      </>}
     </div>
   );
 }

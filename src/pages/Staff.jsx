@@ -188,7 +188,7 @@ export default function Staff() {
               <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                 <Lock className="w-7 h-7 text-primary" />
               </div>
-              <h1 className="font-heading text-2xl font-bold text-foreground">Staff Area</h1>
+              <h1 className="font-heading text-2xl font-bold text-foreground">Committee Area</h1>
               <p className="text-muted-foreground text-sm mt-1 text-center">Enter your name and password to continue</p>
             </div>
             <form onSubmit={handleLogin} className="space-y-4">
@@ -232,7 +232,7 @@ export default function Staff() {
           className="text-3xl font-bold text-foreground"
           style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
         >
-          Staff Area
+          Committee Area
         </motion.h1>
         <div className="flex items-center justify-between mt-0.5">
           <p className="text-muted-foreground text-sm">Logged in as <strong className="text-foreground">{currentName}</strong></p>

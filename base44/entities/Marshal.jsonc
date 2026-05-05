@@ -1,0 +1,37 @@
+{
+  "name": "Marshal",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "role": {
+      "type": "string",
+      "title": "Role",
+      "description": "e.g. Road Marshal, Float Marshal, First Aid"
+    },
+    "password": {
+      "type": "string",
+      "title": "Login Password"
+    },
+    "checked_in": {
+      "type": "boolean",
+      "title": "Checked In",
+      "default": false
+    },
+    "check_in_time": {
+      "type": "string",
+      "title": "Check-in Time"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes / Briefing Info"
+    }
+  },
+  "required": [
+    "name",
+    "role",
+    "password"
+  ]
+}
