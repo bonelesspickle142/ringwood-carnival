@@ -17,7 +17,7 @@ function getMarshalSession() {
 }
 
 const CONTACTS = [
-  { name: "Control", role: "Event Control", number: "TBC" },
+  { name: "Control", role: "Event Control", number: "01425 517025" },
   { name: "First Aid Lead", role: "First Aid", number: "TBC" },
   { name: "Police Liaison", role: "Hampshire Police", number: "TBC" },
 ];
@@ -27,7 +27,7 @@ const BRIEFING_POINTS = [
   "Do not allow vehicles to move once road closures are in place.",
   "If you witness an incident, contact Control immediately via radio.",
   "Your primary duty is public safety — do not leave your post without authorisation.",
-  "In case of emergency, inform the control room via radio or phone",
+  "In case of emergency, inform the control room via radio or phone with all details.",
   "Procession route must be kept clear at all times.",
 ];
 
