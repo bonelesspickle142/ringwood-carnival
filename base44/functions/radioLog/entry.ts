@@ -19,7 +19,8 @@ Deno.serve(async (req) => {
   if (action === 'sign_out') {
     const { name, role, radioId, hasEarpiece, hasSpareBattery, signature } = body;
 
-    // Ensure "Sign Out" sheet exists with headers
+    const sigValue = signature ? await uploadSignature(base44, signature) : '[No signature]';
+
     await ensureSheet(accessToken, spreadsheetId, 'Sign Out', [
       'Timestamp', 'Name', 'Role', 'Radio ID', 'Earpiece', 'Spare Battery', 'Signature'
     ]);
@@ -28,7 +29,7 @@ Deno.serve(async (req) => {
       timestamp, name, role, radioId,
       hasEarpiece ? 'Yes' : 'No',
       hasSpareBattery ? 'Yes' : 'No',
-      signature ? '[Signed]' : '[No signature]'
+      sigValue
     ]);
 
     return Response.json({ success: true });
@@ -36,6 +37,8 @@ Deno.serve(async (req) => {
 
   if (action === 'sign_in') {
     const { radioId, hasDamage, damageNotes, earpieceReturned, batteryReturned, signature } = body;
+
+    const sigValue = signature ? await uploadSignature(base44, signature) : '[No signature]';
 
     await ensureSheet(accessToken, spreadsheetId, 'Sign In', [
       'Timestamp', 'Radio ID', 'Damage?', 'Damage Notes', 'Earpiece Returned', 'Battery Returned', 'Signature'
@@ -47,7 +50,7 @@ Deno.serve(async (req) => {
       damageNotes || '',
       earpieceReturned ? 'Yes' : 'No',
       batteryReturned ? 'Yes' : 'No',
-      signature ? '[Signed]' : '[No signature]'
+      sigValue
     ]);
 
     return Response.json({ success: true });
@@ -89,11 +92,22 @@ async function ensureSheet(accessToken, spreadsheetId, sheetName, headers) {
 
 async function appendRow(accessToken, spreadsheetId, sheetName, values) {
   await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}!A:A:append?valueInputOption=RAW`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}!A:A:append?valueInputOption=USER_ENTERED`,
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ values: [values] })
     }
   );
+}
+
+async function uploadSignature(base44, dataUrl) {
+  // Convert base64 data URL to binary
+  const base64 = dataUrl.replace(/^data:image\/png;base64,/, '');
+  const binary = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+  const blob = new Blob([binary], { type: 'image/png' });
+
+  const { file_url } = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
+  // Return an =IMAGE() formula so Google Sheets renders it as a picture
+  return `=IMAGE("${file_url}")`;
 }
