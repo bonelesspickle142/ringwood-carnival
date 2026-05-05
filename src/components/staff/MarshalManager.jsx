@@ -6,13 +6,13 @@ import { toast } from "sonner";
 
 // ── SECTOR MARSHALS ── Edit names & numbers here ─────────────────────────────
 export const SECTOR_MARSHALS = [
-  { name: "Sector Marshal 1", phone: "07700 000001" },
-  { name: "Sector Marshal 2", phone: "07700 000002" },
-  { name: "Sector Marshal 3", phone: "07700 000003" },
-  { name: "Sector Marshal 4", phone: "07700 000004" },
-  { name: "Sector Marshal 5", phone: "07700 000005" },
-  { name: "Sector Marshal 6", phone: "07700 000006" },
-  { name: "Sector Marshal 7", phone: "07700 000007" },
+  { name: "Sector 1 - ", phone: "07700 000001" },
+  { name: "Sector 2 - ", phone: "07700 000002" },
+  { name: "Sector 3 - ", phone: "07700 000003" },
+  { name: "Sector 4 - ", phone: "07700 000004" },
+  { name: "Sector 5 - ", phone: "07700 000005" },
+  { name: "Sector 6 - ", phone: "07700 000006" },
+  { name: "Parkside - ", phone: "07700 000007" },
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 
