@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
 import BackHeader from "./BackHeader";
@@ -12,41 +12,70 @@ const navItems = [
   { path: "/settings", icon: Settings, label: "More" },
 ];
 
-// Tab paths that have their own scroll positions tracked
 const TAB_PATHS = navItems.map((n) => n.path);
+
+// Determine which tab root the current path belongs to
+function getActiveTab(pathname) {
+  // Exact match first
+  if (TAB_PATHS.includes(pathname)) return pathname;
+  // Find the deepest tab prefix match
+  return TAB_PATHS.find((t) => t !== "/" && pathname.startsWith(t)) ?? "/";
+}
 
 export default function Layout() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Per-tab: remember the last visited path within each tab
+  const tabHistory = useRef(
+    Object.fromEntries(TAB_PATHS.map((p) => [p, p]))
+  );
+
+  // Per-tab: remember scroll position
   const scrollPositions = useRef({});
 
+  const activeTab = getActiveTab(location.pathname);
+
+  // Keep tabHistory up to date with the current path
+  tabHistory.current[activeTab] = location.pathname;
+
   const isRootPath = location.pathname === "/";
-  // Non-root pages show a BackHeader (~48px tall + safe-area-inset-top)
-  // We add top padding to main so content isn't hidden under it.
+
+  // main top padding: home has only safe-area-inset-top; others also account for the 48px BackHeader
   const mainTopPadding = isRootPath
     ? "env(safe-area-inset-top)"
     : "calc(env(safe-area-inset-top) + 48px)";
 
-  const handleNavClick = (e, path) => {
-    const isActive = location.pathname === path;
-    if (isActive) {
-      // Tapping active tab scrolls to top
+  const handleNavClick = (e, tabPath) => {
+    const isActiveTab = activeTab === tabPath;
+
+    if (isActiveTab) {
+      // Already on this tab — scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" });
       e.preventDefault();
       return;
     }
-    // Save scroll position for the current page before leaving
+
+    // Save current scroll position before leaving
     scrollPositions.current[location.pathname] = window.scrollY;
+
+    // Navigate to the last known path within the destination tab
+    const destination = tabHistory.current[tabPath] ?? tabPath;
+    if (destination !== tabPath) {
+      e.preventDefault();
+      navigate(destination);
+    }
+    // If destination === tabPath, let the Link handle it normally
   };
 
   const handleAnimationComplete = () => {
-    // After the page transition animation, restore saved scroll for this route
     const saved = scrollPositions.current[location.pathname] ?? 0;
     window.scrollTo({ top: saved, behavior: "instant" });
   };
 
   return (
     <div className="min-h-screen bg-background relative">
-      {/* BackHeader: visible on all non-root pages, uses safe-area-inset-top */}
+      {/* BackHeader: visible on all non-root pages, respects safe-area-inset-top */}
       <BackHeader />
 
       <main className="pb-28" style={{ paddingTop: mainTopPadding }}>
@@ -64,7 +93,7 @@ export default function Layout() {
         </AnimatePresence>
       </main>
 
-      {/* iOS-style tab bar — user-select:none scoped to this nav element only */}
+      {/* iOS-style tab bar — user-select:none scoped to nav only */}
       <div
         className="fixed bottom-4 left-4 right-4 z-[100]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
@@ -75,7 +104,7 @@ export default function Layout() {
         >
           <div className="flex items-center justify-around px-2 pt-1 pb-1">
             {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
+              const isActive = activeTab === item.path;
               const Icon = item.icon;
               return (
                 <Link
