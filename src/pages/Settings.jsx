@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
 import { Bell, BellOff, Info, ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -209,7 +210,14 @@ export default function Settings() {
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
                   className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                  onClick={() => toast.error("Account deletion is not yet available. Please contact support.")}
+                  onClick={async () => {
+                    try {
+                      await base44.functions.invoke("deleteAccount", {});
+                      base44.auth.logout("/");
+                    } catch {
+                      toast.error("Failed to delete account. Please try again.");
+                    }
+                  }}
                 >
                   Delete Account
                 </AlertDialogAction>

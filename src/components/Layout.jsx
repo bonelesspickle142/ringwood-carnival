@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
+import BackHeader from "./BackHeader";
 
 // BackHeader removed — iOS tab bar handles navigation
 
@@ -34,6 +35,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background relative">
+      <BackHeader />
       <main className="pb-28" style={{ paddingTop: "env(safe-area-inset-top)" }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -55,7 +57,7 @@ export default function Layout() {
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="bg-white/90 dark:bg-black/90 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-2xl shadow-xl">
-          <div className="relative flex items-center justify-around px-2 pt-2 pb-2">
+          <div className="relative flex items-center justify-around px-2 pt-1 pb-1 select-none" style={{ userSelect: "none" }}>
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               const Icon = item.icon;
@@ -64,7 +66,8 @@ export default function Layout() {
                   key={item.path}
                   to={item.path}
                   onClick={(e) => handleNavClick(e, item.path)}
-                  className="flex flex-col items-center gap-0.5 px-3 py-1.5 min-w-[56px] select-none"
+                  className="flex flex-col items-center justify-center gap-0.5 select-none"
+                  style={{ minWidth: 56, minHeight: 44 }}
                 >
                   <div className="relative flex items-center justify-center w-7 h-7">
                     <Icon
