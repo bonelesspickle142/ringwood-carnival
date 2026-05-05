@@ -6,7 +6,6 @@ Deno.serve(async (req) => {
   const { action } = body;
 
   const spreadsheetId = Deno.env.get('RADIO_LOG_SHEET_ID');
-
   const { accessToken } = await base44.asServiceRole.connectors.getConnection('googlesheets');
 
   const now = new Date();
@@ -19,8 +18,6 @@ Deno.serve(async (req) => {
   if (action === 'sign_out') {
     const { name, role, radioId, hasEarpiece, hasSpareBattery, signature } = body;
 
-    const sigValue = signature ? await uploadSignature(base44, signature) : '[No signature]';
-
     await ensureSheet(accessToken, spreadsheetId, 'Sign Out', [
       'Timestamp', 'Name', 'Role', 'Radio ID', 'Earpiece', 'Spare Battery', 'Signature'
     ]);
@@ -29,38 +26,58 @@ Deno.serve(async (req) => {
       timestamp, name, role, radioId,
       hasEarpiece ? 'Yes' : 'No',
       hasSpareBattery ? 'Yes' : 'No',
-      sigValue
+      signature ? '[Signed]' : '[No signature]',
+      signature || ''
     ]);
 
     return Response.json({ success: true });
   }
 
   if (action === 'sign_in') {
-    const { radioId, hasDamage, damageNotes, earpieceReturned, batteryReturned, signature } = body;
-
-    const sigValue = signature ? await uploadSignature(base44, signature) : '[No signature]';
+    const { radioId, hasDamage, damageNotes, earpieceReturned, batteryReturned, signature, name, role } = body;
 
     await ensureSheet(accessToken, spreadsheetId, 'Sign In', [
-      'Timestamp', 'Radio ID', 'Damage?', 'Damage Notes', 'Earpiece Returned', 'Battery Returned', 'Signature'
+      'Timestamp', 'Name', 'Role', 'Radio ID', 'Damage?', 'Damage Notes', 'Earpiece Returned', 'Battery Returned', 'Signature'
     ]);
 
     await appendRow(accessToken, spreadsheetId, 'Sign In', [
-      timestamp, radioId,
+      timestamp, name || '', role || '', radioId,
       hasDamage ? 'Yes' : 'No',
       damageNotes || '',
       earpieceReturned ? 'Yes' : 'No',
       batteryReturned ? 'Yes' : 'No',
-      sigValue
+      signature ? '[Signed]' : '[No signature]',
+      signature || ''
     ]);
 
     return Response.json({ success: true });
+  }
+
+  if (action === 'get_logs') {
+    const { sheet } = body; // 'Sign Out' or 'Sign In'
+
+    const res = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheet)}`,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    const data = await res.json();
+    const rows = data.values || [];
+    if (rows.length <= 1) return Response.json({ logs: [] });
+
+    const headers = rows[0];
+    const logs = rows.slice(1).map(row => {
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = row[i] || ''; });
+      return obj;
+    });
+
+    return Response.json({ logs: logs.reverse() });
   }
 
   return Response.json({ error: 'Unknown action' }, { status: 400 });
 });
 
 async function ensureSheet(accessToken, spreadsheetId, sheetName, headers) {
-  // Get existing sheets
   const metaRes = await fetch(
     `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -69,7 +86,6 @@ async function ensureSheet(accessToken, spreadsheetId, sheetName, headers) {
   const exists = meta.sheets?.some(s => s.properties.title === sheetName);
 
   if (!exists) {
-    // Create sheet
     await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
       {
@@ -78,7 +94,6 @@ async function ensureSheet(accessToken, spreadsheetId, sheetName, headers) {
         body: JSON.stringify({ requests: [{ addSheet: { properties: { title: sheetName } } }] })
       }
     );
-    // Add headers
     await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}!A1:append?valueInputOption=RAW`,
       {
@@ -92,22 +107,11 @@ async function ensureSheet(accessToken, spreadsheetId, sheetName, headers) {
 
 async function appendRow(accessToken, spreadsheetId, sheetName, values) {
   await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}!A:A:append?valueInputOption=USER_ENTERED`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}!A:A:append?valueInputOption=RAW`,
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ values: [values] })
     }
   );
-}
-
-async function uploadSignature(base44, dataUrl) {
-  // Convert base64 data URL to binary
-  const base64 = dataUrl.replace(/^data:image\/png;base64,/, '');
-  const binary = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
-  const blob = new Blob([binary], { type: 'image/png' });
-
-  const { file_url } = await base44.asServiceRole.integrations.Core.UploadFile({ file: blob });
-  // Return an =IMAGE() formula so Google Sheets renders it as a picture
-  return `=IMAGE("${file_url}")`;
 }

@@ -4,6 +4,7 @@ import { Radio, LogIn, LogOut, Loader2, CheckCircle2, RotateCcw, AlertTriangle }
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import SignaturePad from "./SignaturePad";
+import RadioLogViewer from "./RadioLogViewer";
 
 function invoke(action, extra = {}) {
   return base44.functions.invoke("radioLog", { action, ...extra });
@@ -108,6 +109,8 @@ function SignOutForm() {
 // ── Sign In (Return) Form ─────────────────────────────────────────────────────
 function SignInForm() {
   const [radioId, setRadioId] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const [step, setStep] = useState("id"); // id | return | signature | done
   const [form, setForm] = useState({ hasDamage: false, damageNotes: "", earpieceReturned: false, batteryReturned: false });
   const [submitting, setSubmitting] = useState(false);
@@ -127,12 +130,12 @@ function SignInForm() {
 
   const handleSubmit = async (sig) => {
     setSubmitting(true);
-    await invoke("sign_in", { radioId, ...form, signature: sig });
+    await invoke("sign_in", { radioId, name, role, ...form, signature: sig });
     setSubmitting(false);
     setStep("done");
   };
 
-  const reset = () => { setRadioId(""); setForm({ hasDamage: false, damageNotes: "", earpieceReturned: false, batteryReturned: false }); setStep("id"); };
+  const reset = () => { setRadioId(""); setName(""); setRole(""); setForm({ hasDamage: false, damageNotes: "", earpieceReturned: false, batteryReturned: false }); setStep("id"); };
 
   if (step === "done") {
     return (
@@ -219,18 +222,29 @@ function SignInForm() {
   // step === "id"
   return (
     <form onSubmit={handleIdNext} className="space-y-3">
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Full Name</label>
+          <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Jane Smith" autoFocus
+            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+        </div>
+        <div>
+          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Role</label>
+          <input value={role} onChange={e => setRole(e.target.value)} placeholder="e.g. Road Marshal"
+            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+        </div>
+      </div>
       <div>
         <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Radio Number</label>
         <input
           value={radioId}
           onChange={e => setRadioId(e.target.value)}
           placeholder="e.g. R04"
-          autoFocus
           className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
         />
       </div>
       <button type="submit" className="w-full bg-primary text-white font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-        <LogIn className="w-4 h-4" /> Find Radio
+        <LogIn className="w-4 h-4" /> Continue
       </button>
     </form>
   );
@@ -264,6 +278,8 @@ export default function RadioLog() {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      <RadioLogViewer />
     </div>
   );
 }
