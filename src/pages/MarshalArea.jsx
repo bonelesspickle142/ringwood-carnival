@@ -27,7 +27,7 @@ const BRIEFING_POINTS = [
   "Do not allow vehicles to move once road closures are in place.",
   "If you witness an incident, contact Control immediately via radio.",
   "Your primary duty is public safety — do not leave your post without authorisation.",
-  "In case of emergency, call 999 first, then inform Control.",
+  "In case of emergency, inform the control room via radio or phone",
   "Procession route must be kept clear at all times.",
 ];
 
