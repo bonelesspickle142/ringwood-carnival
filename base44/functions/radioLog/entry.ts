@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
     const { name, role, radioId, hasEarpiece, hasSpareBattery, signature } = body;
 
     await ensureSheet(accessToken, spreadsheetId, 'Sign Out', [
-      'Timestamp', 'Name', 'Role', 'Radio ID', 'Earpiece', 'Spare Battery', 'Signature'
+      'Timestamp', 'Name', 'Role', 'Radio ID', 'Earpiece', 'Spare Battery', 'Signature', 'Signature Data'
     ]);
 
     await appendRow(accessToken, spreadsheetId, 'Sign Out', [
@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
     const { radioId, hasDamage, damageNotes, earpieceReturned, batteryReturned, signature, name, role } = body;
 
     await ensureSheet(accessToken, spreadsheetId, 'Sign In', [
-      'Timestamp', 'Name', 'Role', 'Radio ID', 'Damage?', 'Damage Notes', 'Earpiece Returned', 'Battery Returned', 'Signature'
+      'Timestamp', 'Name', 'Role', 'Radio ID', 'Damage?', 'Damage Notes', 'Earpiece Returned', 'Battery Returned', 'Signature', 'Signature Data'
     ]);
 
     await appendRow(accessToken, spreadsheetId, 'Sign In', [

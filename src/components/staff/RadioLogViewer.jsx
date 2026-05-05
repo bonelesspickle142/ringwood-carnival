@@ -22,9 +22,7 @@ function SignatureModal({ dataUrl, onClose }) {
 
 function LogEntry({ log, sheetType }) {
   const [showSig, setShowSig] = useState(false);
-  const sigDataUrl = log['Signature Data'] || log[Object.keys(log).find(k => k === 'Signature Data')] || null;
-  // The raw signature is stored in the last column (index after 'Signature' text)
-  const rawSig = Object.values(log).find(v => typeof v === 'string' && v.startsWith('data:image'));
+  const rawSig = log['Signature Data'] || null;
 
   return (
     <div className="bg-card border border-border rounded-2xl p-4">
