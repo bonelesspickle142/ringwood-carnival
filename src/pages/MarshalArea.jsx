@@ -10,9 +10,9 @@ function getMarshalSession() {
   try {
     const item = localStorage.getItem(MARSHAL_AUTH_KEY);
     if (!item) return null;
-    const { marshalId, name, role, expires } = JSON.parse(item);
+    const { marshalId, name, role, notes, sector_marshal, sector_marshal_contact, expires } = JSON.parse(item);
     if (Date.now() > expires) { localStorage.removeItem(MARSHAL_AUTH_KEY); return null; }
-    return { marshalId, name, role };
+    return { marshalId, name, role, notes: notes || "", sector_marshal: sector_marshal || "", sector_marshal_contact: sector_marshal_contact || "" };
   } catch { return null; }
 }
 
@@ -66,6 +66,25 @@ function BriefingTab({ marshal }) {
           <Phone className="w-4 h-4 text-secondary" /> Key Contacts
         </h3>
         <div className="bg-card border border-border rounded-2xl overflow-hidden divide-y divide-border">
+          {/* Sector marshal contact — shown first if set */}
+          {marshal.sector_marshal && (
+            <div className="flex items-center justify-between p-4 bg-primary/5">
+              <div>
+                <p className="font-heading font-semibold text-foreground text-sm">{marshal.sector_marshal}</p>
+                <p className="text-xs text-primary font-semibold">Your Sector Marshal</p>
+              </div>
+              {marshal.sector_marshal_contact ? (
+                <a
+                  href={`tel:${marshal.sector_marshal_contact}`}
+                  className="flex items-center gap-1.5 bg-primary text-white font-heading font-bold text-xs px-3 py-2 rounded-xl hover:bg-primary/90 transition-colors"
+                >
+                  <Phone className="w-3 h-3" /> {marshal.sector_marshal_contact}
+                </a>
+              ) : (
+                <span className="text-xs text-muted-foreground">No number set</span>
+              )}
+            </div>
+          )}
           {CONTACTS.map((c) => (
             <div key={c.name} className="flex items-center justify-between p-4">
               <div>
@@ -187,7 +206,15 @@ export default function MarshalArea() {
       const results = await base44.entities.Marshal.list();
       const match = results.find((m) => m.password === trimmed);
       if (match) {
-        const sessionData = { marshalId: match.id, name: match.name, role: match.role, expires: Date.now() + 12 * 60 * 60 * 1000 };
+        const sessionData = {
+          marshalId: match.id,
+          name: match.name,
+          role: match.role,
+          notes: match.notes || "",
+          sector_marshal: match.sector_marshal || "",
+          sector_marshal_contact: match.sector_marshal_contact || "",
+          expires: Date.now() + 12 * 60 * 60 * 1000,
+        };
         localStorage.setItem(MARSHAL_AUTH_KEY, JSON.stringify(sessionData));
         setSession(sessionData);
         toast.success(`Welcome, ${match.name}!`);

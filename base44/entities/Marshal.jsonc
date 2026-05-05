@@ -27,6 +27,14 @@
     "notes": {
       "type": "string",
       "title": "Notes / Briefing Info"
+    },
+    "sector_marshal": {
+      "type": "string",
+      "title": "Sector Marshal (Name)"
+    },
+    "sector_marshal_contact": {
+      "type": "string",
+      "title": "Sector Marshal (Phone)"
     }
   },
   "required": [

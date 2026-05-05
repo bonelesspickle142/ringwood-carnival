@@ -35,6 +35,8 @@ export default function MarshalManager() {
   const [newName, setNewName] = useState("");
   const [newRole, setNewRole] = useState("");
   const [newNotes, setNewNotes] = useState("");
+  const [newSectorMarshal, setNewSectorMarshal] = useState("");
+  const [newSectorMarshalContact, setNewSectorMarshalContact] = useState("");
   const [adding, setAdding] = useState(false);
   const [showPasswords, setShowPasswords] = useState({});
   const [editingPassword, setEditingPassword] = useState(null); // { id, value }
@@ -69,11 +71,13 @@ export default function MarshalManager() {
       role: newRole.trim(),
       password,
       notes: newNotes.trim(),
+      sector_marshal: newSectorMarshal.trim(),
+      sector_marshal_contact: newSectorMarshalContact.trim(),
       checked_in: false,
     });
     setMarshals((prev) => [created, ...prev]);
     toast.success(`Marshal added! Password: ${password}`);
-    setNewName(""); setNewRole(""); setNewNotes(""); setShowAddForm(false);
+    setNewName(""); setNewRole(""); setNewNotes(""); setNewSectorMarshal(""); setNewSectorMarshalContact(""); setShowAddForm(false);
     setAdding(false);
   };
 
@@ -133,6 +137,20 @@ export default function MarshalManager() {
                 rows={2}
                 className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
               />
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  value={newSectorMarshal}
+                  onChange={(e) => setNewSectorMarshal(e.target.value)}
+                  placeholder="Sector Marshal name"
+                  className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+                <input
+                  value={newSectorMarshalContact}
+                  onChange={(e) => setNewSectorMarshalContact(e.target.value)}
+                  placeholder="Sector Marshal phone"
+                  className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                />
+              </div>
               <p className="text-xs text-muted-foreground">A unique password will be auto-generated.</p>
               <div className="flex gap-2 pt-1">
                 <button type="button" onClick={() => setShowAddForm(false)} className="flex-1 bg-muted text-foreground font-heading font-bold py-2.5 rounded-xl text-sm hover:bg-muted/80 transition-colors">Cancel</button>
@@ -169,6 +187,12 @@ export default function MarshalManager() {
                   )}
                 </div>
                 <p className="text-xs text-muted-foreground">{m.role}</p>
+                {m.sector_marshal && (
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Sector Marshal: <span className="text-foreground font-medium">{m.sector_marshal}</span>
+                    {m.sector_marshal_contact ? ` · ${m.sector_marshal_contact}` : ""}
+                  </p>
+                )}
                 {editingPassword?.id === m.id ? (
                   <div className="flex items-center gap-1 mt-1">
                     <input
