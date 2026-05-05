@@ -8,6 +8,7 @@ import ModerationQueue from "@/components/staff/ModerationQueue";
 import AnalyticsDashboard from "@/components/staff/AnalyticsDashboard";
 import ShopsManager from "@/components/staff/ShopsManager";
 import AdminArea from "@/components/staff/AdminArea";
+import RadioLog from "@/components/staff/RadioLog";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
