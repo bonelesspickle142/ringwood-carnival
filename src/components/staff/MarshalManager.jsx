@@ -4,6 +4,18 @@ import { Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, CheckCircle
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
+// ── SECTOR MARSHALS ── Edit names & numbers here ─────────────────────────────
+export const SECTOR_MARSHALS = [
+  { name: "Sector Marshal 1", phone: "07700 000001" },
+  { name: "Sector Marshal 2", phone: "07700 000002" },
+  { name: "Sector Marshal 3", phone: "07700 000003" },
+  { name: "Sector Marshal 4", phone: "07700 000004" },
+  { name: "Sector Marshal 5", phone: "07700 000005" },
+  { name: "Sector Marshal 6", phone: "07700 000006" },
+  { name: "Sector Marshal 7", phone: "07700 000007" },
+];
+// ─────────────────────────────────────────────────────────────────────────────
+
 const COLOURS = ['Red','Blue','Green','Gold','Silver','Purple','Orange','Pink','Black','White','Amber','Violet','Teal','Coral','Indigo'];
 const OBJECTS = ['Lantern','Trumpet','Ribbon','Banner','Drum','Torch','Crown','Shield','Arrow','Anchor','Feather','Compass','Hammer','Rocket','Candle'];
 
@@ -137,20 +149,20 @@ export default function MarshalManager() {
                 rows={2}
                 className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
               />
-              <div className="grid grid-cols-2 gap-2">
-                <input
-                  value={newSectorMarshal}
-                  onChange={(e) => setNewSectorMarshal(e.target.value)}
-                  placeholder="Sector Marshal name"
-                  className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-                <input
-                  value={newSectorMarshalContact}
-                  onChange={(e) => setNewSectorMarshalContact(e.target.value)}
-                  placeholder="Sector Marshal phone"
-                  className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
+              <select
+                value={newSectorMarshal}
+                onChange={(e) => {
+                  const sm = SECTOR_MARSHALS.find(s => s.name === e.target.value);
+                  setNewSectorMarshal(e.target.value);
+                  setNewSectorMarshalContact(sm ? sm.phone : "");
+                }}
+                className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+              >
+                <option value="">— No Sector Marshal —</option>
+                {SECTOR_MARSHALS.map(sm => (
+                  <option key={sm.name} value={sm.name}>{sm.name} · {sm.phone}</option>
+                ))}
+              </select>
               <p className="text-xs text-muted-foreground">A unique password will be auto-generated.</p>
               <div className="flex gap-2 pt-1">
                 <button type="button" onClick={() => setShowAddForm(false)} className="flex-1 bg-muted text-foreground font-heading font-bold py-2.5 rounded-xl text-sm hover:bg-muted/80 transition-colors">Cancel</button>
