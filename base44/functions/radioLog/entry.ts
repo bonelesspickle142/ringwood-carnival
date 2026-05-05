@@ -3,15 +3,9 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
   const body = await req.json();
-  const { action, suUsername, suPassword } = body;
+  const { action } = body;
 
-  const validSuUsername = Deno.env.get('SU_USERNAME');
-  const validSuPassword = Deno.env.get('SU_PASSWORD');
   const spreadsheetId = Deno.env.get('RADIO_LOG_SHEET_ID');
-
-  if (suUsername !== validSuUsername || suPassword !== validSuPassword) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
-  }
 
   const { accessToken } = await base44.asServiceRole.connectors.getConnection('googlesheets');
 

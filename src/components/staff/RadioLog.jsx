@@ -5,25 +5,8 @@ import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import SignaturePad from "./SignaturePad";
 
-const SU_SESSION_KEY = "suAuth";
-function getSuSession() {
-  try {
-    const item = localStorage.getItem(SU_SESSION_KEY);
-    if (!item) return null;
-    const { username, password, expires } = JSON.parse(item);
-    if (Date.now() > expires) { localStorage.removeItem(SU_SESSION_KEY); return null; }
-    return { username, password };
-  } catch { return null; }
-}
-
 function invoke(action, extra = {}) {
-  const session = getSuSession();
-  return base44.functions.invoke("radioLog", {
-    action,
-    suUsername: session?.username,
-    suPassword: session?.password,
-    ...extra,
-  });
+  return base44.functions.invoke("radioLog", { action, ...extra });
 }
 
 // ── Sign Out Form ─────────────────────────────────────────────────────────────
