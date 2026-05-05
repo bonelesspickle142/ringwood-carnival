@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, CheckCircle2, Clock } from "lucide-react";
+import { Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, CheckCircle2, Clock, Pencil, X, Save, Shuffle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
@@ -37,6 +37,18 @@ export default function MarshalManager() {
   const [newNotes, setNewNotes] = useState("");
   const [adding, setAdding] = useState(false);
   const [showPasswords, setShowPasswords] = useState({});
+  const [editingPassword, setEditingPassword] = useState(null); // { id, value }
+  const [savingPassword, setSavingPassword] = useState(false);
+
+  const handleSavePassword = async () => {
+    if (!editingPassword?.value.trim()) { toast.error("Password cannot be empty."); return; }
+    setSavingPassword(true);
+    await base44.entities.Marshal.update(editingPassword.id, { password: editingPassword.value.trim() });
+    setMarshals((prev) => prev.map((m) => m.id === editingPassword.id ? { ...m, password: editingPassword.value.trim() } : m));
+    toast.success("Password updated.");
+    setEditingPassword(null);
+    setSavingPassword(false);
+  };
 
   const load = async () => {
     setLoading(true);
@@ -157,15 +169,38 @@ export default function MarshalManager() {
                   )}
                 </div>
                 <p className="text-xs text-muted-foreground">{m.role}</p>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <p className="text-xs text-muted-foreground font-mono">
-                    {showPasswords[m.id] ? m.password : "••••••••••"}
-                  </p>
-                  <button onClick={() => toggleShowPass(m.id)} className="text-muted-foreground hover:text-foreground transition-colors">
-                    {showPasswords[m.id] ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
-                  </button>
-                  {showPasswords[m.id] && <CopyButton text={m.password} />}
-                </div>
+                {editingPassword?.id === m.id ? (
+                  <div className="flex items-center gap-1 mt-1">
+                    <input
+                      value={editingPassword.value}
+                      onChange={(e) => setEditingPassword({ ...editingPassword, value: e.target.value })}
+                      className="flex-1 px-2 py-1 rounded-lg border border-border bg-background text-foreground text-xs font-mono focus:outline-none focus:ring-2 focus:ring-ring"
+                      autoFocus
+                    />
+                    <button onClick={() => setEditingPassword({ ...editingPassword, value: generatePassword() })} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Regenerate">
+                      <Shuffle className="w-3.5 h-3.5" />
+                    </button>
+                    <button onClick={handleSavePassword} disabled={savingPassword} className="p-1.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
+                      {savingPassword ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                    </button>
+                    <button onClick={() => setEditingPassword(null)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground transition-colors">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <p className="text-xs text-muted-foreground font-mono">
+                      {showPasswords[m.id] ? m.password : "••••••••••"}
+                    </p>
+                    <button onClick={() => toggleShowPass(m.id)} className="text-muted-foreground hover:text-foreground transition-colors">
+                      {showPasswords[m.id] ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                    </button>
+                    {showPasswords[m.id] && <CopyButton text={m.password} />}
+                    <button onClick={() => setEditingPassword({ id: m.id, value: m.password })} className="p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Change password">
+                      <Pencil className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
               </div>
               <button
                 onClick={() => handleDelete(m.id)}
