@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, BarChart2, Store } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, BarChart2, Store, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
 import ModerationQueue from "@/components/staff/ModerationQueue";
 import AnalyticsDashboard from "@/components/staff/AnalyticsDashboard";
 import ShopsManager from "@/components/staff/ShopsManager";
+import AdminArea from "@/components/staff/AdminArea";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
@@ -250,6 +251,7 @@ export default function Staff() {
             { key: "gallery", icon: ImageIcon, label: "Gallery" },
             { key: "shops", icon: Store, label: "Shops" },
             { key: "analytics", icon: BarChart2, label: "Stats" },
+            { key: "admin", icon: Shield, label: "Admin" },
           ].map(({ key, icon: Icon, label }) => (
             <button
               key={key}
@@ -264,6 +266,8 @@ export default function Staff() {
       </div>
 
       <div className="px-5 py-8 pb-32 max-w-xl mx-auto w-full">
+
+        {activeTab === "admin" && <AdminArea />}
 
         {activeTab === "shops" && <ShopsManager />}
 
