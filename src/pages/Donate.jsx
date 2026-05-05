@@ -71,9 +71,8 @@ export default function Donate() {
             <div className="bg-primary/5 rounded-2xl p-5 border border-primary/10">
               <h3 className="font-heading font-bold text-sm text-foreground mb-2">Where your money goes</h3>
               <ul className="space-y-1.5 text-sm text-muted-foreground">
-                <li>• Road closure permits &amp; council fees</li>
-                <li>• Steward training &amp; equipment</li>
-                <li>• Stage &amp; sound system hire</li>
+                <li>• Road closure permits &amp; barriers</li>
+                <li>• Steward equipment</li>
                 <li>• Float building grants for community groups</li>
                 <li>• First aid provision &amp; safety measures</li>
               </ul>
