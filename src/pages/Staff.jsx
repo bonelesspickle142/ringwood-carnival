@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, BarChart2, Store, Shield, Radio } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, Store, Shield, Radio } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
 import ModerationQueue from "@/components/staff/ModerationQueue";
-import AnalyticsDashboard from "@/components/staff/AnalyticsDashboard";
 import ShopsManager from "@/components/staff/ShopsManager";
 import AdminArea from "@/components/staff/AdminArea";
 import RadioLog from "@/components/staff/RadioLog";
@@ -249,7 +248,7 @@ export default function Staff() {
             { key: "events", icon: Calendar, label: "Events" },
             { key: "gallery", icon: ImageIcon, label: "Gallery" },
             { key: "shops", icon: Store, label: "Shops" },
-            { key: "analytics", icon: BarChart2, label: "Stats" },
+
             { key: "radio", icon: Radio, label: "Radio" },
             { key: "admin", icon: Shield, label: "Admin" },
           ].map(({ key, icon: Icon, label }) => (
@@ -281,15 +280,6 @@ export default function Staff() {
         {activeTab === "shops" && <ShopsManager />}
 
         {activeTab === "events" && <EventsManager />}
-
-        {activeTab === "analytics" && (
-          <div>
-            <h2 className="font-heading font-bold text-foreground text-lg mb-4 flex items-center gap-2">
-              <BarChart2 className="w-5 h-5 text-primary" /> App Analytics
-            </h2>
-            <AnalyticsDashboard />
-          </div>
-        )}
 
         {activeTab === "gallery" && (
           <div>
