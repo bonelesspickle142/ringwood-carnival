@@ -4,8 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
 import BackHeader from "./BackHeader";
 
-// BackHeader removed — iOS tab bar handles navigation
-
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
   { path: "/schedule", icon: Calendar, label: "Events" },
@@ -14,29 +12,44 @@ const navItems = [
   { path: "/settings", icon: Settings, label: "More" },
 ];
 
+// Tab paths that have their own scroll positions tracked
+const TAB_PATHS = navItems.map((n) => n.path);
+
 export default function Layout() {
   const location = useLocation();
   const scrollPositions = useRef({});
 
+  const isRootPath = location.pathname === "/";
+  // Non-root pages show a BackHeader (~48px tall + safe-area-inset-top)
+  // We add top padding to main so content isn't hidden under it.
+  const mainTopPadding = isRootPath
+    ? "env(safe-area-inset-top)"
+    : "calc(env(safe-area-inset-top) + 48px)";
+
   const handleNavClick = (e, path) => {
     const isActive = location.pathname === path;
     if (isActive) {
+      // Tapping active tab scrolls to top
       window.scrollTo({ top: 0, behavior: "smooth" });
       e.preventDefault();
       return;
     }
+    // Save scroll position for the current page before leaving
     scrollPositions.current[location.pathname] = window.scrollY;
   };
 
   const handleAnimationComplete = () => {
+    // After the page transition animation, restore saved scroll for this route
     const saved = scrollPositions.current[location.pathname] ?? 0;
     window.scrollTo({ top: saved, behavior: "instant" });
   };
 
   return (
     <div className="min-h-screen bg-background relative">
+      {/* BackHeader: visible on all non-root pages, uses safe-area-inset-top */}
       <BackHeader />
-      <main className="pb-28" style={{ paddingTop: "env(safe-area-inset-top)" }}>
+
+      <main className="pb-28" style={{ paddingTop: mainTopPadding }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -51,13 +64,16 @@ export default function Layout() {
         </AnimatePresence>
       </main>
 
-      {/* iOS-style tab bar */}
+      {/* iOS-style tab bar — user-select:none scoped to this nav element only */}
       <div
         className="fixed bottom-4 left-4 right-4 z-[100]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="bg-white/90 dark:bg-black/90 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-2xl shadow-xl">
-          <div className="relative flex items-center justify-around px-2 pt-1 pb-1 select-none" style={{ userSelect: "none" }}>
+        <nav
+          className="bg-white/90 dark:bg-black/90 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-2xl shadow-xl"
+          style={{ userSelect: "none" }}
+        >
+          <div className="flex items-center justify-around px-2 pt-1 pb-1">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               const Icon = item.icon;
@@ -66,15 +82,13 @@ export default function Layout() {
                   key={item.path}
                   to={item.path}
                   onClick={(e) => handleNavClick(e, item.path)}
-                  className="flex flex-col items-center justify-center gap-0.5 select-none"
+                  className="flex flex-col items-center justify-center gap-0.5"
                   style={{ minWidth: 56, minHeight: 44 }}
                 >
-                  <div className="relative flex items-center justify-center w-7 h-7">
+                  <div className="flex items-center justify-center w-7 h-7">
                     <Icon
                       className={`w-6 h-6 transition-all duration-200 ${
-                        isActive
-                          ? "text-secondary scale-110"
-                          : "text-muted-foreground"
+                        isActive ? "text-secondary scale-110" : "text-muted-foreground"
                       }`}
                       strokeWidth={isActive ? 2.5 : 1.8}
                     />
@@ -91,7 +105,7 @@ export default function Layout() {
               );
             })}
           </div>
-        </div>
+        </nav>
       </div>
     </div>
   );
