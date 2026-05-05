@@ -50,9 +50,15 @@ export default function Layout() {
     const isActiveTab = activeTab === tabPath;
 
     if (isActiveTab) {
-      // Already on this tab — scroll to top
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      e.preventDefault();
+      if (location.pathname !== tabPath) {
+        // On this tab's "subtree" but not the root — navigate to root
+        e.preventDefault();
+        navigate(tabPath);
+      } else {
+        // Already at the tab root — scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        e.preventDefault();
+      }
       return;
     }
 
