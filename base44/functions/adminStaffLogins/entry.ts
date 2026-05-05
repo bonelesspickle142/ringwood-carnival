@@ -35,7 +35,12 @@ Deno.serve(async (req) => {
 
   if (action === 'add') {
     // Generate random password if not provided
-    const newPassword = password || Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-4).toUpperCase() + '!';
+    const colours = ['Red','Blue','Green','Gold','Silver','Purple','Orange','Pink','Black','White','Amber','Violet','Teal','Coral','Indigo'];
+    const objects = ['Lantern','Trumpet','Ribbon','Banner','Drum','Torch','Crown','Shield','Arrow','Anchor','Feather','Compass','Hammer','Rocket','Candle'];
+    const colour = colours[Math.floor(Math.random() * colours.length)];
+    const object = objects[Math.floor(Math.random() * objects.length)];
+    const digit = Math.floor(Math.random() * 10);
+    const newPassword = password || `${colour}.${object}${digit}`;
     await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:C:append?valueInputOption=RAW`,
       {
