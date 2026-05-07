@@ -20,6 +20,36 @@ function getMarshalSession() {
 const BRIEFING_PDF_URL = "https://YOUR_PDF_LINK_HERE";
 // ─────────────────────────────────────────────────────────────────────────────
 
+const PDF_CACHE_NAME = "marshal-briefing-pdf";
+
+async function cachePDF() {
+  try {
+    const cache = await caches.open(PDF_CACHE_NAME);
+    const existing = await cache.match(BRIEFING_PDF_URL);
+    if (!existing) {
+      await cache.add(BRIEFING_PDF_URL);
+    }
+  } catch {
+    // Cache API not available or fetch failed — silently ignore
+  }
+}
+
+async function openCachedPDF() {
+  try {
+    const cache = await caches.open(PDF_CACHE_NAME);
+    const cached = await cache.match(BRIEFING_PDF_URL);
+    if (cached) {
+      const blob = await cached.blob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+      return;
+    }
+  } catch {
+    // Fall through to direct link
+  }
+  window.open(BRIEFING_PDF_URL, "_blank");
+}
+
 const CONTACTS = [
   { name: "Control", role: "Event Control", number: "01425 517025" },
 ];
@@ -52,11 +82,9 @@ function BriefingTab({ marshal }) {
         <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
           <FileText className="w-4 h-4 text-primary" /> Briefing Document
         </h3>
-        <a
-          href={BRIEFING_PDF_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group"
+        <button
+          onClick={openCachedPDF}
+          className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group text-left"
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -64,11 +92,11 @@ function BriefingTab({ marshal }) {
             </div>
             <div>
               <p className="font-heading font-bold text-foreground text-sm">Marshal Briefing Pack</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tap to open PDF</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tap to open · saved for offline use</p>
             </div>
           </div>
           <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-        </a>
+        </button>
       </div>
 
       {/* Key briefing points */}
@@ -246,6 +274,7 @@ export default function MarshalArea() {
         localStorage.setItem(MARSHAL_AUTH_KEY, JSON.stringify(sessionData));
         setSession(sessionData);
         toast.success(`Welcome, ${match.name}!`);
+        cachePDF();
       } else {
         toast.error("Password not recognised. Please check with your supervisor.");
       }
