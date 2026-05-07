@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Lock, Eye, EyeOff, User, Shield, MapPin, Phone, CheckCircle2, Clock, AlertTriangle, Radio, ChevronDown, LogOut } from "lucide-react";
+import { Lock, Eye, EyeOff, User, Shield, MapPin, Phone, CheckCircle2, Clock, AlertTriangle, Radio, ChevronDown, LogOut, FileText, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 
@@ -15,6 +15,10 @@ function getMarshalSession() {
     return { marshalId, name, role, notes: notes || "", sector_marshal: sector_marshal || "", sector_marshal_contact: sector_marshal_contact || "" };
   } catch { return null; }
 }
+
+// ── INSERT YOUR BRIEFING PDF LINK HERE ───────────────────────────────────────
+const BRIEFING_PDF_URL = "https://YOUR_PDF_LINK_HERE";
+// ─────────────────────────────────────────────────────────────────────────────
 
 const CONTACTS = [
   { name: "Control", role: "Event Control", number: "01425 517025" },
@@ -41,6 +45,30 @@ function BriefingTab({ marshal }) {
         <p className="font-heading font-bold text-foreground text-base">Welcome, {marshal.name}!</p>
         <p className="text-muted-foreground text-sm mt-0.5">Role: <span className="font-semibold text-foreground">{marshal.role}</span></p>
         {marshal.notes && <p className="text-sm text-foreground mt-2 bg-card rounded-xl p-3 border border-border">{marshal.notes}</p>}
+      </div>
+
+      {/* PDF Briefing Document */}
+      <div>
+        <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
+          <FileText className="w-4 h-4 text-primary" /> Briefing Document
+        </h3>
+        <a
+          href={BRIEFING_PDF_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+              <FileText className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="font-heading font-bold text-foreground text-sm">Marshal Briefing Pack</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tap to open PDF</p>
+            </div>
+          </div>
+          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+        </a>
       </div>
 
       {/* Key briefing points */}
