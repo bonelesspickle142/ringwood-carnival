@@ -77,45 +77,6 @@ function BriefingTab({ marshal }) {
         {marshal.notes && <p className="text-sm text-foreground mt-2 bg-card rounded-xl p-3 border border-border">{marshal.notes}</p>}
       </div>
 
-      {/* PDF Briefing Document */}
-      <div>
-        <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
-          <FileText className="w-4 h-4 text-primary" /> Briefing Document
-        </h3>
-        <button
-          onClick={openCachedPDF}
-          className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group text-left"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-              <FileText className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-heading font-bold text-foreground text-sm">Marshal Briefing Pack</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tap to open · saved for offline use</p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-        </button>
-      </div>
-
-      {/* Key briefing points */}
-      <div>
-        <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
-          <Shield className="w-4 h-4 text-primary" /> Key Reminders
-        </h3>
-        <div className="bg-card border border-border rounded-2xl overflow-hidden divide-y divide-border">
-          {BRIEFING_POINTS.map((point, i) => (
-            <div key={i} className="flex items-start gap-3 p-4">
-              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-primary text-[10px] font-bold">{i + 1}</span>
-              </div>
-              <p className="text-sm text-foreground leading-relaxed">{point}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Key contacts */}
       <div>
         <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
@@ -153,6 +114,45 @@ function BriefingTab({ marshal }) {
               >
                 <Phone className="w-3 h-3" /> {c.number}
               </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* PDF Briefing Document */}
+      <div>
+        <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
+          <FileText className="w-4 h-4 text-primary" /> Briefing Document
+        </h3>
+        <button
+          onClick={openCachedPDF}
+          className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group text-left"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+              <FileText className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="font-heading font-bold text-foreground text-sm">Marshal Briefing Pack</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tap to open · saved for offline use</p>
+            </div>
+          </div>
+          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+        </button>
+      </div>
+
+      {/* Key briefing points */}
+      <div>
+        <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
+          <Shield className="w-4 h-4 text-primary" /> Key Reminders
+        </h3>
+        <div className="bg-card border border-border rounded-2xl overflow-hidden divide-y divide-border">
+          {BRIEFING_POINTS.map((point, i) => (
+            <div key={i} className="flex items-start gap-3 p-4">
+              <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-primary text-[10px] font-bold">{i + 1}</span>
+              </div>
+              <p className="text-sm text-foreground leading-relaxed">{point}</p>
             </div>
           ))}
         </div>
