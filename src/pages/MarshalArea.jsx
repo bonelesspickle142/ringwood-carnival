@@ -18,17 +18,17 @@ function getMarshalSession() {
 
 const CONTACTS = [
   { name: "Control", role: "Event Control", number: "01425 517025" },
-  { name: "First Aid Lead", role: "First Aid", number: "TBC" },
-  { name: "Police Liaison", role: "Hampshire Police", number: "TBC" },
 ];
 
 const BRIEFING_POINTS = [
-  "Wear your hi-vis vest at all times whilst on duty.",
-  "Do not allow vehicles to move once road closures are in place.",
-  "If you witness an incident, contact Control immediately via radio.",
-  "Your primary duty is public safety — do not leave your post without authorisation.",
-  "In case of emergency, inform the control room via radio or phone with all details.",
-  "Procession route must be kept clear at all times.",
+ "Not leave your designated sector and area where you are marshalling unless it’s an emergency or related.",
+ "Not be under the influence of alcohol or drugs.",
+ "Remain calm and be courteous towards all members of the public.",
+ "Wear and show your uniform you are given.",
+ "Be aware of the communication arrangements (radio, mobile phone etc), who to contact and the location of Event Control (Greyfriars), pay attention to all communication around you and digest important information.",
+ "Be familiar with the procession route and your location and be able to assist the public by giving information about the event and facilities including VIP, Toilets, Bus Stops etc.",
+ "Be vigilant and aware of any suspicious packages or backs. – Do not touch or move the package, report this immediately and try and move the public away from the area in a controlled way so as not to raise alarm or cause a further situation.",
+
 ];
 
 function BriefingTab({ marshal }) {
