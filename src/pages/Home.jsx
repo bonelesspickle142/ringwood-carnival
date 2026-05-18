@@ -10,7 +10,7 @@ import PullToRefreshIndicator from "../components/PullToRefreshIndicator";
 import { usePullToRefresh } from "../hooks/usePullToRefresh";
 import { Loader2, Heart } from "lucide-react";
 
-const HERO_IMAGE = "https://ss.charleymurphy.xyz/20250920_Ringwood-carnival-night-proccesion_0493%20%281%29.jpg";
+const HERO_IMAGE = "https://ss.charleymurphy.xyz/RWC%20App%20Video.mp4";
 
 export default function Home() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
