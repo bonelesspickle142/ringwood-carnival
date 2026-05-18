@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const CATEGORIES = ["performance", "food", "craft", "music", "family", "stall", "other"];
+const CATEGORIES = ["Performance", "Food", "Craft", "Music", "Family", "other"];
 
 const EMPTY_EVENT = {
   title: "",
