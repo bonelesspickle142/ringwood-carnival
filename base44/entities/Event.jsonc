@@ -35,6 +35,14 @@
       ],
       "title": "Category"
     },
+    "carnival_period": {
+      "type": "string",
+      "enum": [
+        "carnival_week",
+        "carnival_day"
+      ],
+      "title": "Carnival Period"
+    },
     "image_url": {
       "type": "string",
       "title": "Image URL"
@@ -48,5 +56,23 @@
     "title",
     "start_time",
     "category"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }
