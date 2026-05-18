@@ -10,11 +10,11 @@ const TEAM = [
   email: ""
 },
 {
-  name: "James Whitfield",
-  role: "Procession Coordinator",
-  bio: "James coordinates all float entries and manages the procession route. He has been a steward since the very beginning.",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
-  email: "floats@ringwoodcarnival.org"
+  name: "Dan Searley",
+  role: "Event Director",
+  bio: "Dan co-ordinates everything infrastructure, from fencing to toilets, and everything inbetween!",
+  avatar: "https://ss.charleymurphy.xyz/Dan-headshotjpg.jpg?w=200&q=80",
+  email: ""
 },
 {
   name: "Helen Graves",
