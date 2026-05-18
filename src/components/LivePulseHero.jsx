@@ -9,9 +9,12 @@ export default function LivePulseHero({ heroImage }) {
     <div className="relative w-full overflow-hidden">
       {/* Hero image */}
       <div className="relative min-h-[520px]" style={{ height: "calc(62vh + env(safe-area-inset-top))" }}>
-        <img
+        <video
           src={heroImage}
-          alt="Ringwood Carnival procession"
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Subtle dark scrim — no heavy blue gradient */}
