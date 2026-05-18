@@ -14,6 +14,7 @@ const EMPTY_EVENT = {
   start_time: "",
   end_time: "",
   category: "other",
+  carnival_period: "",
   image_url: "",
   is_featured: false,
 };
@@ -97,18 +98,32 @@ function EventForm({ event, onSave, onCancel }) {
           />
         </div>
 
-        <div>
-          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Category</label>
-          <Select value={form.category} onValueChange={(value) => set("category", value)}>
-            <SelectTrigger className="w-full rounded-xl">
-              <SelectValue placeholder="Select category" />
-            </SelectTrigger>
-            <SelectContent>
-              {CATEGORIES.map((c) => (
-                <SelectItem key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Category</label>
+            <Select value={form.category} onValueChange={(value) => set("category", value)}>
+              <SelectTrigger className="w-full rounded-xl">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORIES.map((c) => (
+                  <SelectItem key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Carnival Period</label>
+            <Select value={form.carnival_period || ""} onValueChange={(value) => set("carnival_period", value)}>
+              <SelectTrigger className="w-full rounded-xl">
+                <SelectValue placeholder="Select period" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="carnival_week">Carnival Week</SelectItem>
+                <SelectItem value="carnival_day">Carnival Day</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div>
