@@ -54,7 +54,6 @@ export default function Schedule() {
           src={MASK_URL}
           alt=""
           className="w-72 h-72 object-contain opacity-[0.04] dark:opacity-[0.06] select-none"
-          style={{ filter: "grayscale(1)" }}
         />
       </div>
 
