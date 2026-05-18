@@ -197,30 +197,26 @@ export default function EventsManager() {
 
   const handleSave = async (form) => {
     if (editingEvent?.id) {
-      // Optimistic update for edit
       setEvents((prev) => prev.map((e) => e.id === editingEvent.id ? { ...e, ...form } : e));
       setShowForm(false);
       setEditingEvent(null);
-      await base44.entities.Event.update(editingEvent.id, form);
+      await base44.functions.invoke("manageEvent", { action: "update", id: editingEvent.id, data: form });
       toast.success("Event updated.");
     } else {
-      // Optimistic create: add temp item immediately
       const tempId = `temp-${Date.now()}`;
       const optimistic = { ...form, id: tempId, _optimistic: true };
       setEvents((prev) => [...prev, optimistic]);
       setShowForm(false);
       setEditingEvent(null);
-      const created = await base44.entities.Event.create(form);
-      // Replace temp with real record
-      setEvents((prev) => prev.map((e) => e.id === tempId ? { ...created } : e));
+      const response = await base44.functions.invoke("manageEvent", { action: "create", data: form });
+      setEvents((prev) => prev.map((e) => e.id === tempId ? { ...response.data } : e));
       toast.success("Event created.");
     }
   };
 
   const handleDelete = async (id) => {
-    // Optimistic delete
     setEvents((prev) => prev.filter((e) => e.id !== id));
-    await base44.entities.Event.delete(id);
+    await base44.functions.invoke("manageEvent", { action: "delete", id });
     toast.success("Event deleted.");
   };
 
