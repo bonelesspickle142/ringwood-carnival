@@ -8,7 +8,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from './components/Layout.jsx';
 import CookieBanner from './components/CookieBanner';
 import Home from './pages/Home';
-import Schedule from './pages/Schedule';
+import Schedule from './pages/Schedule.jsx';
 import Donate from './pages/Donate';
 import Gallery from './pages/Gallery';
 import Team from './pages/Team';
