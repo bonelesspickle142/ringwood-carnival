@@ -6,7 +6,7 @@ import BackHeader from "./BackHeader";
 
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
-  { path: "/schedule", icon: Calendar, label: "Events" },
+  { path: "/schedule", icon: Calendar, label: "What's On" },
   { path: "/gallery", icon: ImageIcon, label: "Gallery" },
   { path: "/info", icon: Info, label: "Info" },
   { path: "/settings", icon: Settings, label: "More" },
