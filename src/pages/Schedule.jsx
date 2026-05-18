@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import PullToRefreshIndicator from "../components/PullToRefreshIndicator";
 import { usePullToRefresh } from "../hooks/usePullToRefresh";
 
-const MASK_URL = "https://ss.charleymurphy.xyz/RWC%20Logo.jpg";
+const MASK_URL = "https://ss.charleymurphy.xyz/RWC%20Logo.png";
 
 const FILTERS = [
   { key: "all", label: "All" },
