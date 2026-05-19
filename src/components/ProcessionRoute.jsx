@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Radio } from "lucide-react";
 
 // Toggle this to true during development to test the live view
-const DEBUG_FORCE_EVENT_DAY = false;
+const DEBUG_FORCE_EVENT_DAY = true;
 
 const ROUTE_POINTS = [
   "Parkside",
