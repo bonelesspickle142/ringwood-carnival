@@ -12,10 +12,7 @@ const ROUTE_POINTS = [
   "Market place",
   "Meeting House Lane",
   "Quomp",
-  "Greyfriars Roundabout (Return)",
-  "Castleman Roundabout (Return)",
-  "Parkside (Return)",
-];
+  ];
 
 export default function ProcessionRoute() {
   const [isEventDay, setIsEventDay] = useState(false);
