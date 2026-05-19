@@ -19,12 +19,25 @@ Deno.serve(async (req) => {
   // Ping Discord
   const webhookUrl = Deno.env.get("DISCORD_WEBHOOK_URL");
   if (webhookUrl) {
+    
+    // Construct the Embed payload
+    const embedPayload = {
+      embeds: [
+        {
+          title: "🎟️ New Programme Purchase", // Acts like the "What's this about?" header
+          description: `A new customer just bought a programme!\n\n**Name:** ${name || 'Unknown'}\n**Email:** \`${email}\``,
+          color: 3447003 // This decimal value creates the blue border on the left
+        }
+      ]
+    };
+
     await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: `🎟️ New programme purchase: **${name || 'Unknown'}** — \`${email}\`` }),
+      body: JSON.stringify(embedPayload),
     });
   }
 
-
+  // Return a success response so the connection doesn't hang
+  return Response.json({ success: true, message: "Processed successfully" });
 });
