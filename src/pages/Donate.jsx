@@ -157,7 +157,7 @@ export default function Donate() {
                   Thank you{claimed.donor_name ? `, ${claimed.donor_name}` : ""}!
                 </h3>
                 <p className="text-green-700 dark:text-green-400 text-sm mb-5">
-                  Your programme has been emailed to <strong>{email}</strong>. You can also download it directly below.
+                  Your programme is ready to download below.
                 </p>
                 <a
                   href={claimed.pdf_url}
