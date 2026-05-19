@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const JUSTGIVING_URL = "https://www.justgiving.com/campaign/ringwoodcarnival";
 
 export default function Donate() {
-  const [activeTab, setActiveTab] = useState("donate");
+  const [activeTab, setActiveTab] = useState("programme");
   const [email, setEmail] = useState("");
   const [claiming, setClaiming] = useState(false);
   const [claimed, setClaimed] = useState(null); // { donor_name, pdf_url }
@@ -30,16 +30,16 @@ export default function Donate() {
         {/* Tabs */}
         <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5 max-w-xs">
           <button
-            onClick={() => setActiveTab("donate")}
-            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "donate" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
-            <Heart className="w-4 h-4" />Donate
-          </button>
-          <button
             onClick={() => setActiveTab("programme")}
             className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "programme" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
           >
             <BookOpen className="w-4 h-4" />Programme
+          </button>
+          <button
+            onClick={() => setActiveTab("donate")}
+            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "donate" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+          >
+            <Heart className="w-4 h-4" />Donate
           </button>
         </div>
       </div>
