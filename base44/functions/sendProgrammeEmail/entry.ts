@@ -16,6 +16,16 @@ Deno.serve(async (req) => {
     await base44.asServiceRole.entities.ProgrammePurchase.create({ email, name: name || '' });
   }
 
+  // Ping Discord
+  const webhookUrl = Deno.env.get("DISCORD_WEBHOOK_URL");
+  if (webhookUrl) {
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: `🎟️ New programme purchase: **${name || 'Unknown'}** — \`${email}\`` }),
+    });
+  }
+
   // Send the programme email
   await base44.asServiceRole.integrations.Core.SendEmail({
     to: email,
