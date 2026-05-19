@@ -1,0 +1,18 @@
+{
+  "name": "MarqueeBanner",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "title": "Banner Message"
+    },
+    "active": {
+      "type": "boolean",
+      "title": "Active",
+      "default": false
+    }
+  },
+  "required": [
+    "message"
+  ]
+}

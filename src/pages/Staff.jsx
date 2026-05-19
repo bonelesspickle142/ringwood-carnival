@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, Store, Shield, Radio } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, Store, Shield, Radio, Megaphone } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
@@ -8,6 +8,7 @@ import ModerationQueue from "@/components/staff/ModerationQueue";
 import ShopsManager from "@/components/staff/ShopsManager";
 import AdminArea from "@/components/staff/AdminArea";
 import RadioLog from "@/components/staff/RadioLog";
+import BannerManager from "@/components/staff/BannerManager";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
@@ -249,6 +250,7 @@ export default function Staff() {
             { key: "gallery", icon: ImageIcon, label: "Gallery" },
             { key: "shops", icon: Store, label: "Shops" },
 
+            { key: "banner", icon: Megaphone, label: "Banner" },
             { key: "radio", icon: Radio, label: "Radio" },
             { key: "admin", icon: Shield, label: "Admin" },
           ].map(({ key, icon: Icon, label }) => (
@@ -265,6 +267,8 @@ export default function Staff() {
       </div>
 
       <div className="px-5 py-8 pb-32 max-w-xl mx-auto w-full">
+
+        {activeTab === "banner" && <BannerManager />}
 
         {activeTab === "radio" && (
           <div>

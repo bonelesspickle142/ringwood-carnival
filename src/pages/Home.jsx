@@ -9,6 +9,7 @@ import ProcessionRoute from "../components/ProcessionRoute";
 import PullToRefreshIndicator from "../components/PullToRefreshIndicator";
 import { usePullToRefresh } from "../hooks/usePullToRefresh";
 import { Loader2, Heart } from "lucide-react";
+import MarqueeBanner from "../components/MarqueeBanner";
 
 const HERO_IMAGE = "https://ss.charleymurphy.xyz/RWC%20App%20Video.mp4";
 
@@ -40,6 +41,7 @@ export default function Home() {
       {!splashDone && <SplashScreen onDone={() => setSplashDone(true)} />}
       <PullToRefreshIndicator pullDistance={pullDistance} refreshing={refreshing} />
       <div className="min-h-screen">
+        <MarqueeBanner />
         <LivePulseHero heroImage={HERO_IMAGE} />
         <div className="px-5 md:px-12 pt-5 pb-1">
           <p className="text-sm font-semibold text-muted-foreground tracking-wide">📅 19 September 2026</p>
