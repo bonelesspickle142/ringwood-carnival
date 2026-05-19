@@ -7,11 +7,11 @@ const DEBUG_FORCE_EVENT_DAY = true;
 
 const ROUTE_POINTS = [
   "Parkside",
-  "Castleman Roundabout",
-  "Greyfriars Roundabout",
-  "Market place",
-  "Meeting House Lane",
-  "Quomp",
+  "Castleman RBT",
+  "Greyfriars RBT",
+  "Market Place",
+  "Gateway",
+  "Returning",
   ];
 
 export default function ProcessionRoute() {
