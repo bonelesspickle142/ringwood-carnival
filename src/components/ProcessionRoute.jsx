@@ -9,8 +9,10 @@ const ROUTE_POINTS = [
   "Market place",
   "Meeting House Lane",
   "Quomp",
- 
-];
+  "Greyfriars Roundabout (Return)",
+  "Castleman Roundabout (Return)",
+  "Parkside (Return)",
+   ];
 
 export default function ProcessionRoute() {
   const [progress, setProgress] = useState(0);
