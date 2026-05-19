@@ -12,12 +12,6 @@ Deno.serve(async (req) => {
   const normalizedEmail = email.trim().toLowerCase();
   const pdfUrl = Deno.env.get('PROGRAMME_PDF_URL');
 
-  // Check if this email has already claimed a programme
-  const existing = await base44.asServiceRole.entities.ProgrammeClaim.filter({ email: normalizedEmail });
-  if (existing && existing.length > 0) {
-    return Response.json({ error: 'This email has already been used to claim a programme.' });
-  }
-
   // Record the claim
   await base44.asServiceRole.entities.ProgrammeClaim.create({
     email: normalizedEmail,
