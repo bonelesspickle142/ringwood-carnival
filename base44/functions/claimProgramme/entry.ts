@@ -18,18 +18,6 @@ Deno.serve(async (req) => {
     used: true,
   });
 
-  // Send email with PDF link
-  await base44.asServiceRole.integrations.Core.SendEmail({
-    to: normalizedEmail,
-    subject: 'Your Ringwood Carnival 2026 Official Programme 🎉',
-    body: `<p>Hi there,</p>
-<p>Thank you so much for supporting Ringwood Carnival 2026!</p>
-<p>Here is your official digital programme:</p>
-<p style="margin: 24px 0;"><a href="${pdfUrl}" style="display:inline-block;background:#e53e3e;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;">📖 Download Your Programme</a></p>
-<p>We hope you enjoy it, and we look forward to seeing you at the carnival!</p>
-<p>Warm regards,<br/>The Ringwood Carnival Team</p>`,
-  });
-
   // Notify Discord
   const discordWebhook = Deno.env.get('DISCORD_WEBHOOK_URL');
   if (discordWebhook) {
