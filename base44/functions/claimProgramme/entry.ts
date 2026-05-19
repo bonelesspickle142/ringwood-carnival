@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
   if (!jgRes.ok) {
     const errText = await jgRes.text();
     console.error('JustGiving API error:', jgRes.status, errText);
-    return Response.json({ error: `JustGiving API returned ${jgRes.status}. Please check your API key and page name.` }, { status: 502 });
+    return Response.json({ error: `JustGiving API returned ${jgRes.status}. Please check your API key and page name.` });
   }
 
   const jgData = await jgRes.json();
@@ -58,7 +58,7 @@ Deno.serve(async (req) => {
     return Response.json({
       error: 'No donation found for this email address. Please ensure you used the same email when donating on JustGiving, and that your donation has been processed.',
       donations_checked: donations.length,
-    }, { status: 404 });
+    });
   }
 
   // Mark as used in database

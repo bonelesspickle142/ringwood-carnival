@@ -130,13 +130,17 @@ export default function Donate() {
                       if (!email.trim()) { setClaimError("Please enter your email address."); return; }
                       setClaiming(true);
                       setClaimError("");
-                      const res = await base44.functions.invoke("claimProgramme", { email: email.trim() });
-                      setClaiming(false);
-                      if (res.data?.success) {
-                        setClaimed(res.data);
-                      } else {
-                        setClaimError(res.data?.error || "Something went wrong. Please try again.");
+                      try {
+                        const res = await base44.functions.invoke("claimProgramme", { email: email.trim() });
+                        if (res.data?.success) {
+                          setClaimed(res.data);
+                        } else {
+                          setClaimError(res.data?.error || "Something went wrong. Please try again.");
+                        }
+                      } catch {
+                        setClaimError("Something went wrong. Please try again.");
                       }
+                      setClaiming(false);
                     }}
                     disabled={claiming}
                     className="w-full bg-primary text-white font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
