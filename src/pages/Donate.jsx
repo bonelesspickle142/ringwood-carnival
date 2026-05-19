@@ -84,16 +84,33 @@ export default function Donate() {
         {activeTab === "programme" && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
 
-            {/* Claim */}
+            {/* Step 1 — Donate */}
+            <div className="bg-card rounded-2xl border border-border p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">1</div>
+                <h3 className="font-heading font-bold text-foreground">Donate on JustGiving</h3>
+              </div>
+              <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                The official 2026 programme costs just <strong className="text-foreground">£0.50</strong> — donate at least this amount to Ringwood Carnival on JustGiving using the same email address you'll enter below.
+              </p>
+              <a
+                href={JUSTGIVING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 text-sm shadow-md shadow-secondary/20"
+              >
+                <Heart className="w-4 h-4" /> Donate on JustGiving <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            {/* Step 2 — Claim */}
             {!claimed ? (
               <div className="bg-card rounded-2xl border border-border p-5">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">
-                    <BookOpen className="w-4 h-4" />
-                  </div>
-                  <h3 className="font-heading font-bold text-foreground">Get your free programme</h3>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">2</div>
+                  <h3 className="font-heading font-bold text-foreground">Claim your programme</h3>
                 </div>
-                <p className="text-muted-foreground text-sm mb-4">Enter your email address and we'll send you the official 2026 programme PDF.</p>
+                <p className="text-muted-foreground text-sm mb-4">Enter the email address you used when donating on JustGiving to verify your donation and receive the programme.</p>
                 <div className="space-y-3">
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
