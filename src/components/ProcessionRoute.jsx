@@ -96,7 +96,7 @@ export default function ProcessionRoute() {
           <span className="text-white font-heading text-base font-semibold">Procession Route</span>
         </div>
         {processionLabel &&
-        <span className="text-xs font-heading font-bold text-[#fa7c7a]">{processionLabel}</span>
+        <span className="text-xs font-heading font-bold text-[#facf7a]">{processionLabel}</span>
         }
       </div>
       
