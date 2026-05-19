@@ -26,12 +26,5 @@ Deno.serve(async (req) => {
     });
   }
 
-  // Send the programme email
-  await base44.asServiceRole.integrations.Core.SendEmail({
-    to: email,
-    subject: 'Ringwood Carnival 2024 — Your Programme',
-    body: `Dear ${name || 'Carnival Supporter'},\n\nThank you for purchasing the Ringwood Carnival 2024 Official Programme!\n\nYou can view your programme at any time in the Ringwood Carnival app under the Donate & Support section.\n\nWe hope you enjoy the carnival!\n\nWith thanks,\nThe Ringwood Carnival Committee`
-  });
 
-  return Response.json({ success: true });
 });
