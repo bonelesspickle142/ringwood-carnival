@@ -24,7 +24,14 @@ Deno.serve(async (req) => {
     await fetch(discordWebhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: `📖 Programme claimed by: **${normalizedEmail}**` }),
+      body: JSON.stringify({
+        embeds: [{
+          title: '📖 Programme Claimed',
+          description: `**Email:** ${normalizedEmail}`,
+          color: 0x3B5BDB,
+          timestamp: new Date().toISOString(),
+        }]
+      }),
     });
   }
 

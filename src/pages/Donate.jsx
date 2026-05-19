@@ -154,7 +154,7 @@ export default function Donate() {
               <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center">
                 <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
                 <h3 className="font-heading font-bold text-green-800 dark:text-green-300 text-lg mb-1">
-                  Thank you{claimed.donor_name ? `, ${claimed.donor_name}` : ""}!
+                  Thank you!
                 </h3>
                 <p className="text-green-700 dark:text-green-400 text-sm mb-5">
                   Your programme is ready to download below.
@@ -167,6 +167,12 @@ export default function Donate() {
                 >
                   <Download className="w-4 h-4" /> Download Programme PDF
                 </a>
+                <button
+                  onClick={() => { setClaimed(null); setEmail(""); setClaimError(""); }}
+                  className="mt-4 block w-full text-center text-sm text-green-700 dark:text-green-400 underline underline-offset-2"
+                >
+                  Wrong email? Try again
+                </button>
               </div>
             )}
           </motion.div>
