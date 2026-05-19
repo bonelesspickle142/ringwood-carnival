@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink, ZoomIn, X, Users } from "lucide-react";
+import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink, ZoomIn, X, Users, Heart } from "lucide-react";
 
 const INFO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/946e44a29_generated_924a7ac6.png";
 
@@ -11,46 +11,44 @@ const SECTIONS = [
   { id: "staff", label: "Our Team", icon: Users },
 ];
 
-// ── CARNIVAL STAFF ── Edit details here ───────────────────────────────────────
 const STAFF = [
   {
     name: "Ben Salsbury",
     role: "Carnival Chair",
-    bio: "Ben leads the team with brilliant ideas, bringing together all skillsets to make Carnival happen!",
+    bio: "Ben has been involved with Carnival for a while now, leading the team with his brilliant and insightful ideas. Ben is our carnival chair, leading the way and bringing together all skillsets to make Carnival happen!",
     avatar: "https://ss.charleymurphy.xyz/Ben_Salsbury_headshot.jpg?w=200&q=80",
   },
   {
-    name: "James Whitfield",
-    role: "Procession Coordinator",
-    bio: "James coordinates all float entries and manages the procession route.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+    name: "Dan Searley",
+    role: "Event Director",
+    bio: "Dan co-ordinates everything infrastructure, from fencing to toilets, and everything inbetween!",
+    avatar: "https://ss.charleymurphy.xyz/Dan-headshotjpg.jpg?w=200&q=80",
   },
   {
     name: "Helen Graves",
     role: "Events & Entertainment",
-    bio: "Helen books all performers and manages the main stage.",
+    bio: "Helen books all performers and manages the main stage, making sure the entertainment is top-class every single year.",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
   },
   {
     name: "Tom Ashford",
     role: "Treasurer",
-    bio: "Tom keeps the finances in order, making sure every penny raised goes back into the carnival.",
+    bio: "Tom keeps the finances in order, making sure every penny raised goes back into making the carnival bigger and better.",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
   },
   {
     name: "Claire Bennett",
     role: "Volunteer Coordinator",
-    bio: "Claire manages our army of 120+ volunteers who make the whole event possible.",
+    bio: "Claire manages our army of 120+ volunteers who make the whole event possible. She is the unsung hero of carnival day.",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
   },
   {
     name: "David Park",
     role: "Safety Officer",
-    bio: "David ensures every aspect of the event meets safety regulations.",
+    bio: "David ensures every aspect of the event meets safety regulations, liaising with Hampshire Constabulary and First Aid teams.",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
   },
 ];
-// ─────────────────────────────────────────────────────────────────────────────
 
 export default function Info() {
   const [activeSection, setActiveSection] = useState("travel");
@@ -244,12 +242,12 @@ function SafetySection() {
 function StaffSection() {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-      <section>
-        <h2 className="font-heading text-2xl font-bold text-foreground mb-1 flex items-center gap-2">
-          <Users className="w-5 h-5 text-accent" /> Our Team
-        </h2>
-        <p className="text-muted-foreground text-sm mb-6">The volunteers who make the magic happen</p>
-      </section>
+      <div className="flex items-center gap-2 bg-secondary/10 rounded-xl p-4 border border-secondary/20">
+        <Heart className="w-4 h-4 text-secondary flex-shrink-0" />
+        <p className="text-sm text-muted-foreground">
+          Ringwood Carnival is run entirely by volunteers. If you'd like to get involved, please get in touch!
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {STAFF.map((member, i) => (
