@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         embeds: [{
-          title: '📖 Programme Claimed',
+          title: '📖 Programme Claimed <@231755982101807104>',
           description: `**Email:** ${normalizedEmail}`,
           color: 0x3B5BDB,
           timestamp: new Date().toISOString(),
