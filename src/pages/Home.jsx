@@ -7,6 +7,7 @@ import EventCard from "../components/EventCard";
 import SplashScreen from "../components/SplashScreen";
 import ProcessionRoute from "../components/ProcessionRoute";
 import PullToRefreshIndicator from "../components/PullToRefreshIndicator";
+import LogoCarousel from "../components/LogoCarousel";
 import { usePullToRefresh } from "../hooks/usePullToRefresh";
 import { Loader2, Heart } from "lucide-react";
 import MarqueeBanner from "../components/MarqueeBanner";
@@ -58,6 +59,10 @@ export default function Home() {
         </div>
 
         <ProcessionRoute />
+
+        <div className="py-4">
+          <LogoCarousel />
+        </div>
 
         <QuickLinks />
 
