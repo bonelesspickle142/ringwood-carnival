@@ -50,11 +50,14 @@ export default function LivePulseHero({ heroImage }) {
             className="mt-5"
           >
             <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-2">Our Headline Sponsor:</p>
-            <img
-              src="https://ss.charleymurphy.xyz/economy-hire.svg"
-              alt="Economy Hire"
-              className="h-12 w-auto object-contain"
-            />
+            <div className="flex items-center gap-4">
+              <img
+                src="https://ss.charleymurphy.xyz/economy-hire.svg"
+                alt="Economy Hire"
+                className="h-12 w-auto object-contain"
+              />
+              <p className="text-white/70 text-sm italic leading-snug max-w-[160px]">"Headline quote here"</p>
+            </div>
           </motion.div>
         </div>
       </div>
