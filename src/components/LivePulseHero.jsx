@@ -53,7 +53,7 @@ export default function LivePulseHero({ heroImage }) {
             <img
               src="https://ss.charleymurphy.xyz/economy-hire.svg"
               alt="Economy Hire"
-              className="h-15 w-auto object-contain"
+              className="h-12.2 w-auto object-contain"
             />
           </motion.div>
         </div>
