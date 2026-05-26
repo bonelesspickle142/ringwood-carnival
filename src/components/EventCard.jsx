@@ -12,13 +12,17 @@ const categoryColors = {
   other: "bg-muted text-muted-foreground",
 };
 
+const carnivalBg = ["bg-primary", "bg-secondary"];
+
 export default function EventCard({ event, index, isFeatured }) {
+  const bg = carnivalBg[index % 2];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className={`group bg-card rounded-xl overflow-hidden border border-border hover:border-secondary/50 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10 ${
+      className={`group ${bg} rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:opacity-95 ${
         isFeatured ? "md:col-span-2 md:row-span-2" : ""
       }`}
     >
@@ -29,8 +33,8 @@ export default function EventCard({ event, index, isFeatured }) {
             alt={event.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-          <Badge className={`absolute top-3 left-3 ${categoryColors[event.category] || categoryColors.other}`}>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <Badge className="absolute top-3 left-3 bg-white/20 text-white border-0">
             {event.category}
           </Badge>
         </div>
@@ -38,22 +42,22 @@ export default function EventCard({ event, index, isFeatured }) {
 
       <div className="p-4">
         {!event.image_url && (
-          <Badge className={`mb-2 ${categoryColors[event.category] || categoryColors.other}`}>
+          <Badge className="mb-2 bg-white/20 text-white border-0">
             {event.category}
           </Badge>
         )}
 
-        <h3 className={`font-heading font-bold text-foreground mb-2 ${isFeatured ? "text-xl" : "text-base"}`}>
+        <h3 className={`font-heading font-bold text-white mb-2 ${isFeatured ? "text-xl" : "text-base"}`}>
           {event.title}
         </h3>
 
         {event.description && (
-          <p className="text-muted-foreground text-sm leading-relaxed mb-3 line-clamp-2">
+          <p className="text-white/80 text-sm leading-relaxed mb-3 line-clamp-2">
             {event.description}
           </p>
         )}
 
-        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+        <div className="flex flex-wrap gap-3 text-xs text-white/70">
           {event.start_time && (
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />

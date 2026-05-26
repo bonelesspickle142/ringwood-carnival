@@ -1,7 +1,4 @@
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
-import { Link } from "react-router-dom";
-import LogoCarousel from "./LogoCarousel";
 import CarnivalCountdown from "./CarnivalCountdown";
 
 export default function LivePulseHero({ heroImage }) {
@@ -39,24 +36,9 @@ export default function LivePulseHero({ heroImage }) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-            className="flex items-center gap-3 mb-6"
-          >
-            <Link
-              to="/donate"
-              className="flex items-center gap-2 bg-secondary text-white font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30"
-            >
-              <Heart className="w-4 h-4" />
-              Donate
-            </Link>
-          </motion.div>
-
-          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.4 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
           >
             <CarnivalCountdown />
           </motion.div>
@@ -64,11 +46,15 @@ export default function LivePulseHero({ heroImage }) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.35, duration: 0.4 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
             className="mt-5"
           >
-            <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-2">Supported by</p>
-            <LogoCarousel />
+            <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-2">Our Headline Sponsor:</p>
+            <img
+              src="https://ss.charleymurphy.xyz/economy-hire.svg"
+              alt="Economy Hire"
+              className="h-10 w-auto object-contain"
+            />
           </motion.div>
         </div>
       </div>
