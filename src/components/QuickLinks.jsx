@@ -8,32 +8,24 @@ const links = [
   icon: Calendar,
   label: "Events & Pop-ups",
   desc: "Full schedule",
-  iconBg: "bg-primary/10",
-  iconColor: "text-primary"
 },
 {
   to: "/vote",
   icon: Store,
   label: "Shop Window Vote",
   desc: "Vote for your favourite",
-  iconBg: "bg-secondary/10",
-  iconColor: "text-secondary"
 },
 {
   to: "/gallery",
   icon: ImageIcon,
   label: "Gallery",
   desc: "Photos & memories",
-  iconBg: "bg-muted",
-  iconColor: "text-muted-foreground"
 },
 {
   to: "/info",
   icon: MapPin,
   label: "Getting Here",
   desc: "Travel & parking",
-  iconBg: "bg-muted",
-  iconColor: "text-muted-foreground"
 }];
 
 
@@ -49,6 +41,7 @@ export default function QuickLinks() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {links.map((link, i) => {
           const Icon = link.icon;
+          const bg = i % 2 === 0 ? "bg-primary" : "bg-secondary";
           return (
             <motion.div
               key={link.label}
@@ -58,14 +51,14 @@ export default function QuickLinks() {
               
               <Link
                 to={link.to}
-                className="rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-border/60 bg-[hsl(var(--secondary))]">
+                className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
                 
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${link.iconBg}`}>
-                  <Icon className={`w-5 h-5 ${link.iconColor}`} />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20">
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-foreground leading-tight">{link.label}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{link.desc}</p>
+                  <p className="font-semibold text-sm text-white leading-tight">{link.label}</p>
+                  <p className="text-xs text-white/70 mt-0.5">{link.desc}</p>
                 </div>
               </Link>
             </motion.div>);
