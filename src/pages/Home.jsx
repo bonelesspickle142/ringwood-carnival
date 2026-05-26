@@ -51,7 +51,7 @@ export default function Home() {
         <div className="px-5 md:px-12 pt-3 pb-2 flex justify-center">
           <Link
             to="/donate"
-            className="inline-flex items-center gap-2 bg-secondary text-white font-semibold text-base px-8 py-4 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30"
+            className="inline-flex items-center justify-center gap-2 bg-secondary text-white font-semibold text-base px-16 py-4 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 w-full max-w-sm"
           >
             <Heart className="w-4 h-4" />
             Donate
