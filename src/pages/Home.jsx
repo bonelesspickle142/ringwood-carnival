@@ -48,7 +48,7 @@ export default function Home() {
           <p className="text-sm font-semibold text-muted-foreground tracking-wide">📅 19 September 2026</p>
         </div>
 
-        <div className="px-5 md:px-12 pt-3 pb-2">
+        <div className="px-5 md:px-12 pt-3 pb-2 flex justify-center">
           <Link
             to="/donate"
             className="inline-flex items-center gap-2 bg-secondary text-white font-semibold text-base px-8 py-4 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30"
