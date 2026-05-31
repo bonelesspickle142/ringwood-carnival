@@ -24,7 +24,7 @@ export default function Donate() {
             
             Support the Carnival
           </h1>
-          <p className="text-muted-foreground text-sm mt-0.5">Donate and suppo</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Donate and support Carnival here!</p>
         </motion.div>
 
         {/* Tabs */}
