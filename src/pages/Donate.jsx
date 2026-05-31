@@ -20,26 +20,26 @@ export default function Donate() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
           <h1
             className="text-3xl font-bold text-foreground"
-            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
-          >
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}>
+            
             Support the Carnival
           </h1>
           <p className="text-muted-foreground text-sm mt-0.5">Donate or grab your official programme</p>
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5 max-w-xs">
+        <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5 max-w-xs hidden">
           <button
             onClick={() => setActiveTab("programme")}
-            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "programme" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
+            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 hidden ${activeTab === "programme" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            
             <BookOpen className="w-4 h-4" />Programme
           </button>
           <button
             onClick={() => setActiveTab("donate")}
-            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 ${activeTab === "donate" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
-          >
-            <Heart className="w-4 h-4" />Donate
+            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 hidden ${activeTab === "donate" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            
+            <Heart className="w-4 h-4 hidden" />Donate
           </button>
         </div>
       </div>
@@ -47,8 +47,8 @@ export default function Donate() {
       <div className="px-6 md:px-12 py-8 pb-32 max-w-2xl mx-auto">
 
         {/* DONATE TAB */}
-        {activeTab === "donate" && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+        {activeTab === "donate" &&
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
             <div className="bg-card rounded-2xl border border-border p-6 text-center">
               <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-secondary" />
@@ -59,9 +59,9 @@ export default function Donate() {
                 event alive. All donations are processed securely via JustGiving.
               </p>
               <button
-                onClick={() => window.open(JUSTGIVING_URL, "_blank")}
-                className="w-full bg-secondary text-white font-heading font-bold py-4 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 text-lg shadow-lg shadow-secondary/30"
-              >
+              onClick={() => window.open(JUSTGIVING_URL, "_blank")}
+              className="w-full bg-secondary text-white font-heading font-bold py-4 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 text-lg shadow-lg shadow-secondary/30">
+              
                 <Heart className="w-5 h-5" />
                 Donate on JustGiving
                 <ExternalLink className="w-4 h-4" />
@@ -78,11 +78,11 @@ export default function Donate() {
               </ul>
             </div>
           </motion.div>
-        )}
+        }
 
         {/* PROGRAMME TAB */}
-        {activeTab === "programme" && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
+        {activeTab === "programme" &&
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
 
             {/* Step 1 — Donate */}
             <div className="bg-card rounded-2xl border border-border p-5">
@@ -94,18 +94,18 @@ export default function Donate() {
                 The official 2026 programme costs just <strong className="text-foreground">£0.50</strong> — donate at least this amount to Ringwood Carnival on JustGiving using the same email address you'll enter below.
               </p>
               <a
-                href={JUSTGIVING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 text-sm shadow-md shadow-secondary/20"
-              >
+              href={JUSTGIVING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 text-sm shadow-md shadow-secondary/20">
+              
                 <Heart className="w-4 h-4" /> Donate on JustGiving <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
 
             {/* Step 2 — Claim */}
-            {!claimed ? (
-              <div className="bg-card rounded-2xl border border-border p-5">
+            {!claimed ?
+          <div className="bg-card rounded-2xl border border-border p-5">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">2</div>
                   <h3 className="font-heading font-bold text-foreground">Claim your programme</h3>
@@ -115,43 +115,43 @@ export default function Donate() {
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => { setEmail(e.target.value); setClaimError(""); }}
-                      placeholder="your@email.com"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
+                  type="email"
+                  value={email}
+                  onChange={(e) => {setEmail(e.target.value);setClaimError("");}}
+                  placeholder="your@email.com"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+                
                   </div>
-                  {claimError && (
-                    <p className="text-destructive text-xs">{claimError}</p>
-                  )}
+                  {claimError &&
+              <p className="text-destructive text-xs">{claimError}</p>
+              }
                   <button
-                    onClick={async () => {
-                      if (!email.trim()) { setClaimError("Please enter your email address."); return; }
-                      setClaiming(true);
-                      setClaimError("");
-                      try {
-                        const res = await base44.functions.invoke("claimProgramme", { email: email.trim() });
-                        if (res.data?.success) {
-                          setClaimed(res.data);
-                        } else {
-                          setClaimError(res.data?.error || "Something went wrong. Please try again.");
-                        }
-                      } catch {
-                        setClaimError("Something went wrong. Please try again.");
-                      }
-                      setClaiming(false);
-                    }}
-                    disabled={claiming}
-                    className="w-full bg-primary text-white font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
+                onClick={async () => {
+                  if (!email.trim()) {setClaimError("Please enter your email address.");return;}
+                  setClaiming(true);
+                  setClaimError("");
+                  try {
+                    const res = await base44.functions.invoke("claimProgramme", { email: email.trim() });
+                    if (res.data?.success) {
+                      setClaimed(res.data);
+                    } else {
+                      setClaimError(res.data?.error || "Something went wrong. Please try again.");
+                    }
+                  } catch {
+                    setClaimError("Something went wrong. Please try again.");
+                  }
+                  setClaiming(false);
+                }}
+                disabled={claiming}
+                className="w-full bg-primary text-white font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50">
+                
                     {claiming ? <><Loader2 className="w-4 h-4 animate-spin" /> Verifying…</> : "Verify & Get Programme"}
                   </button>
                 </div>
-              </div>
-            ) : (
-              /* Success state */
-              <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center">
+              </div> : (
+
+          /* Success state */
+          <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center">
                 <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
                 <h3 className="font-heading font-bold text-green-800 dark:text-green-300 text-lg mb-1">
                   Thank you!
@@ -160,24 +160,24 @@ export default function Donate() {
                   Your programme is ready to download below.
                 </p>
                 <a
-                  href={claimed.pdf_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-xl hover:bg-green-700 transition-colors"
-                >
+              href={claimed.pdf_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-xl hover:bg-green-700 transition-colors">
+              
                   <Download className="w-4 h-4" /> Download Programme PDF
                 </a>
                 <button
-                  onClick={() => { setClaimed(null); setEmail(""); setClaimError(""); }}
-                  className="mt-4 block w-full text-center text-sm text-green-700 dark:text-green-400 underline underline-offset-2"
-                >
+              onClick={() => {setClaimed(null);setEmail("");setClaimError("");}}
+              className="mt-4 block w-full text-center text-sm text-green-700 dark:text-green-400 underline underline-offset-2">
+              
                   Wrong email? Try again
                 </button>
-              </div>
-            )}
+              </div>)
+          }
           </motion.div>
-        )}
+        }
       </div>
-    </div>
-  );
+    </div>);
+
 }
