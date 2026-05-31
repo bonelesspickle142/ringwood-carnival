@@ -24,7 +24,7 @@ export default function Donate() {
             
             Support the Carnival
           </h1>
-          <p className="text-muted-foreground text-sm mt-0.5">Donate or grab your official programme</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Donate and suppo</p>
         </motion.div>
 
         {/* Tabs */}
@@ -90,7 +90,7 @@ export default function Donate() {
                 <div className="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">1</div>
                 <h3 className="font-heading font-bold text-foreground">Donate on JustGiving</h3>
               </div>
-              <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+              <p className="text-muted-foreground text-sm mb-4 leading-relaxed hidden">
                 The official 2026 programme costs just <strong className="text-foreground">£0.50</strong> — donate at least this amount to Ringwood Carnival on JustGiving using the same email address you'll enter below.
               </p>
               <a
@@ -105,7 +105,7 @@ export default function Donate() {
 
             {/* Step 2 — Claim */}
             {!claimed ?
-          <div className="bg-card rounded-2xl border border-border p-5">
+          <div className="bg-card rounded-2xl border border-border p-5 hidden">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">2</div>
                   <h3 className="font-heading font-bold text-foreground">Claim your programme</h3>
