@@ -90,9 +90,9 @@ export default function Donate() {
                 <div className="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">1</div>
                 <h3 className="font-heading font-bold text-foreground">Donate on JustGiving</h3>
               </div>
-              <p className="text-muted-foreground text-sm mb-4 leading-relaxed hidden">
-                The official 2026 programme costs just <strong className="text-foreground">£0.50</strong> — donate at least this amount to Ringwood Carnival on JustGiving using the same email address you'll enter below.
-              </p>
+              
+
+            
               <a
               href={JUSTGIVING_URL}
               target="_blank"
@@ -104,51 +104,51 @@ export default function Donate() {
             </div>
 
             {/* Step 2 — Claim */}
-            {!claimed ?
-          <div className="bg-card rounded-2xl border border-border p-5 hidden">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-heading font-bold text-sm flex-shrink-0">2</div>
-                  <h3 className="font-heading font-bold text-foreground">Claim your programme</h3>
-                </div>
-                <p className="text-muted-foreground text-sm mb-4">Enter the email address you used when donating on JustGiving to verify your donation and receive the programme.</p>
-                <div className="space-y-3">
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => {setEmail(e.target.value);setClaimError("");}}
-                  placeholder="your@email.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-                
-                  </div>
-                  {claimError &&
-              <p className="text-destructive text-xs">{claimError}</p>
-              }
-                  <button
-                onClick={async () => {
-                  if (!email.trim()) {setClaimError("Please enter your email address.");return;}
-                  setClaiming(true);
-                  setClaimError("");
-                  try {
-                    const res = await base44.functions.invoke("claimProgramme", { email: email.trim() });
-                    if (res.data?.success) {
-                      setClaimed(res.data);
-                    } else {
-                      setClaimError(res.data?.error || "Something went wrong. Please try again.");
-                    }
-                  } catch {
-                    setClaimError("Something went wrong. Please try again.");
-                  }
-                  setClaiming(false);
-                }}
-                disabled={claiming}
-                className="w-full bg-primary text-white font-heading font-bold py-3 rounded-xl hover:bg-primary/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50">
-                
-                    {claiming ? <><Loader2 className="w-4 h-4 animate-spin" /> Verifying…</> : "Verify & Get Programme"}
-                  </button>
-                </div>
-              </div> : (
+            {!claimed ? null : (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           /* Success state */
           <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center">
