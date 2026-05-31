@@ -28,20 +28,20 @@ export default function Donate() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-1.5 bg-muted rounded-xl p-1 mt-5 max-w-xs hidden">
-          <button
-            onClick={() => setActiveTab("programme")}
-            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 hidden ${activeTab === "programme" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-            
-            <BookOpen className="w-4 h-4" />Programme
-          </button>
-          <button
-            onClick={() => setActiveTab("donate")}
-            className={`flex-1 py-2 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-1.5 hidden ${activeTab === "donate" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-            
-            <Heart className="w-4 h-4 hidden" />Donate
-          </button>
-        </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-2xl mx-auto">
