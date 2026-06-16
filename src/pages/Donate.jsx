@@ -4,7 +4,7 @@ import { Heart, BookOpen, Lock, CheckCircle, ExternalLink, Mail, Loader2, Downlo
 import { base44 } from "@/api/base44Client";
 import { toast } from "sonner";
 
-const JUSTGIVING_URL = "https://www.justgiving.com/campaign/ringwoodcarnival";
+const JUSTGIVING_URL = "https://www.justgiving.com/charity/ringwood-cio";
 
 export default function Donate() {
   const [activeTab, setActiveTab] = useState("programme");
