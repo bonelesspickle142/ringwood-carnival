@@ -47,6 +47,11 @@
       "type": "string",
       "title": "Image URL"
     },
+    "image_position": {
+      "type": "string",
+      "title": "Image Position",
+      "default": "center center"
+    },
     "is_featured": {
       "type": "boolean",
       "title": "Featured Event"

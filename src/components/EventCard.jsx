@@ -32,6 +32,7 @@ export default function EventCard({ event, index, isFeatured }) {
             src={event.image_url}
             alt={event.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            style={{ objectPosition: event.image_position || "center center" }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
           <Badge className="absolute top-3 left-3 bg-white/20 text-white border-0">

@@ -16,8 +16,21 @@ const EMPTY_EVENT = {
   category: "other",
   carnival_period: "",
   image_url: "",
+  image_position: "center center",
   is_featured: false,
 };
+
+const POSITIONS = [
+  { label: "Top Left",     value: "top left" },
+  { label: "Top Center",   value: "top center" },
+  { label: "Top Right",    value: "top right" },
+  { label: "Left",         value: "center left" },
+  { label: "Center",       value: "center center" },
+  { label: "Right",        value: "center right" },
+  { label: "Bottom Left",  value: "bottom left" },
+  { label: "Bottom",       value: "bottom center" },
+  { label: "Bottom Right", value: "bottom right" },
+];
 
 function EventForm({ event, onSave, onCancel }) {
   const [form, setForm] = useState(event || EMPTY_EVENT);
@@ -135,6 +148,46 @@ function EventForm({ event, onSave, onCancel }) {
             className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
+
+        {form.image_url && (
+          <div>
+            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-2 block">Image Focus Point</label>
+            <div className="flex gap-3 items-start">
+              {/* 3x3 grid picker */}
+              <div className="grid grid-cols-3 gap-1 flex-shrink-0">
+                {POSITIONS.map((pos) => (
+                  <button
+                    key={pos.value}
+                    type="button"
+                    title={pos.label}
+                    onClick={() => set("image_position", pos.value)}
+                    className={`w-8 h-8 rounded-lg border-2 transition-colors ${
+                      (form.image_position || "center center") === pos.value
+                        ? "border-primary bg-primary/20"
+                        : "border-border bg-muted hover:border-primary/50"
+                    }`}
+                  >
+                    <span className={`block w-2 h-2 rounded-full mx-auto ${
+                      (form.image_position || "center center") === pos.value ? "bg-primary" : "bg-muted-foreground/40"
+                    }`} />
+                  </button>
+                ))}
+              </div>
+              {/* Live preview */}
+              <div className="flex-1 h-[76px] rounded-xl overflow-hidden border border-border relative">
+                <img
+                  src={form.image_url}
+                  alt="preview"
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: form.image_position || "center center" }}
+                />
+                <div className="absolute bottom-1 right-1 bg-black/50 text-white text-[9px] px-1.5 py-0.5 rounded font-heading">
+                  {form.image_position || "center center"}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <label className="flex items-center gap-2 cursor-pointer">
           <input
