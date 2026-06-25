@@ -105,53 +105,7 @@ export default function Donate() {
 
             {/* Step 2 — Claim */}
             {!claimed ? null : (
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          /* Success state */
-          <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center">
+              <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-2xl p-6 text-center">
                 <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-3" />
                 <h3 className="font-heading font-bold text-green-800 dark:text-green-300 text-lg mb-1">
                   Thank you!
@@ -159,22 +113,16 @@ export default function Donate() {
                 <p className="text-green-700 dark:text-green-400 text-sm mb-5">
                   Your programme is ready to download below.
                 </p>
-                <a
-              href={claimed.pdf_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-xl hover:bg-green-700 transition-colors">
-              
+                <a href={claimed.pdf_url} target="_blank" rel="noopener noreferrer"
+                   className="inline-flex items-center gap-2 bg-green-600 text-white font-heading font-bold px-6 py-3 rounded-xl hover:bg-green-700 transition-colors">
                   <Download className="w-4 h-4" /> Download Programme PDF
                 </a>
-                <button
-              onClick={() => {setClaimed(null);setEmail("");setClaimError("");}}
-              className="mt-4 block w-full text-center text-sm text-green-700 dark:text-green-400 underline underline-offset-2">
-              
+                <button onClick={() => { setClaimed(null); setEmail(""); setClaimError(""); }}
+                   className="mt-4 block w-full text-center text-sm text-green-700 dark:text-green-400 underline underline-offset-2">
                   Wrong email? Try again
                 </button>
-              </div>)
-          }
+              </div>
+            )}
           </motion.div>
         }
       </div>
