@@ -20,17 +20,14 @@ const EMPTY_EVENT = {
   is_featured: false,
 };
 
-const POSITIONS = [
-  { label: "Top Left",     value: "top left" },
-  { label: "Top Center",   value: "top center" },
-  { label: "Top Right",    value: "top right" },
-  { label: "Left",         value: "center left" },
-  { label: "Center",       value: "center center" },
-  { label: "Right",        value: "center right" },
-  { label: "Bottom Left",  value: "bottom left" },
-  { label: "Bottom",       value: "bottom center" },
-  { label: "Bottom Right", value: "bottom right" },
-];
+// Parse "x% y%" → {x, y}; default to center
+function parsePosition(str) {
+  const m = (str || "50% 50%").match(/([\d.]+)%\s+([\d.]+)%/);
+  if (m) return { x: parseFloat(m[1]), y: parseFloat(m[2]) };
+  const map = { top: 0, left: 0, center: 50, bottom: 100, right: 100 };
+  const parts = (str || "center center").split(/\s+/);
+  return { x: map[parts[0]] ?? map[parts[1]] ?? 50, y: map[parts[1]] ?? map[parts[0]] ?? 50 };
+}
 
 function EventForm({ event, onSave, onCancel }) {
   const [form, setForm] = useState(event || EMPTY_EVENT);
@@ -151,40 +148,47 @@ function EventForm({ event, onSave, onCancel }) {
 
         {form.image_url && (
           <div>
-            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-2 block">Image Focus Point</label>
-            <div className="flex gap-3 items-start">
-              {/* 3x3 grid picker */}
-              <div className="grid grid-cols-3 gap-1 flex-shrink-0">
-                {POSITIONS.map((pos) => (
-                  <button
-                    key={pos.value}
-                    type="button"
-                    title={pos.label}
-                    onClick={() => set("image_position", pos.value)}
-                    className={`w-8 h-8 rounded-lg border-2 transition-colors ${
-                      (form.image_position || "center center") === pos.value
-                        ? "border-primary bg-primary/20"
-                        : "border-border bg-muted hover:border-primary/50"
-                    }`}
-                  >
-                    <span className={`block w-2 h-2 rounded-full mx-auto ${
-                      (form.image_position || "center center") === pos.value ? "bg-primary" : "bg-muted-foreground/40"
-                    }`} />
-                  </button>
-                ))}
-              </div>
-              {/* Live preview */}
-              <div className="flex-1 h-[76px] rounded-xl overflow-hidden border border-border relative">
-                <img
-                  src={form.image_url}
-                  alt="preview"
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition: form.image_position || "center center" }}
-                />
-                <div className="absolute bottom-1 right-1 bg-black/50 text-white text-[9px] px-1.5 py-0.5 rounded font-heading">
-                  {form.image_position || "center center"}
-                </div>
-              </div>
+            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-2 block">
+              Image Position — click or drag on the image
+            </label>
+            <div
+              className="relative w-full h-40 rounded-xl overflow-hidden border border-border cursor-crosshair select-none"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                const rect = e.currentTarget.getBoundingClientRect();
+                const handle = (ev) => {
+                  const x = Math.min(100, Math.max(0, ((ev.clientX - rect.left) / rect.width) * 100));
+                  const y = Math.min(100, Math.max(0, ((ev.clientY - rect.top) / rect.height) * 100));
+                  set("image_position", `${Math.round(x)}% ${Math.round(y)}%`);
+                };
+                handle(e);
+                const move = (ev) => handle(ev);
+                const up = () => { window.removeEventListener("mousemove", move); window.removeEventListener("mouseup", up); };
+                window.addEventListener("mousemove", move);
+                window.addEventListener("mouseup", up);
+              }}
+            >
+              <img
+                src={form.image_url}
+                alt="preview"
+                className="w-full h-full object-cover pointer-events-none"
+                style={{ objectPosition: form.image_position || "center center" }}
+              />
+              {(() => {
+                const { x, y } = parsePosition(form.image_position);
+                return (
+                  <>
+                    <div className="absolute inset-0 pointer-events-none">
+                      <div className="absolute w-px h-full bg-white/60" style={{ left: `${x}%` }} />
+                      <div className="absolute h-px w-full bg-white/60" style={{ top: `${y}%` }} />
+                      <div className="absolute w-4 h-4 border-2 border-primary rounded-full -translate-x-1/2 -translate-y-1/2 shadow-md" style={{ left: `${x}%`, top: `${y}%` }} />
+                    </div>
+                    <div className="absolute bottom-1.5 right-1.5 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded font-heading pointer-events-none">
+                      {form.image_position || "50% 50%"}
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </div>
         )}
