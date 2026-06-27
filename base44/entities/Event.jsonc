@@ -25,13 +25,13 @@
     "category": {
       "type": "string",
       "enum": [
-        "performance",
-        "food",
-        "craft",
-        "music",
-        "family",
-        "stall",
-        "other"
+        "Performance",
+        "Food",
+        "Craft",
+        "Music",
+        "Family",
+        "Stall",
+        "Other"
       ],
       "title": "Category"
     },
