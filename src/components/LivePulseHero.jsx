@@ -12,8 +12,8 @@ export default function LivePulseHero({ heroImage }) {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+          className="absolute inset-0 w-full h-full object-cover" />
+        
         {/* Subtle dark scrim — no heavy blue gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
 
@@ -21,12 +21,12 @@ export default function LivePulseHero({ heroImage }) {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
+            transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}>
+            
             <h1
               className="text-4xl md:text-6xl font-bold text-white mb-1 leading-tight tracking-tight"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
+              style={{ fontFamily: "var(--font-heading)" }}>
+              
               Ringwood<br />
               <span className="text-secondary">Carnival</span>
             </h1>
@@ -38,8 +38,8 @@ export default function LivePulseHero({ heroImage }) {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-          >
+            transition={{ delay: 0.2, duration: 0.4 }}>
+            
             <CarnivalCountdown />
           </motion.div>
 
@@ -47,20 +47,20 @@ export default function LivePulseHero({ heroImage }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.4 }}
-            className="mt-5"
-          >
+            className="mt-5">
+            
             <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-2">Our Headline Sponsor:</p>
             <div className="flex items-center gap-4">
               <img
                 src="https://ss.charleymurphy.xyz/economy-hire.svg"
                 alt="Economy Hire"
-                className="h-12 w-auto object-contain"
-              />
-              <p className="text-white/70 text-sm italic leading-snug max-w-[160px]">"Headline quote here"</p>
+                className="h-12 w-auto object-contain" />
+              
+              <p className="text-white/70 text-sm italic leading-snug max-w-[160px]"></p>
             </div>
           </motion.div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
