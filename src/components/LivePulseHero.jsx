@@ -50,13 +50,15 @@ export default function LivePulseHero({ heroImage }) {
             className="mt-5">
             
             <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-2">Our Headline Sponsor:</p>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-2">
               <img
                 src="https://ss.charleymurphy.xyz/economy-hire.svg"
                 alt="Economy Hire"
                 className="h-12 w-auto object-contain" />
-              
-              <p className="text-white/70 text-sm italic leading-snug max-w-[160px]"></p>
+              <p className="text-white/70 text-sm italic leading-snug max-w-md">
+                <span className="font-semibold not-italic">A word from our Headline Sponsor:</span>{" "}
+                At Economy Hire, we're delighted to support Ringwood Carnival as headline sponsor this year. As a local business, we're proud to be part of a community that brings people together, and we're pleased to help celebrate everything that makes Ringwood such a special place. We hope everyone has a fantastic Carnival 2026!
+              </p>
             </div>
           </motion.div>
         </div>
