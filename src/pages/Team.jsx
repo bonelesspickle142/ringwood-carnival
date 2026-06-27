@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const TEAM_PHOTO_URL = "https://ss.charleymurphy.xyz/team-photo.jpg";
-const TEAM_TEXT = "Ringwood Carnival is run entirely by volunteers who give their time year-round to bring the community together. From planning and logistics to safety, entertainment, and everything in between, this dedicated team works tirelessly to make Carnival Day a celebration to remember.";
+const TEAM_TEXT = "The Ringwood Carnival volunteers are the heartbeat of the town's massive end-of-summer celebration, dedicating their time entirely for the love of their community. Behind the scenes, the dedicated committee spends months planning logistical details, coordinating with local groups, and organizing fundraising events to ensure everything runs smoothly and stays financially sustainable.\n\nWhen the third Saturday of September rolls around, a massive wave of event-day volunteers springs into action. They get up to everything from marshalling the spectacular afternoon and evening illuminated processions to managing the lively family zones on the Village Green, dressing the magnificent Carnival Royalty float, and keeping the town tidy. Ultimately, their hard work pays off by creating a completely free \"festival of fun\" for thousands of spectators, with all surplus funds raised being donated back to local charities and good causes.";
 
 export default function Team() {
   return (
