@@ -32,6 +32,14 @@ export default function Team() {
               className="w-full object-cover"
             />
           </div>
+          <a
+            href="https://ringwoodcarnival.org/get-involved/volunteer/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center bg-secondary text-white font-semibold text-base px-8 py-4 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 mt-5"
+          >
+            Express interest in Volunteering
+          </a>
           <p className="text-muted-foreground text-sm leading-relaxed mt-5">
             {TEAM_TEXT}
           </p>
