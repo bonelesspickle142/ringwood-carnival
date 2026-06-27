@@ -1,53 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink, ZoomIn, X, Users, Heart } from "lucide-react";
+import { MapPin, Car, ShieldCheck, BookOpen, Clock, Phone, ExternalLink, ZoomIn, X, Users } from "lucide-react";
 
 const INFO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/946e44a29_generated_924a7ac6.png";
+
+const TEAM_PHOTO_URL = "https://ss.charleymurphy.xyz/RW%20Team%20Photo.JPG";
+const TEAM_TEXT = "The Ringwood Carnival volunteers are the heartbeat of the town's massive end-of-summer celebration, dedicating their time entirely for the love of their community. Behind the scenes, the dedicated committee spends months planning logistical details, coordinating with local groups, and organizing fundraising events to ensure everything runs smoothly and stays financially sustainable.\n\nWhen the third Saturday of September rolls around, a massive wave of event-day volunteers springs into action. They get up to everything from marshalling the spectacular afternoon and evening illuminated processions to managing the lively family zones on the Village Green, dressing the magnificent Carnival Royalty float, and keeping the town tidy. Ultimately, their hard work pays off by creating a completely free \"festival of fun\" for thousands of spectators, with all surplus funds raised being donated back to local charities and good causes.";
 
 const SECTIONS = [
   { id: "travel", label: "Travel & Parking", icon: Car },
   { id: "safety", label: "Safety", icon: ShieldCheck },
   { id: "history", label: "Carnival History", icon: BookOpen },
   { id: "staff", label: "Our Team", icon: Users },
-];
-
-const STAFF = [
-  {
-    name: "Ben Salsbury",
-    role: "Carnival Chair",
-    bio: "Ben has been involved with Carnival for a while now, leading the team with his brilliant and insightful ideas. Ben is our carnival chair, leading the way and bringing together all skillsets to make Carnival happen!",
-    avatar: "https://ss.charleymurphy.xyz/Ben_Salsbury_headshot.jpg?w=200&q=80",
-  },
-  {
-    name: "Dan Searley",
-    role: "Event Director",
-    bio: "Dan co-ordinates everything infrastructure, from fencing to toilets, and everything inbetween!",
-    avatar: "https://ss.charleymurphy.xyz/Dan-headshotjpg.jpg?w=200&q=80",
-  },
-  {
-    name: "Helen Graves",
-    role: "Events & Entertainment",
-    bio: "Helen books all performers and manages the main stage, making sure the entertainment is top-class every single year.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
-  },
-  {
-    name: "Tom Ashford",
-    role: "Treasurer",
-    bio: "Tom keeps the finances in order, making sure every penny raised goes back into making the carnival bigger and better.",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
-  },
-  {
-    name: "Claire Bennett",
-    role: "Volunteer Coordinator",
-    bio: "Claire manages our army of 120+ volunteers who make the whole event possible. She is the unsung hero of carnival day.",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
-  },
-  {
-    name: "David Park",
-    role: "Safety Officer",
-    bio: "David ensures every aspect of the event meets safety regulations, liaising with Hampshire Constabulary and First Aid teams.",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
-  },
 ];
 
 export default function Info() {
@@ -242,35 +206,24 @@ function SafetySection() {
 function StaffSection() {
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-      <div className="flex items-center gap-2 bg-secondary/10 rounded-xl p-4 border border-secondary/20">
-        <Heart className="w-4 h-4 text-secondary flex-shrink-0" />
-        <p className="text-sm text-muted-foreground">
-          Ringwood Carnival is run entirely by volunteers. If you'd like to get involved, please get in touch!
-        </p>
+      <div className="rounded-2xl overflow-hidden border border-border">
+        <img
+          src={TEAM_PHOTO_URL}
+          alt="Ringwood Carnival Team"
+          className="w-full object-cover"
+        />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {STAFF.map((member, i) => (
-          <motion.div
-            key={member.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.07 }}
-            className="bg-card rounded-2xl border border-border p-5 flex gap-4"
-          >
-            <img
-              src={member.avatar}
-              alt={member.name}
-              className="w-16 h-16 rounded-2xl object-cover flex-shrink-0"
-            />
-            <div className="min-w-0">
-              <h3 className="font-heading font-bold text-foreground">{member.name}</h3>
-              <p className="text-secondary text-xs font-semibold mb-2 font-heading">{member.role}</p>
-              <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      <a
+        href="https://ringwoodcarnival.org/get-involved/volunteer/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center bg-secondary text-white font-semibold text-base px-8 py-4 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 w-full"
+      >
+        Express interest in Volunteering
+      </a>
+      <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
+        {TEAM_TEXT}
+      </p>
     </motion.div>
   );
 }
