@@ -11,6 +11,7 @@ const EMPTY_EVENT = {
   title: "",
   description: "",
   location: "",
+  date: "",
   start_time: "",
   end_time: "",
   category: "other",
@@ -96,6 +97,16 @@ function EventForm({ event, onSave, onCancel }) {
               className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
+        </div>
+
+        <div>
+          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Date</label>
+          <input
+            type="date"
+            value={form.date || ""}
+            onChange={(e) => set("date", e.target.value)}
+            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          />
         </div>
 
         <div>

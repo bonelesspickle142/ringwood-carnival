@@ -1,6 +1,17 @@
 import { motion } from "framer-motion";
-import { Clock, MapPin, Tag } from "lucide-react";
+import { Clock, MapPin, Tag, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+
+function formatDate(dateStr) {
+  if (!dateStr) return null;
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return null;
+    return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  } catch {
+    return null;
+  }
+}
 
 const categoryColors = {
   performance: "bg-accent text-accent-foreground",
@@ -59,6 +70,12 @@ export default function EventCard({ event, index, isFeatured }) {
         )}
 
         <div className="flex flex-wrap gap-3 text-xs text-white/70">
+          {formatDate(event.date) && (
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              {formatDate(event.date)}
+            </span>
+          )}
           {event.start_time && (
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />
