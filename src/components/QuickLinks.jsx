@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, Users, MapPin, ImageIcon, Store } from "lucide-react";
+import { Calendar, Users, MapPin, ImageIcon, Store, Map } from "lucide-react";
 
 const links = [
 {
@@ -22,6 +22,12 @@ const links = [
   desc: "Photos & memories",
 },
 {
+  to: "/map",
+  icon: Map,
+  label: "Carnival Map",
+  desc: "Find your way around",
+},
+{
   to: "/info",
   icon: MapPin,
   label: "Getting Here",
@@ -38,7 +44,7 @@ export default function QuickLinks() {
         
         Explore the Carnival
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
         {links.map((link, i) => {
           const Icon = link.icon;
           const bg = i % 2 === 0 ? "bg-primary" : "bg-secondary";

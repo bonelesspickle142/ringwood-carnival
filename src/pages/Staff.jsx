@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, Store, Shield, Radio, Megaphone } from "lucide-react";
+import { Lock, Send, Bell, Eye, EyeOff, AlertTriangle, User, ChevronDown, CheckCircle2, Calendar, ImageIcon, Store, Shield, Radio, Megaphone, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { base44 } from "@/api/base44Client";
 import EventsManager from "@/components/staff/EventsManager";
@@ -9,6 +9,7 @@ import ShopsManager from "@/components/staff/ShopsManager";
 import AdminArea from "@/components/staff/AdminArea";
 import RadioLog from "@/components/staff/RadioLog";
 import BannerManager from "@/components/staff/BannerManager";
+import MapManager from "@/components/staff/MapManager";
 
 const STAFF_PASSWORD = "R1ngW00d!";
 const VALID_NAMES = ["Ben", "Charley", "Daniel", "Stewart", "Chris", "Dan", "Control1", "Control2"];
@@ -252,6 +253,7 @@ export default function Staff() {
 
             { key: "banner", icon: Megaphone, label: "Banner" },
             { key: "radio", icon: Radio, label: "Radio" },
+            { key: "map", icon: MapPin, label: "Map" },
             { key: "admin", icon: Shield, label: "Admin" },
           ].map(({ key, icon: Icon, label }) => (
             <button
@@ -280,6 +282,8 @@ export default function Staff() {
         )}
 
         {activeTab === "admin" && <AdminArea />}
+
+        {activeTab === "map" && <MapManager />}
 
         {activeTab === "shops" && <ShopsManager />}
 
