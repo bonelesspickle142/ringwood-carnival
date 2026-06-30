@@ -120,7 +120,7 @@ export default function MapView() {
 
       {/* Map */}
       <div className="px-5 md:px-12 pb-32">
-        <div className="rounded-2xl overflow-hidden border border-border h-[calc(100vh-300px)] md:h-[calc(100vh-280px)]">
+        <div className="rounded-2xl overflow-hidden border border-border h-[60vh] md:h-[70vh] mb-28">
           {loading ? (
             <div className="flex items-center justify-center h-full bg-muted">
               <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
