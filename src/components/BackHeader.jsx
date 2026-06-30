@@ -9,7 +9,7 @@ export default function BackHeader() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
+      className="fixed top-0 left-0 right-0 z-[1000] bg-background/80 backdrop-blur-md border-b border-border"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="flex items-center px-4" style={{ height: 48 }}>
