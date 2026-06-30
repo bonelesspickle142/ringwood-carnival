@@ -101,7 +101,7 @@ export default function Layout() {
 
       {/* iOS-style tab bar — user-select:none scoped to nav only */}
       <div
-        className="fixed bottom-4 left-4 right-4 z-[100]"
+        className="fixed bottom-4 left-4 right-4 z-[1000]"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <nav
