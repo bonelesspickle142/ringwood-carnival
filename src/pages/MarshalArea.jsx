@@ -17,7 +17,7 @@ function getMarshalSession() {
 }
 
 // ── INSERT YOUR BRIEFING PDF LINK HERE ───────────────────────────────────────
-const BRIEFING_PDF_URL = "https://files.charleymurphy.xyz/RWC_Marshal_Brief26.pdf";
+const BRIEFING_PDF_URL = "https://files.charleymurphy.xyz/RWC_Marshal_Briefing26.pdf";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PDF_CACHE_NAME = "marshal-briefing-pdf";
