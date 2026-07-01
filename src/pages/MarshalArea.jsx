@@ -61,7 +61,7 @@ const BRIEFING_POINTS = [
  "Wear and show your uniform you are given.",
  "Be aware of the communication arrangements (radio, mobile phone etc), who to contact and the location of Event Control (Greyfriars), pay attention to all communication around you and digest important information.",
  "Be familiar with the procession route and your location and be able to assist the public by giving information about the event and facilities including VIP, Toilets, Bus Stops etc.",
- "Be vigilant and aware of any suspicious packages or bagss. – Do not touch or move the package, report this immediately and try and move the public away from the area in a controlled way so as not to raise alarm or cause a further situation.",
+ "Be vigilant and aware of any suspicious packages or bags. – Do not touch or move the package, report this immediately and try and move the public away from the area in a controlled way so as not to raise alarm or cause a further situation.",
 
 ];
 
