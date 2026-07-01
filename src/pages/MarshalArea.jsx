@@ -17,7 +17,7 @@ function getMarshalSession() {
 }
 
 // ── INSERT YOUR BRIEFING PDF LINK HERE ───────────────────────────────────────
-const BRIEFING_PDF_URL = "https://YOUR_PDF_LINK_HERE";
+const BRIEFING_PDF_URL = "https://files.charleymurphy.xyz/RWC_Marshal_Brief26.pdf";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PDF_CACHE_NAME = "marshal-briefing-pdf";
@@ -55,7 +55,7 @@ const CONTACTS = [
 ];
 
 const BRIEFING_POINTS = [
- "Not leave your designated sector and area where you are marshalling unless it’s an emergency or related.",
+ "Not leave your designated sector and area where you are marshalling unless it’s an emergency or related. (Inform Sector Manager. Failing that, contact Control room on phone number.)",
  "Not be under the influence of alcohol or drugs.",
  "Remain calm and be courteous towards all members of the public.",
  "Wear and show your uniform you are given.",
