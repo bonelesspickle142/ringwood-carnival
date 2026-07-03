@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, MapPin, Tag, Calendar } from "lucide-react";
+import { Clock, MapPin, Tag, Calendar, Expand, Crop } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 function formatDate(dateStr) {
@@ -27,6 +28,7 @@ const carnivalBg = ["bg-primary", "bg-secondary"];
 
 export default function EventCard({ event, index, isFeatured }) {
   const bg = carnivalBg[index % 2];
+  const [showFull, setShowFull] = useState(false);
 
   return (
     <motion.div
@@ -42,13 +44,20 @@ export default function EventCard({ event, index, isFeatured }) {
           <img
             src={event.image_url}
             alt={event.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className={`w-full h-full transition-transform duration-500 ${showFull ? "object-contain" : "object-cover group-hover:scale-105"}`}
             style={{ objectPosition: event.image_position || "center center" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
           <Badge className="absolute top-3 left-3 bg-white/20 text-white border-0">
             {event.category}
           </Badge>
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowFull((s) => !s); }}
+            className="absolute top-3 right-3 bg-white/20 hover:bg-white/30 text-white p-1.5 rounded-lg backdrop-blur-sm transition-colors"
+            title={showFull ? "Show cropped perspective" : "Show full image"}
+          >
+            {showFull ? <Crop className="w-4 h-4" /> : <Expand className="w-4 h-4" />}
+          </button>
         </div>
       )}
 
