@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, MapPin, Tag, Calendar, Expand, Crop } from "lucide-react";
+import { Clock, MapPin, Tag, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useImageDisplayMode } from "@/hooks/useImageDisplayMode";
 
 function formatDate(dateStr) {
   if (!dateStr) return null;
@@ -28,7 +28,7 @@ const carnivalBg = ["bg-primary", "bg-secondary"];
 
 export default function EventCard({ event, index, isFeatured }) {
   const bg = carnivalBg[index % 2];
-  const [showFull, setShowFull] = useState(false);
+  const showFull = useImageDisplayMode() === "full";
 
   return (
     <motion.div
@@ -51,13 +51,6 @@ export default function EventCard({ event, index, isFeatured }) {
           <Badge className="absolute top-3 left-3 bg-white/20 text-white border-0">
             {event.category}
           </Badge>
-          <button
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowFull((s) => !s); }}
-            className="absolute top-3 right-3 bg-white/20 hover:bg-white/30 text-white p-1.5 rounded-lg backdrop-blur-sm transition-colors"
-            title={showFull ? "Show cropped perspective" : "Show full image"}
-          >
-            {showFull ? <Crop className="w-4 h-4" /> : <Expand className="w-4 h-4" />}
-          </button>
         </div>
       )}
 

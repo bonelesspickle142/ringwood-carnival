@@ -1,0 +1,37 @@
+{
+  "name": "SiteSetting",
+  "type": "object",
+  "properties": {
+    "image_display_mode": {
+      "type": "string",
+      "enum": [
+        "crop",
+        "full"
+      ],
+      "title": "Image Display Mode",
+      "default": "crop",
+      "description": "Global setting for event card images: 'crop' uses the custom perspective, 'full' shows the entire image"
+    }
+  },
+  "required": [
+    "image_display_mode"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

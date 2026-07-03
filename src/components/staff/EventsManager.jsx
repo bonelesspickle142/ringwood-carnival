@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Tag, Loader2 } from "l
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import ImageModeToggle from "@/components/staff/ImageModeToggle";
 
 const CATEGORIES = ["Performance", "Food", "Craft", "Music", "Family", "other"];
 
@@ -305,14 +306,17 @@ export default function EventsManager() {
         <h2 className="font-heading font-bold text-foreground text-lg flex items-center gap-2">
           <Calendar className="w-5 h-5 text-primary" /> Events
         </h2>
-        {!showForm && (
-          <button
-            onClick={openNew}
-            className="flex items-center gap-2 bg-primary text-white font-heading font-bold px-4 py-2 rounded-xl text-sm hover:bg-primary/90 transition-colors"
-          >
-            <Plus className="w-4 h-4" /> Add Event
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          <ImageModeToggle />
+          {!showForm && (
+            <button
+              onClick={openNew}
+              className="flex items-center gap-2 bg-primary text-white font-heading font-bold px-4 py-2 rounded-xl text-sm hover:bg-primary/90 transition-colors"
+            >
+              <Plus className="w-4 h-4" /> Add Event
+            </button>
+          )}
+        </div>
       </div>
 
       <AnimatePresence>
