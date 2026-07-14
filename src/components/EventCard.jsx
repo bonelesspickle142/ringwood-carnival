@@ -34,10 +34,6 @@ export default function EventCard({ event, index, isFeatured }) {
           {event.category}
         </Badge>
 
-        <h3 className={`font-heading font-bold text-white mb-3 ${isFeatured ? "text-xl" : "text-base"}`}>
-          {event.title}
-        </h3>
-
         {event.image_url && (
           <div className={`relative overflow-hidden rounded-lg mb-3 ${isFeatured ? "h-48 md:h-64" : "h-40"}`}>
             <img
@@ -48,6 +44,10 @@ export default function EventCard({ event, index, isFeatured }) {
             />
           </div>
         )}
+
+        <h3 className={`font-heading font-bold text-white mb-3 ${isFeatured ? "text-xl" : "text-base"}`}>
+          {event.title}
+        </h3>
 
         {event.description && (
           <p className="text-white/80 text-sm leading-relaxed mb-3 line-clamp-2">
