@@ -80,11 +80,11 @@ export default function Info() {
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <SectionTitle icon={MapPin}>Getting to Ringwood</SectionTitle>
           <p className="text-muted-foreground text-sm leading-relaxed mb-3">Ringwood is in the New Forest, Hampshire, easily accessible from the A31 and A338. The procession runs along the High Street and surrounding roads. 
+
 By Car: From the M27, take the A31 westbound — allow extra time for road closures. 
 By Bus: X3 and Bluestar services from Bournemouth, Southampton and Salisbury stop in the town centre. 
-Road Closures: Road closures take place during both the afternoon and evening processions; these closures are clearly marked by road signs displayed during the week before Carnival. Please see the illustrated map below for road closure locations. Road closures times are as follows: Afternoon procession: Road closure at 1:30pm, reopens again at 4:30pm. Evening procession: Roads closure at 6:30pm, reopens again at 10:00pm.
 
-          </p>
+Road Closures: Road closures take place during both the afternoon and evening processions; these closures are clearly marked by road signs displayed during the week before Carnival. Please see the illustrated map below for road closure locations. Road closures times are as follows: Afternoon procession: Road closure at 1:30pm, reopens again at 4:30pm. Evening procession: Roads closure at 6:30pm, reopens again at 10:00pm.</p>
 
           <SectionTitle icon={Car}>Parking</SectionTitle>
           <p className="text-muted-foreground text-sm leading-relaxed mb-3">
