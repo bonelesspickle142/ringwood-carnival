@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
 import BackHeader from "./BackHeader";
 
@@ -85,18 +85,15 @@ export default function Layout() {
       <BackHeader />
 
       <main className="pb-28" style={{ paddingTop: mainTopPadding }}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-            onAnimationComplete={handleAnimationComplete}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
+          onAnimationComplete={handleAnimationComplete}
+        >
+          <Outlet />
+        </motion.div>
       </main>
 
       {/* iOS-style tab bar — user-select:none scoped to nav only */}

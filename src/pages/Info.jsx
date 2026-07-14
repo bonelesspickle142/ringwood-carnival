@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Car, ShieldCheck, BookOpen, Users, ExternalLink, ZoomIn, X } from "lucide-react";
+import { MapPin, Car, ShieldCheck, BookOpen, Users, ZoomIn, X } from "lucide-react";
 import { useState } from "react";
 
 const INFO_IMAGE = "https://media.base44.com/images/public/69da7ac3061580afda8ac770/946e44a29_generated_924a7ac6.png";
