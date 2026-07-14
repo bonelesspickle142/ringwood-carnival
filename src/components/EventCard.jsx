@@ -14,20 +14,7 @@ function formatDate(dateStr) {
   }
 }
 
-const categoryColors = {
-  performance: "bg-accent text-accent-foreground",
-  food: "bg-secondary text-secondary-foreground",
-  craft: "bg-primary text-primary-foreground",
-  music: "bg-accent text-accent-foreground",
-  family: "bg-secondary text-secondary-foreground",
-  stall: "bg-muted text-muted-foreground",
-  other: "bg-muted text-muted-foreground",
-};
-
-const carnivalBg = ["bg-primary", "bg-secondary"];
-
 export default function EventCard({ event, index, isFeatured }) {
-  const bg = carnivalBg[index % 2];
   const showFull = useImageDisplayMode() === "full";
 
   return (
@@ -35,35 +22,29 @@ export default function EventCard({ event, index, isFeatured }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className={`group ${bg} rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:opacity-95 ${
+      className={`group bg-primary rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:opacity-95 ${
         isFeatured ? "md:col-span-2 md:row-span-2" : ""
       }`}
     >
-      {event.image_url && (
-        <div className={`relative overflow-hidden ${isFeatured ? "h-48 md:h-64" : "h-36"}`}>
-          <img
-            src={event.image_url}
-            alt={event.title}
-            className={`w-full h-full transition-transform duration-500 ${showFull ? "object-contain" : "object-cover group-hover:scale-105"}`}
-            style={{ objectPosition: event.image_position || "center center" }}
-          />
-          <div className={`absolute inset-0 pointer-events-none ${showFull ? "bg-black/30" : "bg-gradient-to-t from-black/50 to-transparent"}`} />
-          <Badge className="absolute top-3 left-3 bg-white/20 text-white border-0">
-            {event.category}
-          </Badge>
-        </div>
-      )}
-
       <div className="p-4">
-        {!event.image_url && (
-          <Badge className="mb-2 bg-white/20 text-white border-0">
-            {event.category}
-          </Badge>
-        )}
+        <Badge className="mb-2 bg-white/20 text-white border-0">
+          {event.category}
+        </Badge>
 
-        <h3 className={`font-heading font-bold text-white mb-2 ${isFeatured ? "text-xl" : "text-base"}`}>
+        <h3 className={`font-heading font-bold text-white mb-3 ${isFeatured ? "text-xl" : "text-base"}`}>
           {event.title}
         </h3>
+
+        {event.image_url && (
+          <div className={`relative overflow-hidden rounded-lg mb-3 ${isFeatured ? "h-48 md:h-64" : "h-40"}`}>
+            <img
+              src={event.image_url}
+              alt={event.title}
+              className={`w-full h-full transition-transform duration-500 ${showFull ? "object-contain" : "object-cover group-hover:scale-105"}`}
+              style={{ objectPosition: event.image_position || "center center" }}
+            />
+          </div>
+        )}
 
         {event.description && (
           <p className="text-white/80 text-sm leading-relaxed mb-3 line-clamp-2">
