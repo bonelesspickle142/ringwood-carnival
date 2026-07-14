@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Clock, MapPin, Tag, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useImageDisplayMode } from "@/hooks/useImageDisplayMode";
+import ReactMarkdown from "react-markdown";
 
 function formatDate(dateStr) {
   if (!dateStr) return null;
@@ -50,9 +51,17 @@ export default function EventCard({ event, index, isFeatured }) {
         </h3>
 
         {event.description && (
-          <p className="text-white/80 text-sm leading-relaxed mb-3 line-clamp-2">
-            {event.description}
-          </p>
+          <div className="text-white/80 text-sm leading-relaxed mb-3 line-clamp-2">
+            <ReactMarkdown
+              components={{
+                a: ({ node, ...props }) => (
+                  <a {...props} target="_blank" rel="noopener noreferrer" className="underline text-white hover:text-white/90" />
+                ),
+              }}
+            >
+              {event.description}
+            </ReactMarkdown>
+          </div>
         )}
 
         <div className="flex flex-wrap gap-3 text-xs text-white/70">
