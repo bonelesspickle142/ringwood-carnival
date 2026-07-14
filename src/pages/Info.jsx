@@ -14,8 +14,8 @@ function ParkingMap() {
     <>
       <div
         className="relative cursor-zoom-in rounded-xl overflow-hidden border border-border group"
-        onClick={() => setEnlarged(true)}
-      >
+        onClick={() => setEnlarged(true)}>
+        
         <img src={PARKING_MAP} alt="Ringwood parking map" className="w-full h-auto" />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 rounded-full p-2">
@@ -25,34 +25,34 @@ function ParkingMap() {
       </div>
       <p className="text-xs text-muted-foreground mt-1 text-center">Tap to enlarge</p>
 
-      {enlarged && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
-          onClick={() => setEnlarged(false)}
-        >
+      {enlarged &&
+      <div
+        className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4"
+        onClick={() => setEnlarged(false)}>
+        
           <button
-            className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition-colors"
-            onClick={() => setEnlarged(false)}
-          >
+          className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition-colors"
+          onClick={() => setEnlarged(false)}>
+          
             <X className="w-5 h-5" />
           </button>
           <img
-            src={PARKING_MAP}
-            alt="Ringwood parking map"
-            className="max-w-full max-h-full rounded-xl shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          />
+          src={PARKING_MAP}
+          alt="Ringwood parking map"
+          className="max-w-full max-h-full rounded-xl shadow-2xl"
+          onClick={(e) => e.stopPropagation()} />
+        
         </div>
-      )}
-    </>
-  );
+      }
+    </>);
+
 }
 
-const SectionTitle = ({ icon: Icon, children }) => (
-  <h2 className="font-heading text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+const SectionTitle = ({ icon: Icon, children }) =>
+<h2 className="font-heading text-lg font-bold text-foreground mb-2 flex items-center gap-2">
     <Icon className="w-4 h-4 text-accent" /> {children}
-  </h2>
-);
+  </h2>;
+
 
 export default function Info() {
   return (
@@ -66,8 +66,8 @@ export default function Info() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-2xl font-bold text-white"
-            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
-          >
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}>
+            
             Carnival Info
           </motion.h1>
           <p className="text-white/70 text-sm mt-0.5">Everything you need to know</p>
@@ -79,11 +79,11 @@ export default function Info() {
         {/* Travel & Parking */}
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <SectionTitle icon={MapPin}>Getting to Ringwood</SectionTitle>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-            Ringwood is in the New Forest, Hampshire, easily accessible from the A31 and A338. The procession runs along the High Street and surrounding roads.
-            <strong className="text-foreground"> By Car:</strong> From the M27, take the A31 westbound — allow extra time for road closures.
-            <strong className="text-foreground"> By Bus:</strong> X3 and Bluestar services from Bournemouth, Southampton and Salisbury stop in the town centre.
-            <strong className="text-foreground"> Road Closures:</strong> Road closures take place during both the afternoon and evening processions; these closures are clearly marked by road signs displayed during the week before Carnival. Please see the illustrated map below for road closure locations.  Road closures times are as follows: Afternoon procession: Road closure at 1:30pm, reopens again at 4:30pm. Evening procession: Roads closure at 6:30pm, reopens again at 10:00pm.
+          <p className="text-muted-foreground text-sm leading-relaxed mb-3">Ringwood is in the New Forest, Hampshire, easily accessible from the A31 and A338. The procession runs along the High Street and surrounding roads. 
+By Car: From the M27, take the A31 westbound — allow extra time for road closures. 
+By Bus: X3 and Bluestar services from Bournemouth, Southampton and Salisbury stop in the town centre. 
+Road Closures: Road closures take place during both the afternoon and evening processions; these closures are clearly marked by road signs displayed during the week before Carnival. Please see the illustrated map below for road closure locations. Road closures times are as follows: Afternoon procession: Road closure at 1:30pm, reopens again at 4:30pm. Evening procession: Roads closure at 6:30pm, reopens again at 10:00pm.
+
           </p>
 
           <SectionTitle icon={Car}>Parking</SectionTitle>
@@ -111,16 +111,16 @@ export default function Info() {
           </p>
           <div className="space-y-2">
             {[
-              { title: "First Aid", desc: "ACOS Medical — self-present at Greyfriars Community Centre." },
-              { title: "Security", desc: "Find the nearest Uniformed Security Officer for assistance." },
-              { title: "Lost/Found Children", desc: "Report to the nearest Carnival Personnel." },
-              { title: "Toilets", desc: "The Furlong Car Park and portaloos near the fairground." },
-            ].map((item) => (
-              <div key={item.title} className="bg-card rounded-xl p-3 border border-border">
+            { title: "First Aid", desc: "ACOS Medical — self-present at Greyfriars Community Centre." },
+            { title: "Security", desc: "Find the nearest Uniformed Security Officer for assistance." },
+            { title: "Lost/Found Children", desc: "Report to the nearest Carnival Personnel." },
+            { title: "Toilets", desc: "The Furlong Car Park and portaloos near the fairground." }].
+            map((item) =>
+            <div key={item.title} className="bg-card rounded-xl p-3 border border-border">
                 <h3 className="font-heading font-bold text-foreground text-sm mb-0.5">{item.title}</h3>
                 <p className="text-muted-foreground text-xs leading-relaxed">{item.desc}</p>
               </div>
-            ))}
+            )}
           </div>
         </motion.section>
 
@@ -153,8 +153,8 @@ export default function Info() {
             href="https://ringwoodcarnival.org/get-involved/volunteer/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-secondary text-white font-semibold text-sm px-6 py-3 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 w-full mb-3"
-          >
+            className="inline-flex items-center justify-center bg-secondary text-white font-semibold text-sm px-6 py-3 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 w-full mb-3">
+            
             Express interest in Volunteering
           </a>
           <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
@@ -162,6 +162,6 @@ export default function Info() {
           </p>
         </motion.section>
       </div>
-    </div>
-  );
+    </div>);
+
 }
