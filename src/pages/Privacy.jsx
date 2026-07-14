@@ -23,11 +23,11 @@ export default function Privacy() {
           </h2>
 
           <p>
-            Welcome to the Ringwood Carnival Society's website. If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern Ringwood Carnival's relationship with you in relation to this website. If you disagree with any part of these terms and conditions, please do not use our website.
+            Welcome to the Ringwood Carnival CIO's App. If you continue to browse and use this app, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern Ringwood Carnival's relationship with you in relation to this website. If you disagree with any part of these terms and conditions, please do not use our website.
           </p>
 
           <p>
-            The term 'Ringwood Carnival' or 'Ringwood Carnival Society' or 'us' or 'we' refers to the owner of the website whose registered office is: Ringwood Carnival Society, C/O 18 Top Lane, Ringwood, Hants, BH24 1LF. Our charity registration number is 1091788. The term 'you' refers to the user or viewer of our website.
+            The term 'Ringwood Carnival' or 'Ringwood Carnival CIO' or 'us' or 'we' refers to the owner of the website whose registered office is: Ringwood Carnival CIO, C/O 6 Ashburn Garth, Ringwood, BH24 3DF. Our charity registration number is 1207443. The term 'you' refers to the user or viewer of our website.
           </p>
 
           <p>The use of this website is subject to the following terms of use:</p>
@@ -52,19 +52,19 @@ export default function Privacy() {
           </h2>
 
           <h3 className="font-heading font-semibold text-foreground text-base">Introduction</h3>
-          <p>Ringwood Carnival Society takes the privacy of its supporters and volunteers very seriously.</p>
+          <p>Ringwood Carnival CIO takes the privacy of its supporters and volunteers very seriously.</p>
           <ul className="list-disc pl-5 space-y-2">
             <li>We will never pass your details on to third parties without your consent.</li>
             <li>We only hold your 'personal' data when you provide it to us, e.g. when you register to take part in the procession, make a donation, purchase tickets etc.</li>
             <li>By visiting our website or participating in our activities, you agree to your personal information being collected and used in the manner set out in this Privacy Notice as updated from time to time.</li>
           </ul>
 
-          <h3 className="font-heading font-semibold text-foreground text-base">Ringwood Carnival Society is the Data Controller</h3>
+          <h3 className="font-heading font-semibold text-foreground text-base">Ringwood Carnival CIO is the Data Controller</h3>
           <p>
-            In this policy, the words 'we', 'us' or 'our' refer to Ringwood Carnival Society.
+            In this policy, the words 'we', 'us' or 'our' refer to Ringwood Carnival CIO.
           </p>
           <p>
-            Ringwood Carnival Society is a registered charity in England and Wales No: 1091788. You can contact us at{" "}
+            Ringwood Carnival CIO is a registered charitable incorporated organisation in England and Wales No: 1207443. You can contact us at{" "}
             <a href="mailto:info@ringwoodcarnival.org.uk" className="text-primary underline hover:text-primary/80">info@ringwoodcarnival.org.uk</a>
           </p>
 
@@ -131,7 +131,7 @@ export default function Privacy() {
 
           <h3 className="font-heading font-semibold text-foreground text-base">Changes to this policy</h3>
           <p>
-            Ringwood Carnival Society reserves the right to modify its website and/or this Privacy Policy at any time.
+            Ringwood Carnival CIO reserves the right to modify its website and/or this Privacy Policy at any time.
           </p>
 
           <h3 className="font-heading font-semibold text-foreground text-base">Cookie Policy</h3>
