@@ -14,7 +14,10 @@ function formatDate(dateStr) {
   }
 }
 
+const carnivalBg = ["bg-primary", "bg-secondary"];
+
 export default function EventCard({ event, index, isFeatured }) {
+  const bg = carnivalBg[index % 2];
   const showFull = useImageDisplayMode() === "full";
 
   return (
@@ -22,7 +25,7 @@ export default function EventCard({ event, index, isFeatured }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className={`group bg-primary rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:opacity-95 ${
+      className={`group ${bg} rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:opacity-95 ${
         isFeatured ? "md:col-span-2 md:row-span-2" : ""
       }`}
     >
