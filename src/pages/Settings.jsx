@@ -170,6 +170,7 @@ export default function Settings() {
           { label: "Meet the Team", to: "/team" },
           { label: "Donate & Support", to: "/donate" },
           { label: "Staff Area", to: "/staff" },
+          { label: "Privacy Policy", to: "/privacy" },
         ].
           map((item, i) =>
           <Link
