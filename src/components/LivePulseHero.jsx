@@ -52,7 +52,7 @@ export default function LivePulseHero({ heroImage }) {
             <p className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-2">Our Headline Sponsor:</p>
             <div className="flex flex-col gap-2">
               <img
-                src="https://ss.charleymurphy.xyz/economy-hire.svg"
+                src="https://base44.app/api/apps/69da7ac3061580afda8ac770/files/mp/public/69da7ac3061580afda8ac770/9879db3a0_economy-hire.svg"
                 alt="Economy Hire"
                 className="h-12 w-auto object-contain" />
               <p className="text-white/70 text-sm italic leading-snug max-w-md">

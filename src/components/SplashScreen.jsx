@@ -29,7 +29,7 @@ export default function SplashScreen({ onDone }) {
           >
             {/* Main Carnival Logo */}
             <img
-              src="https://ss.charleymurphy.xyz/RWC%20Logo.png"
+              src="https://base44.app/api/apps/69da7ac3061580afda8ac770/files/mp/public/69da7ac3061580afda8ac770/238ece39a_rwc-logo.png"
               alt="Ringwood Carnival"
               className="w-48 h-48 rounded-3xl object-cover shadow-2xl"
             />
@@ -46,7 +46,7 @@ export default function SplashScreen({ onDone }) {
                 Headline Sponsor:
               </p>
               <img
-                src="https://ss.charleymurphy.xyz/economy-hire.svg" 
+                src="https://base44.app/api/apps/69da7ac3061580afda8ac770/files/mp/public/69da7ac3061580afda8ac770/9879db3a0_economy-hire.svg"
                 alt="Headline Sponsor"
                 className="h-12 w-auto object-contain"
               />

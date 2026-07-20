@@ -12,7 +12,7 @@ import { usePullToRefresh } from "../hooks/usePullToRefresh";
 import { Loader2, Heart } from "lucide-react";
 import MarqueeBanner from "../components/MarqueeBanner";
 
-const HERO_IMAGE = "https://ss.charleymurphy.xyz/RWC%20App%20Video.mp4";
+const HERO_IMAGE = "https://base44.app/api/apps/69da7ac3061580afda8ac770/files/mp/public/69da7ac3061580afda8ac770/20d954c9c_rwc-hero.mp4";
 
 export default function Home() {
   const [featuredEvents, setFeaturedEvents] = useState([]);
