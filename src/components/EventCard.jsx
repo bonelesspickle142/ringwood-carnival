@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Clock, MapPin, Tag, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useImageDisplayMode } from "@/hooks/useImageDisplayMode";
 import ReactMarkdown from "react-markdown";
 
 function formatDate(dateStr) {
@@ -19,7 +18,7 @@ const carnivalBg = ["bg-primary", "bg-secondary"];
 
 export default function EventCard({ event, index, isFeatured }) {
   const bg = carnivalBg[index % 2];
-  const showFull = useImageDisplayMode() === "full";
+  const showFull = event.image_display_mode === "full";
 
   return (
     <motion.div

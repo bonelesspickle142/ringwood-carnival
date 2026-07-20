@@ -4,7 +4,6 @@ import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Tag, Loader2 } from "l
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import ImageModeToggle from "@/components/staff/ImageModeToggle";
 
 const CATEGORIES = ["Performance", "Food", "Craft", "Music", "Family", "other"];
 
@@ -19,6 +18,7 @@ const EMPTY_EVENT = {
   carnival_period: "",
   image_url: "",
   image_position: "center center",
+  image_display_mode: "crop",
   is_featured: false,
 };
 
@@ -205,15 +205,26 @@ function EventForm({ event, onSave, onCancel }) {
           </div>
         )}
 
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={form.is_featured}
-            onChange={(e) => set("is_featured", e.target.checked)}
-            className="rounded"
-          />
-          <span className="text-sm text-foreground font-heading">Featured event</span>
-        </label>
+        <div className="flex flex-wrap gap-4">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={form.is_featured}
+              onChange={(e) => set("is_featured", e.target.checked)}
+              className="rounded"
+            />
+            <span className="text-sm text-foreground font-heading">Featured event</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={form.image_display_mode === "full"}
+              onChange={(e) => set("image_display_mode", e.target.checked ? "full" : "crop")}
+              className="rounded"
+            />
+            <span className="text-sm text-foreground font-heading">Show full image (no crop)</span>
+          </label>
+        </div>
 
         <div className="flex gap-3 pt-1">
           <button
@@ -307,7 +318,6 @@ export default function EventsManager() {
           <Calendar className="w-5 h-5 text-primary" /> Events
         </h2>
         <div className="flex items-center gap-2">
-          <ImageModeToggle />
           {!showForm && (
             <button
               onClick={openNew}

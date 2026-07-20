@@ -57,6 +57,16 @@
       "title": "Image Position",
       "default": "center center"
     },
+    "image_display_mode": {
+      "type": "string",
+      "enum": [
+        "crop",
+        "full"
+      ],
+      "title": "Image Display Mode",
+      "default": "crop",
+      "description": "Per-event image display: 'crop' uses the custom focal point, 'full' shows the entire image"
+    },
     "is_featured": {
       "type": "boolean",
       "title": "Featured Event"
