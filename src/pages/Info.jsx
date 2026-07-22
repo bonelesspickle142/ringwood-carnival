@@ -137,8 +137,8 @@ export default function Info() {
             <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4" /> Safety
             </h2>
-            <p className="text-white/85 text-sm leading-relaxed mb-3">
-              Safety is our top priority. Follow all steward instructions and stay behind barriers during the procession.
+            <p className="text-white/85 text-sm leading-relaxed mb-3">Safety is our top priority. Please follow all steward instructions and stay behind barriers during the procession.
+
             </p>
             <div className="space-y-2">
               {[
