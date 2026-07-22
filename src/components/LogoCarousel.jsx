@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 
 const SPONSORS = [
-  { name: "Ringwood Town Council", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Ringwood_Town_Council_Logo.png/200px-Ringwood_Town_Council_Logo.png", url: "https://www.ringwood.gov.uk/" },
-  { name: "The Furlong", logo: "https://placehold.co/140x60/ffffff/555555?text=The+Furlong", url: "https://www.thefurlong-ringwood.co.uk/" },
-  { name: "Hampshire County Council", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Hampshire_County_Council_logo.svg/200px-Hampshire_County_Council_logo.svg.png", url: "https://www.hants.gov.uk/" },
-  { name: "New Forest District", logo: "https://placehold.co/140x60/ffffff/555555?text=New+Forest+District", url: "https://www.newforest.gov.uk/" },
-  { name: "St John Ambulance", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/St_John_Ambulance_logo.svg/200px-St_John_Ambulance_logo.svg.png", url: "https://www.sja.org.uk/" },
-  { name: "Ringwood Lions", logo: "https://placehold.co/140x60/ffffff/555555?text=Ringwood+Lions", url: "https://www.ringwoodlions.org/" },
-  { name: "Ringwood Rotary", logo: "https://placehold.co/140x60/ffffff/555555?text=Ringwood+Rotary", url: "https://www.ringwoodrotary.org.uk/" },
-  { name: "Hampshire Constabulary", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8e/Hampshire_Constabulary_Logo.png/200px-Hampshire_Constabulary_Logo.png", url: "https://www.hampshire.police.uk/" },
+  { name: "Ringwood Accident Repair", logo: "https://ss.charleymurphy.xyz/Ringwood-Accident-Repair.png", url: "https://www.ringwood.gov.uk/" },
+  { name: "Framptons", logo: "https://ss.charleymurphy.xyz/Framptons.jpg", url: "https://www.thefurlong-ringwood.co.uk/" },
+  { name: "Ringwood Motor Company", logo: "https://ss.charleymurphy.xyz/RMC.png", url: "https://www.hants.gov.uk/" },
+  { name: "Marilake Aero Systems LTD", logo: "https://ss.charleymurphy.xyz/Marilake.png", url: "https://www.newforest.gov.uk/" },
+  { name: "Quatuma Advisory LTD", logo: "https://ss.charleymurphy.xyz/Quantuma.jpg", url: "https://www.sja.org.uk/" },
+  { name: "RoCare", logo: "https://ss.charleymurphy.xyz/rocare-logo-colour.png", url: "https://www.ringwoodlions.org/" },
+  { name: "Events Insurance Service Limited", logo: "https://ss.charleymurphy.xyz/eis-30-colour.png", url: "https://www.ringwoodrotary.org.uk/" },
+  { name: "Ellis Jones", logo: "https://ss.charleymurphy.xyz/Ellis_Jones.png", url: "https://www.hampshire.police.uk/" },
 ];
 
 // Duplicate for seamless loop
