@@ -140,19 +140,12 @@ export default function Info() {
             <p className="text-white/85 text-sm leading-relaxed mb-3">Safety is our top priority. Please follow all steward instructions and stay behind barriers during the procession.
 
             </p>
-            <div className="space-y-2">
-              {[
-              { title: "First Aid", desc: "ACOS Medical — self-present at Greyfriars Community Centre." },
-              { title: "Security", desc: "Find the nearest Uniformed Security Officer for assistance." },
-              { title: "Lost/Found Children", desc: "Report to the nearest Carnival Personnel." },
-              { title: "Toilets", desc: "The Furlong Car Park and portaloos near the fairground." }].
-              map((item) =>
-              <div key={item.title} className="bg-white/15 rounded-xl p-3">
-                  <h3 className="font-heading font-bold text-sm mb-0.5">{item.title}</h3>
-                  <p className="text-white/75 text-xs leading-relaxed">{item.desc}</p>
-                </div>
-              )}
-            </div>
+            <ul className="text-white/85 text-sm leading-relaxed space-y-1.5">
+              <li><span className="font-semibold">First Aid:</span> ACOS Medical — self-present at Greyfriars Community Centre.</li>
+              <li><span className="font-semibold">Security:</span> Find the nearest Uniformed Security Officer for assistance.</li>
+              <li><span className="font-semibold">Lost/Found Children:</span> Report to the nearest Carnival Personnel.</li>
+              <li><span className="font-semibold">Toilets:</span> The Furlong Car Park and portaloos near the fairground.</li>
+            </ul>
           </div>
         </motion.section>
 
