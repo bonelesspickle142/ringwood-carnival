@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const EMPTY_EVENT = {
   title: "",
+  tagline: "",
   description: "",
   location: "",
   date: "",
@@ -62,6 +63,16 @@ function EventForm({ event, onSave, onCancel }) {
             value={form.title}
             onChange={(e) => set("title", e.target.value)}
             placeholder="Event title"
+            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+          />
+        </div>
+
+        <div>
+          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Tagline</label>
+          <input
+            value={form.tagline}
+            onChange={(e) => set("tagline", e.target.value)}
+            placeholder="Short tagline shown above the image"
             className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>

@@ -6,6 +6,10 @@
       "type": "string",
       "title": "Event Title"
     },
+    "tagline": {
+      "type": "string",
+      "title": "Tagline"
+    },
     "description": {
       "type": "string",
       "title": "Description"
