@@ -172,23 +172,27 @@ export default function Info() {
           </div>
         </motion.section>
 
-        {/* Team / Volunteer CTA — after the tiles */}
+        {/* Team / Volunteer CTA — blue tile */}
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-          <SectionTitle icon={Users}>Our Team</SectionTitle>
-          <div className="rounded-xl overflow-hidden border border-border mb-3">
-            <img src={TEAM_PHOTO_URL} alt="Ringwood Carnival Team" className="w-full object-cover" />
+          <div className="bg-primary rounded-xl p-4 text-primary-foreground">
+            <h2 className="font-heading text-lg font-bold mb-3 flex items-center gap-2">
+              <Users className="w-4 h-4" /> Our Team
+            </h2>
+            <div className="rounded-xl overflow-hidden border border-white/20 mb-3">
+              <img src={TEAM_PHOTO_URL} alt="Ringwood Carnival Team" className="w-full object-cover" />
+            </div>
+            <a
+              href="https://ringwoodcarnival.org/get-involved/volunteer/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-secondary text-white font-semibold text-sm px-6 py-3 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 w-full mb-3">
+              
+              Express interest in Volunteering
+            </a>
+            <p className="text-white/85 text-sm leading-relaxed whitespace-pre-line">
+              {TEAM_TEXT}
+            </p>
           </div>
-          <a
-            href="https://ringwoodcarnival.org/get-involved/volunteer/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-secondary text-white font-semibold text-sm px-6 py-3 rounded-full hover:bg-secondary/90 active:scale-95 transition-all duration-150 shadow-lg shadow-secondary/30 w-full mb-3">
-            
-            Express interest in Volunteering
-          </a>
-          <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
-            {TEAM_TEXT}
-          </p>
         </motion.section>
       </div>
     </div>);
