@@ -35,7 +35,7 @@ export default function EventCard({ event, index, isFeatured }) {
         
 
         {event.image_url &&
-        <div className={`relative overflow-hidden rounded-lg mb-3 ${isFeatured ? "h-64 md:h-80" : "h-40"}`}>
+        <div className={`relative overflow-hidden rounded-lg mb-3 ${isFeatured ? "h-80 md:h-80" : "h-64"}`}>
             <img
             src={event.image_url}
             alt={event.title}
