@@ -94,19 +94,8 @@ export default function Info() {
           </div>
         </motion.section>
 
-        {/* Parking */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
-          <SectionTitle icon={Car}>Parking</SectionTitle>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-            Plenty of car parks (including disabled bays) — both short and long stay, some free. For full details visit the{" "}
-            <a href="https://www.ringwood.gov.uk/information-service/" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80 transition-colors">
-              Ringwood Town Council website
-            </a>.
-          </p>
-        </motion.section>
-
         {/* Road Closures — blue tile with map underneath */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}>
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
           <div className="bg-primary rounded-xl p-4 text-primary-foreground">
             <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
               <MapPin className="w-4 h-4" /> Road Closures
@@ -127,47 +116,70 @@ export default function Info() {
           </div>
         </motion.section>
 
-        {/* Safety */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-          <SectionTitle icon={ShieldCheck}>Safety</SectionTitle>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-            Safety is our top priority. Follow all steward instructions and stay behind barriers during the procession.
-          </p>
-          <div className="space-y-2">
-            {[
-            { title: "First Aid", desc: "ACOS Medical — self-present at Greyfriars Community Centre." },
-            { title: "Security", desc: "Find the nearest Uniformed Security Officer for assistance." },
-            { title: "Lost/Found Children", desc: "Report to the nearest Carnival Personnel." },
-            { title: "Toilets", desc: "The Furlong Car Park and portaloos near the fairground." }].
-            map((item) =>
-            <div key={item.title} className="bg-card rounded-xl p-3 border border-border">
-                <h3 className="font-heading font-bold text-foreground text-sm mb-0.5">{item.title}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed">{item.desc}</p>
-              </div>
-            )}
-          </div>
-        </motion.section>
-
-        {/* History */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <SectionTitle icon={BookOpen}>Carnival History</SectionTitle>
-          <div className="text-muted-foreground text-sm leading-relaxed space-y-2">
-            <p>
-              Ringwood Carnival is one of Hampshire's most cherished community events, bringing together residents and visitors from across the New Forest and beyond for a spectacular day of colour, music and celebration.
-            </p>
-            <p>
-              What began as a modest local parade has grown into a major annual event, featuring elaborately decorated floats, marching bands, dance troupes, and community groups. Each year, local organisations, schools, charities and businesses pour weeks of creative energy into building their floats around a chosen theme.
-            </p>
-            <p>
-              The procession makes its way from Market Place, along the High Street and through the town, watched by thousands. The day is filled with entertainment, food stalls, craft markets, fairground rides and live performances — a day when the whole community comes together to celebrate, fundraise, and create lasting memories.
-            </p>
-            <p>
-              Ringwood Carnival remains entirely volunteer-run, a testament to the extraordinary spirit of this Hampshire market town.
+        {/* Parking — red tile */}
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}>
+          <div className="bg-secondary rounded-xl p-4 text-white">
+            <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
+              <Car className="w-4 h-4" /> Parking
+            </h2>
+            <p className="text-white/85 text-sm leading-relaxed">
+              Plenty of car parks (including disabled bays) — both short and long stay, some free. For full details visit the{" "}
+              <a href="https://www.ringwood.gov.uk/information-service/" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/70 transition-colors">
+                Ringwood Town Council website
+              </a>.
             </p>
           </div>
         </motion.section>
 
-        {/* Team */}
+        {/* Safety — blue tile */}
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }}>
+          <div className="bg-primary rounded-xl p-4 text-primary-foreground">
+            <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4" /> Safety
+            </h2>
+            <p className="text-white/85 text-sm leading-relaxed mb-3">
+              Safety is our top priority. Follow all steward instructions and stay behind barriers during the procession.
+            </p>
+            <div className="space-y-2">
+              {[
+              { title: "First Aid", desc: "ACOS Medical — self-present at Greyfriars Community Centre." },
+              { title: "Security", desc: "Find the nearest Uniformed Security Officer for assistance." },
+              { title: "Lost/Found Children", desc: "Report to the nearest Carnival Personnel." },
+              { title: "Toilets", desc: "The Furlong Car Park and portaloos near the fairground." }].
+              map((item) =>
+              <div key={item.title} className="bg-white/15 rounded-xl p-3">
+                  <h3 className="font-heading font-bold text-sm mb-0.5">{item.title}</h3>
+                  <p className="text-white/75 text-xs leading-relaxed">{item.desc}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.section>
+
+        {/* History — red tile */}
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
+          <div className="bg-secondary rounded-xl p-4 text-white">
+            <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
+              <BookOpen className="w-4 h-4" /> Carnival History
+            </h2>
+            <div className="text-white/85 text-sm leading-relaxed space-y-2">
+              <p>
+                Ringwood Carnival is one of Hampshire's most cherished community events, bringing together residents and visitors from across the New Forest and beyond for a spectacular day of colour, music and celebration.
+              </p>
+              <p>
+                What began as a modest local parade has grown into a major annual event, featuring elaborately decorated floats, marching bands, dance troupes, and community groups. Each year, local organisations, schools, charities and businesses pour weeks of creative energy into building their floats around a chosen theme.
+              </p>
+              <p>
+                The procession makes its way from Market Place, along the High Street and through the town, watched by thousands. The day is filled with entertainment, food stalls, craft markets, fairground rides and live performances — a day when the whole community comes together to celebrate, fundraise, and create lasting memories.
+              </p>
+              <p>
+                Ringwood Carnival remains entirely volunteer-run, a testament to the extraordinary spirit of this Hampshire market town.
+              </p>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Team / Volunteer CTA — after the tiles */}
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
           <SectionTitle icon={Users}>Our Team</SectionTitle>
           <div className="rounded-xl overflow-hidden border border-border mb-3">
