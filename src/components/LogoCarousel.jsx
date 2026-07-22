@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 
 const SPONSORS = [
-  { name: "Ringwood Accident Repair", logo: "https://ss.charleymurphy.xyz/Ringwood-Accident-Repair.png", url: "https://www.ringwood.gov.uk/" },
-  { name: "Framptons", logo: "https://ss.charleymurphy.xyz/Framptons.jpg", url: "https://www.thefurlong-ringwood.co.uk/" },
-  { name: "Ringwood Motor Company", logo: "https://ss.charleymurphy.xyz/RMC.png", url: "https://www.hants.gov.uk/" },
-  { name: "Marilake Aero Systems LTD", logo: "https://ss.charleymurphy.xyz/Marilake.png", url: "https://www.newforest.gov.uk/" },
-  { name: "Quatuma Advisory LTD", logo: "https://ss.charleymurphy.xyz/Quantuma.jpg", url: "https://www.sja.org.uk/" },
-  { name: "RoCare", logo: "https://ss.charleymurphy.xyz/rocare-logo-colour.png", url: "https://www.ringwoodlions.org/" },
-  { name: "Events Insurance Service Limited", logo: "https://ss.charleymurphy.xyz/eis-30-colour.png", url: "https://www.ringwoodrotary.org.uk/" },
-  { name: "Ellis Jones", logo: "https://ss.charleymurphy.xyz/Ellis_Jones.png", url: "https://www.hampshire.police.uk/" },
+  { name: "Ringwood Accident Repair", logo: "https://ss.charleymurphy.xyz/Ringwood-Accident-Repair.png", url: "https://www.ringwoodaccidentrepair.co.uk" },
+  { name: "Framptons", logo: "https://ss.charleymurphy.xyz/Framptons.jpg", url: "https://framptonsringwood.co.uk" },
+  { name: "Ringwood Motor Company", logo: "https://ss.charleymurphy.xyz/RMC.png", url: "https://www.ringwoodmotorco.co.uk" },
+  { name: "Marilake Aero Systems LTD", logo: "https://ss.charleymurphy.xyz/Marilake.png", url: "https://www.marilake.com" },
+  { name: "Quatuma Advisory LTD", logo: "https://ss.charleymurphy.xyz/Quantuma.jpg", url: "https://www.quantuma.com" },
+  { name: "RoCare", logo: "https://ss.charleymurphy.xyz/rocare-logo-colour.png", url: "https://www.rocare.co.uk" },
+  { name: "Events Insurance Service Limited", logo: "https://ss.charleymurphy.xyz/eis-30-colour.png", url: "https://www.events-insurance.co.uk" },
+  { name: "Ellis Jones", logo: "https://ss.charleymurphy.xyz/Ellis_Jones.png", url: "https://www.ellisjones.co.uk" },
 ];
 
 // Duplicate for seamless loop
