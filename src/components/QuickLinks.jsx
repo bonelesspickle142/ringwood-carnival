@@ -6,7 +6,7 @@ const links = [
 {
   to: "/schedule",
   icon: Calendar,
-  label: "Events & Pop-ups",
+  label: "What's on",
   desc: "Full schedule",
 },
 {
