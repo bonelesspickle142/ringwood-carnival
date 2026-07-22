@@ -30,9 +30,9 @@ export default function EventCard({ event, index, isFeatured }) {
       }>
       
       <div className="p-4">
-        <Badge className="mb-2 bg-white/20 text-white border-0 hidden">
-          {event.category}
-        </Badge>
+        
+
+        
 
         {event.image_url &&
         <div className={`relative overflow-hidden rounded-lg mb-3 ${isFeatured ? "h-48 md:h-64" : "h-40"}`}>
