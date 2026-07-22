@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Tag, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-const CATEGORIES = ["Performance", "Food", "Craft", "Music", "Family", "other"];
 
 const EMPTY_EVENT = {
   title: "",
@@ -120,32 +118,17 @@ function EventForm({ event, onSave, onCancel }) {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Category</label>
-            <Select value={form.category} onValueChange={(value) => set("category", value)}>
-              <SelectTrigger className="w-full rounded-xl">
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                {CATEGORIES.map((c) => (
-                  <SelectItem key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Carnival Period</label>
-            <Select value={form.carnival_period || ""} onValueChange={(value) => set("carnival_period", value)}>
-              <SelectTrigger className="w-full rounded-xl">
-                <SelectValue placeholder="Select period" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="carnival_week">Carnival Week</SelectItem>
-                <SelectItem value="carnival_day">Carnival Day</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div>
+          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Carnival Period</label>
+          <Select value={form.carnival_period || ""} onValueChange={(value) => set("carnival_period", value)}>
+            <SelectTrigger className="w-full rounded-xl">
+              <SelectValue placeholder="Select period" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="carnival_week">Carnival Week</SelectItem>
+              <SelectItem value="carnival_day">Carnival Day</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
@@ -377,11 +360,7 @@ export default function EventsManager() {
                             <MapPin className="w-3 h-3" />{event.location}
                           </span>
                         )}
-                        {event.category && (
-                          <span className="flex items-center gap-1">
-                            <Tag className="w-3 h-3" />{event.category}
-                          </span>
-                        )}
+
                       </div>
                       {event.description && (
                         <p className="text-muted-foreground text-xs mt-1 line-clamp-1">{event.description}</p>

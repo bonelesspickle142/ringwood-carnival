@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, MapPin, Tag, Calendar } from "lucide-react";
+import { Clock, MapPin, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import ReactMarkdown from "react-markdown";
 
