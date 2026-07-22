@@ -22,7 +22,7 @@ export default function LogoCarousel() {
     if (!track) return;
     let pos = 0;
     let paused = false;
-    const speed = 0.7;
+    const speed = 1;
     const half = track.scrollWidth / 2;
     const frame = () => {
       if (!paused) {
