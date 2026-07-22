@@ -76,16 +76,26 @@ export default function Info() {
 
       {/* Content */}
       <div className="px-4 md:px-8 py-6 max-w-3xl space-y-6">
-        {/* Travel & Parking */}
+        {/* Getting to Ringwood — red tile */}
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          <SectionTitle icon={MapPin}>Getting to Ringwood</SectionTitle>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-3">Ringwood is in the New Forest, Hampshire, easily accessible from the A31 and A338. The procession runs along the High Street and surrounding roads. 
+          <div className="bg-secondary rounded-xl p-4 text-white">
+            <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
+              <MapPin className="w-4 h-4" /> Getting to Ringwood
+            </h2>
+            <p className="text-white/85 text-sm leading-relaxed">
+              Ringwood is in the New Forest, Hampshire, easily accessible from the A31 and A338. The procession runs along the High Street and surrounding roads.
+            </p>
+            <p className="text-white/85 text-sm leading-relaxed mt-2">
+              By Car: From the M27, take the A31 westbound — allow extra time for road closures.
+            </p>
+            <p className="text-white/85 text-sm leading-relaxed mt-2">
+              By Bus: X3 and Bluestar services from Bournemouth, Southampton and Salisbury stop in the town centre.
+            </p>
+          </div>
+        </motion.section>
 
-By Car: From the M27, take the A31 westbound — allow extra time for road closures. 
-By Bus: X3 and Bluestar services from Bournemouth, Southampton and Salisbury stop in the town centre. 
-
-Road Closures: Road closures take place during both the afternoon and evening processions; these closures are clearly marked by road signs displayed during the week before Carnival. Please see the illustrated map below for road closure locations. Road closures times are as follows: Afternoon procession: Road closure at 1:30pm, reopens again at 4:30pm. Evening procession: Roads closure at 6:30pm, reopens again at 10:00pm.</p>
-
+        {/* Parking */}
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
           <SectionTitle icon={Car}>Parking</SectionTitle>
           <p className="text-muted-foreground text-sm leading-relaxed mb-3">
             Plenty of car parks (including disabled bays) — both short and long stay, some free. For full details visit the{" "}
@@ -93,13 +103,27 @@ Road Closures: Road closures take place during both the afternoon and evening pr
               Ringwood Town Council website
             </a>.
           </p>
-          <ParkingMap />
+        </motion.section>
 
-          <div className="bg-primary rounded-xl p-4 text-primary-foreground mt-3">
-            <h3 className="font-heading font-bold text-sm mb-1 text-secondary">Road Closures</h3>
-            <p className="text-white/80 text-sm leading-relaxed">
+        {/* Road Closures — blue tile with map underneath */}
+        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}>
+          <div className="bg-primary rounded-xl p-4 text-primary-foreground">
+            <h2 className="font-heading text-lg font-bold mb-2 flex items-center gap-2">
+              <MapPin className="w-4 h-4" /> Road Closures
+            </h2>
+            <p className="text-white/85 text-sm leading-relaxed">
+              Road closures take place during both the afternoon and evening processions; these closures are clearly marked by road signs displayed during the week before Carnival. Road closure times are as follows:
+            </p>
+            <ul className="text-white/85 text-sm leading-relaxed mt-2 space-y-1">
+              <li>Afternoon procession: Road closure at 1:30pm, reopens at 4:30pm.</li>
+              <li>Evening procession: Road closure at 6:30pm, reopens at 10:00pm.</li>
+            </ul>
+            <p className="text-white/85 text-sm leading-relaxed mt-2">
               High Street and Christchurch Road closed 1:00 PM – 6:00 PM on carnival day. Diversions signposted.
             </p>
+          </div>
+          <div className="mt-3">
+            <ParkingMap />
           </div>
         </motion.section>
 
