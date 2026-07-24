@@ -32,7 +32,7 @@ export default function EventCard({ event, index, isFeatured }) {
       <div className="p-4">
 
         {event.tagline &&
-        <p className={`font-heading font-semibold text-white/90 mb-3 uppercase text-center ${isFeatured ? "text-base" : "text-sm"}`}>
+        <p className={`font-heading font-semibold text-white/90 mb-3 uppercase text-center not-italic no-underline ${isFeatured ? "text-base" : "text-sm"}`}>
           {event.tagline}
         </p>
         }
