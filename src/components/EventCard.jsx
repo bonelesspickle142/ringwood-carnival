@@ -48,7 +48,7 @@ export default function EventCard({ event, index, isFeatured }) {
           </div>
         }
 
-        <h3 className={`font-heading font-bold text-white mb-3 ${isFeatured ? "text-xl" : "text-base"}`}>
+        <h3 className={`font-heading font-bold text-white mb-3 hidden ${isFeatured ? "text-xl" : "text-base"}`}>
           {event.title}
         </h3>
 
