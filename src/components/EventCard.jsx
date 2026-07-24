@@ -53,7 +53,7 @@ export default function EventCard({ event, index, isFeatured }) {
         
 
         {event.description &&
-        <div className="text-white/80 text-sm leading-relaxed mb-3">
+        <div className="text-white/80 text-sm leading-relaxed mb-3 text-center">
             <ReactMarkdown
             components={{
               a: ({ node, ...props }) =>
