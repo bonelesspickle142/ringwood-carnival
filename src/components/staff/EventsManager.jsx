@@ -82,9 +82,9 @@ function EventForm({ event, onSave, onCancel }) {
           <textarea
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
-            rows={2}
+            rows={4}
             placeholder="Brief description..."
-            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-y min-h-[100px]"
           />
         </div>
 
