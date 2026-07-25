@@ -61,12 +61,12 @@ export default function EventCard({ event, index, isFeatured }) {
 
             }}>
             
-              {event.description}
+              {(event.description || "").replace(/\n/g, "  \n")}
             </ReactMarkdown>
           </div>
         }
 
-        <div className="flex flex-wrap gap-3 text-xs text-white/70">
+        <div className="flex flex-wrap gap-3 text-xs text-white/70 justify-center">
           {formatDate(event.date) &&
           <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
