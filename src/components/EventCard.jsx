@@ -53,19 +53,15 @@ export default function EventCard({ event, index, isFeatured }) {
         
 
         {event.description &&
-        <div className="text-white/80 text-sm leading-relaxed mb-3 text-center">
-          {event.description.split("\n").map((line, i) => (
-            <span key={i} className="block">
-              <ReactMarkdown
-                components={{
-                  a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="underline text-white hover:text-white/90" />,
-                  p: ({ node, ...props }) => <span {...props} />
-                }}
-              >
-                {line || " "}
-              </ReactMarkdown>
-            </span>
-          ))}
+        <div className="text-white/80 text-sm leading-relaxed mb-3 text-center whitespace-pre-line">
+          <ReactMarkdown
+            components={{
+              a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="underline text-white hover:text-white/90" />,
+              p: ({ node, ...props }) => <span {...props} />
+            }}
+          >
+            {event.description}
+          </ReactMarkdown>
         </div>
         }
 
