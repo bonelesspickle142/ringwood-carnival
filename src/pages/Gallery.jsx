@@ -157,6 +157,10 @@ export default function Gallery() {
                 />
               </div>
               <p className="text-xs text-muted-foreground mb-4">Your photo will be reviewed by staff before appearing in the gallery.</p>
+              <p className="text-xs text-muted-foreground mb-4">
+                By submitting a photo, you agree to our{" "}
+                <a href="/privacy" className="underline text-primary hover:text-primary/80 transition-colors">Privacy Policy</a>.
+              </p>
               <div className="flex gap-3">
                 <button
                   onClick={() => { setShowUploadForm(false); setSelectedFile(null); setPreview(null); }}
