@@ -9,6 +9,9 @@ const SPONSORS = [
   { name: "RoCare", logo: "https://ss.charleymurphy.xyz/rocare-logo-colour.png", url: "https://www.rocare.co.uk" },
   { name: "Events Insurance Service Limited", logo: "https://ss.charleymurphy.xyz/eis-30-colour.png", url: "https://www.events-insurance.co.uk" },
   { name: "Ellis Jones", logo: "https://ss.charleymurphy.xyz/Ellis_Jones.png", url: "https://www.ellisjones.co.uk" },
+  { name: "Frettens Solicitors", logo: "https://ss.charleymurphy.xyz/frettens.png", url: "https://www.frettens.co.uk" },
+  { name: "Letchers Solicitors", logo: "https://ss.charleymurphy.xyz/letchers.png", url: "https://www.letchers.co.uk" },
+  { name: "Sandpiper Mortgages", logo: "https://ss.charleymurphy.xyz/Sandpiper.png", url: "https://sandpipermortgages.co.uk" },
 ];
 
 // Duplicate for seamless loop
