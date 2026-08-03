@@ -21,7 +21,13 @@ export default function Schedule() {
 
   const loadEvents = useCallback(async () => {
     try {
-      const data = await base44.entities.Event.list("start_time", 100);
+      const data = await base44.entities.Event.list("sort_order", 200);
+      data.sort((a, b) => {
+        const oa = a.sort_order ?? 999;
+        const ob = b.sort_order ?? 999;
+        if (oa !== ob) return oa - ob;
+        return (a.start_time || "").localeCompare(b.start_time || "");
+      });
       setEvents(data);
     } catch (e) {
       // empty

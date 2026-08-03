@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Save, Calendar, MapPin, Loader2, ChevronUp, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -19,6 +19,7 @@ const EMPTY_EVENT = {
   image_position: "center center",
   image_display_mode: "crop",
   is_featured: false,
+  sort_order: 0,
 };
 
 // Parse "x% y%" → {x, y}; default to center
@@ -250,7 +251,15 @@ export default function EventsManager() {
 
   const loadEvents = async () => {
     setLoading(true);
-    const data = await base44.entities.Event.list("start_time", 50);
+    const data = await base44.entities.Event.list("sort_order", 200);
+    // Initialize sort_order for events that don't have one
+    const needsInit = data.some((e) => e.sort_order == null);
+    if (needsInit) {
+      const updates = data.map((e, i) => ({ id: e.id, sort_order: i }));
+      await base44.entities.Event.bulkUpdate(updates);
+      data.forEach((e, i) => { e.sort_order = i; });
+    }
+    data.sort((a, b) => (a.sort_order ?? 999) - (b.sort_order ?? 999));
     setEvents(data);
     setLoading(false);
   };
@@ -259,7 +268,7 @@ export default function EventsManager() {
     loadEvents();
     const unsubscribe = base44.entities.Event.subscribe((event) => {
       if (event.type === "create") {
-        setEvents((prev) => [...prev, event.data].sort((a, b) => (a.start_time > b.start_time ? 1 : -1)));
+        setEvents((prev) => [...prev, event.data].sort((a, b) => (a.sort_order ?? 999) - (b.sort_order ?? 999)));
       } else if (event.type === "update") {
         setEvents((prev) => prev.map((e) => e.id === event.id ? { ...e, ...event.data } : e));
       } else if (event.type === "delete") {
@@ -294,6 +303,24 @@ export default function EventsManager() {
     toast.success("Event deleted.");
   };
 
+  const handleMove = async (index, direction) => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= events.length) return;
+    const eventA = events[index];
+    const eventB = events[targetIndex];
+    const orderA = eventA.sort_order ?? index;
+    const orderB = eventB.sort_order ?? targetIndex;
+    setEvents((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], sort_order: orderB };
+      next[targetIndex] = { ...next[targetIndex], sort_order: orderA };
+      next.sort((a, b) => (a.sort_order ?? 999) - (b.sort_order ?? 999));
+      return next;
+    });
+    await base44.entities.Event.update(eventA.id, { sort_order: orderB });
+    await base44.entities.Event.update(eventB.id, { sort_order: orderA });
+  };
+
   const openEdit = (event) => {
     setEditingEvent(event);
     setShowForm(true);
@@ -322,6 +349,7 @@ export default function EventsManager() {
           )}
         </div>
       </div>
+      <p className="text-xs text-muted-foreground mb-3">Use the ↑ ↓ buttons to reorder events on the What's On page.</p>
 
       <AnimatePresence>
         {showForm && (
@@ -344,7 +372,7 @@ export default function EventsManager() {
       ) : (
         <div className="space-y-3">
           <AnimatePresence>
-            {events.map((event) => (
+            {events.map((event, idx) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, height: 0 }}
@@ -378,7 +406,21 @@ export default function EventsManager() {
                       )}
                     </div>
                     {!event._optimistic && (
-                      <div className="flex gap-2 flex-shrink-0">
+                      <div className="flex gap-1 flex-shrink-0">
+                        <button
+                          onClick={() => handleMove(idx, "up")}
+                          disabled={idx === 0}
+                          className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground disabled:opacity-30"
+                        >
+                          <ChevronUp className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleMove(idx, "down")}
+                          disabled={idx === events.length - 1}
+                          className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground disabled:opacity-30"
+                        >
+                          <ChevronDown className="w-4 h-4" />
+                        </button>
                         <button
                           onClick={() => openEdit(event)}
                           className="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
