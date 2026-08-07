@@ -5,7 +5,7 @@ export default function LivePulseHero({ heroImage }) {
   return (
     <div className="relative w-full overflow-hidden">
       {/* Hero image */}
-      <div className="relative min-h-[520px]" style={{ height: "calc(62vh + env(safe-area-inset-top))" }}>
+      <div className="relative min-h-[640px]" style={{ height: "calc(75vh + env(safe-area-inset-top))" }}>
         <video
           src={heroImage}
           autoPlay
