@@ -25,7 +25,7 @@ export default function LivePulseHero({ heroImage }) {
             
             <h1
               className="text-4xl md:text-6xl font-bold text-white mb-1 leading-tight tracking-tight"
-              style={{ fontFamily: "var(--font-heading)" }}>
+              style={{ fontFamily: "var(--font-heading)", textShadow: "0 2px 12px rgba(0,0,0,0.6)" }}>
               
               Ringwood<br />
               <span className="text-secondary">Carnival</span>
