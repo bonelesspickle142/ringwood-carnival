@@ -1,0 +1,13 @@
+- name: Upload IPA via App Store Connect API
+        env:
+          API_KEY_ID: ${{ secrets.APP_STORE_API_KEY_ID }}
+          ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+          API_KEY_BASE64: ${{ secrets.APP_STORE_API_KEY_BASE64 }}
+        run: |
+          echo "$API_KEY_BASE64" | base64 --decode > /tmp/AuthKey_${API_KEY_ID}.p8
+          xcrun altool --upload-app \
+            -f "${{ inputs.ipa-path }}" \
+            -t ios \
+            --apiKey "$API_KEY_ID" \
+            --apiIssuer "$ISSUER_ID" \
+            --bundle-id "com.base69da7ac3061580afda8ac770.app"
