@@ -6,6 +6,7 @@ import { base44 } from "@/api/base44Client";
 import { toast } from "sonner";
 import { Loader2, Trash2, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 const RINGWOOD_CENTER = [50.8477, -1.7925];
 
@@ -166,15 +167,16 @@ export default function MapManager() {
             rows={2}
             className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
           />
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-          >
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>{CATEGORY_EMOJI[c]} {c}</option>
-            ))}
-          </select>
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger className="w-full rounded-xl">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent>
+              {CATEGORIES.map((c) => (
+                <SelectItem key={c} value={c}>{CATEGORY_EMOJI[c]} {c}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <div className="grid grid-cols-2 gap-2">
             <input
               value={latitude}
@@ -193,16 +195,17 @@ export default function MapManager() {
               className="px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
-          <select
-            value={linkedEventId}
-            onChange={(e) => setLinkedEventId(e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-          >
-            <option value="">No linked event</option>
-            {events.map((ev) => (
-              <option key={ev.id} value={ev.id}>{ev.title}</option>
-            ))}
-          </select>
+          <Select value={linkedEventId} onValueChange={setLinkedEventId}>
+            <SelectTrigger className="w-full rounded-xl">
+              <SelectValue placeholder="No linked event" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={null}>No linked event</SelectItem>
+              {events.map((ev) => (
+                <SelectItem key={ev.id} value={ev.id}>{ev.title}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <button
             type="submit"
             disabled={saving}

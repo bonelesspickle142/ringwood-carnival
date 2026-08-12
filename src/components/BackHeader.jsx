@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 
+const TAB_ROOT_PATHS = ['/', '/schedule', '/gallery', '/info', '/settings'];
+
 export default function BackHeader() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (location.pathname === "/") return null;
+  if (TAB_ROOT_PATHS.includes(location.pathname)) return null;
 
   return (
     <div
