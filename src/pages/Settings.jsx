@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
-import { MessageCircle, Info, ChevronRight, Trash2 } from "lucide-react";
+import { ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import {
@@ -49,36 +49,6 @@ export default function Settings() {
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
-        {/* Notifications section */}
-        <h2 className="font-heading font-bold text-foreground text-lg mb-3">Notifications</h2>
-
-        <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          <div className="p-5">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#25D366]/15">
-                <MessageCircle className="w-5 h-5 text-[#25D366]" />
-              </div>
-              <div>
-                <p className="font-heading font-semibold text-foreground text-sm">Carnival Updates via WhatsApp</p>
-                <p className="text-muted-foreground text-xs mt-0.5">
-                  Get push alerts for procession times, schedule changes &amp; results
-                </p>
-              </div>
-            </div>
-            <a
-              href="/whatsapp"
-              className="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white font-heading font-bold py-2.5 rounded-xl text-sm hover:bg-[#1da851] transition-colors"
-            >
-              <MessageCircle className="w-4 h-4" />
-              Subscribe on WhatsApp
-            </a>
-            <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
-              <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-secondary" />
-              <p>Tap to open WhatsApp and message our carnival number once. You'll then receive push notifications there whenever there's an update — no need to keep the app open.</p>
-            </div>
-          </div>
-        </div>
-
         {/* App info */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">About</h2>
         <div className="bg-card rounded-2xl border border-border overflow-hidden">
