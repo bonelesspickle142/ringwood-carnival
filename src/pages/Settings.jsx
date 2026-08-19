@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
-import { Bell, BellOff, Info, ChevronRight, Trash2 } from "lucide-react";
+import { MessageCircle, Info, ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import {
   AlertDialog,
@@ -18,8 +17,6 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function Settings() {
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [permissionState, setPermissionState] = useState("default");
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [logoTaps, setLogoTaps] = useState(0);
   const logoTapTimer = useRef(null);
@@ -33,56 +30,6 @@ export default function Settings() {
       window.location.href = "/committee";
     } else {
       logoTapTimer.current = setTimeout(() => setLogoTaps(0), 2000);
-    }
-  };
-
-  useEffect(() => {
-    if ("Notification" in window) {
-      setPermissionState(Notification.permission);
-      setNotificationsEnabled(Notification.permission === "granted");
-    }
-  }, []);
-
-  const handleNotificationToggle = async (checked) => {
-    if (!("Notification" in window)) {
-      toast.error("Push notifications are not supported on this device.");
-      return;
-    }
-
-    if (checked) {
-      const permission = await Notification.requestPermission();
-      setPermissionState(permission);
-      if (permission === "granted") {
-        setNotificationsEnabled(true);
-        toast.success("Notifications enabled! You'll be alerted for procession updates.");
-        // Show test notification via service worker if available, else fallback
-        if ("serviceWorker" in navigator) {
-          const reg = await navigator.serviceWorker.ready.catch(() => null);
-          if (reg) {
-            reg.showNotification("Ringwood Carnival 🎉", {
-              body: "You're all set! We'll notify you when the procession is about to begin.",
-              icon: "/favicon.ico",
-              badge: "/favicon.ico",
-            });
-          } else {
-            new Notification("Ringwood Carnival 🎉", {
-              body: "You're all set! We'll notify you when the procession is about to begin.",
-              icon: "/favicon.ico",
-            });
-          }
-        } else {
-          new Notification("Ringwood Carnival 🎉", {
-            body: "You're all set! We'll notify you when the procession is about to begin.",
-            icon: "/favicon.ico",
-          });
-        }
-      } else {
-        setNotificationsEnabled(false);
-        toast.error("Notification permission was denied. Please enable it in your settings.");
-      }
-    } else {
-      setNotificationsEnabled(false);
-      toast.info("Notifications turned off.");
     }
   };
 
@@ -106,61 +53,33 @@ export default function Settings() {
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">Notifications</h2>
 
         <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          <div className="p-5 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${notificationsEnabled ? "bg-primary/10" : "bg-muted"}`}>
-                {notificationsEnabled ?
-                <Bell className="w-5 h-5 text-primary" /> :
-
-                <BellOff className="w-5 h-5 text-muted-foreground" />
-                }
+          <div className="p-5">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#25D366]/15">
+                <MessageCircle className="w-5 h-5 text-[#25D366]" />
               </div>
               <div>
-                <p className="font-heading font-semibold text-foreground text-sm">Push Notifications</p>
+                <p className="font-heading font-semibold text-foreground text-sm">Carnival Updates via WhatsApp</p>
                 <p className="text-muted-foreground text-xs mt-0.5">
-                  {notificationsEnabled ?
-                  "You'll receive carnival updates" :
-                  "Get alerts for procession times and events"}
+                  Get push alerts for procession times, schedule changes &amp; results
                 </p>
               </div>
             </div>
-            <Switch
-              checked={notificationsEnabled}
-              onCheckedChange={handleNotificationToggle}
-              disabled={permissionState === "denied"} />
-            
-          </div>
-
-          {permissionState === "denied" &&
-          <div className="px-5 pb-4 flex items-start gap-2 text-xs text-muted-foreground">
+            <a
+              href={base44.agents.getWhatsAppConnectURL("carnival_assistant")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full bg-[#25D366] text-white font-heading font-bold py-2.5 rounded-xl text-sm hover:bg-[#1da851] transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Subscribe on WhatsApp
+            </a>
+            <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
               <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-secondary" />
-              <p>Notifications are blocked in your browser. To enable them, go to your browser's site settings and allow notifications for this site.</p>
+              <p>Tap to open WhatsApp and message our carnival number once. You'll then receive push notifications there whenever there's an update — no need to keep the app open.</p>
             </div>
-          }
+          </div>
         </div>
-
-        {/* Notification types */}
-        {notificationsEnabled &&
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-card rounded-2xl border border-border overflow-hidden mb-6">
-          
-            {[
-          { label: "Procession Starting Soon", desc: "15 min reminder before each procession" },
-          { label: "Event Updates", desc: "Changes to the event schedule" },
-          { label: "Results & Announcements", desc: "Best in Show winner and highlights" }].
-          map((item, i) =>
-          <div key={item.label} className={`p-4 flex items-center justify-between ${i > 0 ? "border-t border-border" : ""}`}>
-                <div>
-                  <p className="font-heading font-semibold text-foreground text-sm">{item.label}</p>
-                  <p className="text-muted-foreground text-xs">{item.desc}</p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-          )}
-          </motion.div>
-        }
 
         {/* App info */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">About</h2>
