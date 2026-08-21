@@ -54,7 +54,7 @@ export default function WhatsAppPrompt() {
             </div>
             <div className="p-6">
               <p className="text-foreground text-sm leading-relaxed text-center mb-5">
-                Join our WhatsApp channel to get live updates, procession times, and important announcements during the carnival.
+                Join our WhatsApp channel to get live updates, procession times, and important announcements during the carnival. NOTE: We will NOT use your phone number (if displayed) for anything other than for notifications on carnival day. 
               </p>
               <div className="space-y-2.5">
                 <button
