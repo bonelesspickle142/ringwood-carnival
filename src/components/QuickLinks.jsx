@@ -7,37 +7,37 @@ const links = [
   to: "/schedule",
   icon: Calendar,
   label: "What's On",
-  desc: "Full schedule",
+  desc: "Full schedule"
 },
 {
   to: "/vote",
   icon: Store,
   label: "Shop Window Vote",
-  desc: "Vote for your favourite",
+  desc: "Vote for your favourite"
 },
 {
   to: "/gallery",
   icon: ImageIcon,
   label: "Gallery",
-  desc: "Photos & memories",
+  desc: "Photos & memories"
 },
 {
   to: "/map",
   icon: Map,
   label: "Carnival Map",
-  desc: "Find your way around",
+  desc: "Find your way around"
 },
 {
   to: "/info",
   icon: MapPin,
   label: "Getting Here",
-  desc: "Travel & parking",
+  desc: "Travel & parking"
 },
 {
   href: "https://whatsapp.com/channel/0029VbDW0xL5vKAI32jD6810",
   icon: MessageCircle,
   label: "WhatsApp Channel",
-  desc: "Live updates",
+  desc: "Live updates"
 }];
 
 
@@ -61,12 +61,12 @@ export default function QuickLinks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 + i * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}>
               
-              {link.href ? (
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
+              {link.href ?
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 hidden ${bg}`}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20">
                     <Icon className="w-5 h-5 text-white" />
                   </div>
@@ -74,11 +74,11 @@ export default function QuickLinks() {
                     <p className="font-semibold text-sm text-white leading-tight">{link.label}</p>
                     <p className="text-xs text-white/70 mt-0.5">{link.desc}</p>
                   </div>
-                </a>
-              ) : (
-                <Link
-                  to={link.to}
-                  className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
+                </a> :
+
+              <Link
+                to={link.to}
+                className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20">
                     <Icon className="w-5 h-5 text-white" />
                   </div>
@@ -87,7 +87,7 @@ export default function QuickLinks() {
                     <p className="text-xs text-white/70 mt-0.5">{link.desc}</p>
                   </div>
                 </Link>
-              )}
+              }
             </motion.div>);
 
         })}
