@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, Users, MapPin, ImageIcon, Store, Map } from "lucide-react";
+import { Calendar, MapPin, ImageIcon, Store, Map, MessageCircle } from "lucide-react";
 
 const links = [
 {
@@ -32,6 +32,12 @@ const links = [
   icon: MapPin,
   label: "Getting Here",
   desc: "Travel & parking",
+},
+{
+  href: "https://whatsapp.com/channel/0029VbDW0xL5vKAI32jD6810",
+  icon: MessageCircle,
+  label: "WhatsApp Channel",
+  desc: "Live updates",
 }];
 
 
@@ -55,18 +61,33 @@ export default function QuickLinks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 + i * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}>
               
-              <Link
-                to={link.to}
-                className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
-                
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20">
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <p className="font-semibold text-sm text-white leading-tight">{link.label}</p>
-                  <p className="text-xs text-white/70 mt-0.5">{link.desc}</p>
-                </div>
-              </Link>
+              {link.href ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20">
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-white leading-tight">{link.label}</p>
+                    <p className="text-xs text-white/70 mt-0.5">{link.desc}</p>
+                  </div>
+                </a>
+              ) : (
+                <Link
+                  to={link.to}
+                  className={`rounded-2xl p-4 flex flex-col gap-3 active:scale-[0.97] transition-transform duration-150 block h-full shadow-sm border border-white/10 ${bg}`}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/20">
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-white leading-tight">{link.label}</p>
+                    <p className="text-xs text-white/70 mt-0.5">{link.desc}</p>
+                  </div>
+                </Link>
+              )}
             </motion.div>);
 
         })}
