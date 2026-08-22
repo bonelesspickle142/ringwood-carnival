@@ -31,9 +31,9 @@ export default function Schedule() {
       setEvents(data);
     } catch (e) {
 
+
       // empty
-    }setLoading(false);
-  }, []);
+    }setLoading(false);}, []);
 
   useEffect(() => {
     loadEvents();
@@ -85,10 +85,10 @@ export default function Schedule() {
             <button
               key={f.key}
               onClick={() => setActiveFilter(f.key)}
-              className={`flex-shrink-0 px-4 py-1.5 rounded-full font-semibold transition-all duration-200 text-4xl ${
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full font-semibold transition-all duration-200 text-4xl text-[hsl(var(--background))] ${
               activeFilter === f.key ?
               "bg-primary text-primary-foreground" :
-              "bg-muted text-muted-foreground hover:bg-muted/80"}`
+              "bg-muted hover:bg-muted/80"}`
               }>
               
                 {f.label}
