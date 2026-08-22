@@ -35,9 +35,9 @@ export default function Schedule() {
 
 
 
+
       // empty
-    }setLoading(false);}, []);useEffect(() => {loadEvents();
-      const unsubscribe = base44.entities.Event.subscribe(() => {loadEvents();});
+    }setLoading(false);}, []);useEffect(() => {loadEvents();const unsubscribe = base44.entities.Event.subscribe(() => {loadEvents();});
       return unsubscribe;
     }, [loadEvents]);
 
@@ -85,7 +85,7 @@ export default function Schedule() {
             <button
               key={f.key}
               onClick={() => setActiveFilter(f.key)}
-              className={`flex-shrink-0 px-4 py-1.5 rounded-full font-semibold transition-all duration-200 text-4xl bg-[#ed3833] text-[hsl(var(--card))] ${
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full font-semibold transition-all duration-200 text-4xl text-[hsl(var(--card))] bg-[#ed3833] ${
               activeFilter === f.key ?
               "bg-primary text-primary-foreground" :
               "hover:bg-muted/80"}`
