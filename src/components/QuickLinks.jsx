@@ -34,6 +34,12 @@ const links = [
   desc: "Travel & parking"
 },
 {
+  to: "/info",
+  icon: MapPin,
+  label: "Getting Here",
+  desc: "Travel & parking"
+},
+{
   href: "https://whatsapp.com/channel/0029VbDW0xL5vKAI32jD6810",
   icon: MessageCircle,
   label: "WhatsApp Channel",
@@ -56,7 +62,7 @@ export default function QuickLinks() {
           const bg = i % 2 === 0 ? "bg-primary" : "bg-secondary";
           return (
             <motion.div
-              key={link.label}
+              key={`${link.label}-${i}`}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08 + i * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}>
