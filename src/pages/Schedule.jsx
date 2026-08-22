@@ -32,9 +32,9 @@ export default function Schedule() {
     } catch (e) {
 
 
+
       // empty
     }setLoading(false);}, []);
-
   useEffect(() => {
     loadEvents();
     const unsubscribe = base44.entities.Event.subscribe(() => {loadEvents();});
@@ -85,7 +85,7 @@ export default function Schedule() {
             <button
               key={f.key}
               onClick={() => setActiveFilter(f.key)}
-              className={`flex-shrink-0 px-4 py-1.5 rounded-full font-semibold transition-all duration-200 text-4xl text-[hsl(var(--background))] ${
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full font-semibold transition-all duration-200 text-4xl text-[#ed3833] ${
               activeFilter === f.key ?
               "bg-primary text-primary-foreground" :
               "bg-muted hover:bg-muted/80"}`
