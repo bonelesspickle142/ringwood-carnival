@@ -37,7 +37,7 @@ const links = [
   to: "/info",
   icon: MapPin,
   label: "Carnival Cups",
-  desc: "Find out Where to buy yo"
+  desc: "Find out where to purchase"
 },
 {
   href: "https://whatsapp.com/channel/0029VbDW0xL5vKAI32jD6810",
