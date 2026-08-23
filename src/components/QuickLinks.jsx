@@ -36,7 +36,7 @@ const links = [
 {
   to: "/info",
   icon: MapPin,
-  label: "Getting Here",
+  label: "Carnival Cups",
   desc: "Travel & parking"
 },
 {
