@@ -85,7 +85,7 @@ export default function Schedule() {
             <button
               key={f.key}
               onClick={() => setActiveFilter(f.key)}
-              className={`flex-shrink-0 px-8 py-4 rounded-full font-semibold transition-all duration-200 text-4xl text-[hsl(var(--card))] bg-[#ed3833] ${
+              className={`flex-shrink-0 px-5 py-2.5 rounded-full font-semibold transition-all duration-200 text-sm text-[hsl(var(--card))] bg-[#ed3833] ${
               activeFilter === f.key ?
               "bg-primary text-primary-foreground" :
               "hover:bg-muted/80"}`
