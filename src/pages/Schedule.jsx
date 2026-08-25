@@ -9,7 +9,6 @@ import { usePullToRefresh } from "../hooks/usePullToRefresh";
 const MASK_URL = "https://ss.charleymurphy.xyz/RWC%20Logo.png";
 
 const FILTERS = [
-{ key: "all", label: "All" },
 { key: "carnival_week", label: "Carnival Week" },
 { key: "carnival_day", label: "Carnival Day" }];
 
@@ -17,7 +16,7 @@ const FILTERS = [
 export default function Schedule() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("carnival_week");
 
   const loadEvents = useCallback(async () => {
     try {
@@ -43,9 +42,7 @@ export default function Schedule() {
 
   const { pulling, pullDistance, refreshing } = usePullToRefresh(loadEvents);
 
-  const filtered = activeFilter === "all" ?
-  events :
-  events.filter((e) => e.carnival_period === activeFilter);
+  const filtered = events.filter((e) => e.carnival_period === activeFilter);
 
   return (
     <div className="min-h-screen relative">

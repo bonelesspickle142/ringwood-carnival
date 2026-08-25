@@ -43,6 +43,10 @@ function EventForm({ event, onSave, onCancel }) {
       toast.error("Title and start time are required.");
       return;
     }
+    if (!form.carnival_period) {
+      toast.error("Please select a carnival period.");
+      return;
+    }
     setSaving(true);
     await onSave(form);
     setSaving(false);
@@ -131,7 +135,7 @@ function EventForm({ event, onSave, onCancel }) {
         </div>
 
         <div>
-          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Carnival Period</label>
+          <label className="text-xs font-heading font-semibold text-muted-foreground uppercase tracking-wide mb-1 block">Carnival Period *</label>
           <Select value={form.carnival_period || ""} onValueChange={(value) => set("carnival_period", value)}>
             <SelectTrigger className="w-full rounded-xl">
               <SelectValue placeholder="Select period" />
