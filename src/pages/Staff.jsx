@@ -139,6 +139,7 @@ export default function Staff() {
   const [sending, setSending] = useState(false);
   const [confirmPending, setConfirmPending] = useState(null); // { title, body }
   const [sentBanner, setSentBanner] = useState(null); // { title, body }
+  const [recipientCount, setRecipientCount] = useState(null); // null = loading
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -160,6 +161,10 @@ export default function Staff() {
   const requestConfirm = (notifTitle, notifBody) => {
     if (!notifBody.trim()) { toast.error("Please enter a message."); return; }
     setConfirmPending({ title: notifTitle, body: notifBody });
+    setRecipientCount(null);
+    base44.functions.invoke("sendPushNotification", { countOnly: true })
+      .then((res) => setRecipientCount(res.data?.count ?? 0))
+      .catch(() => setRecipientCount(null));
   };
 
   const currentName = staffName.trim();
@@ -400,12 +405,21 @@ export default function Staff() {
               <p className="font-heading font-bold text-sm text-foreground mb-1">{confirmPending.title}</p>
               <p className="text-muted-foreground text-sm">{confirmPending.body}</p>
             </div>
-            <p className="text-muted-foreground text-xs mb-4 text-center">Are you sure you want to send this notification?</p>
+            <div className="text-center mb-4">
+              {recipientCount === null ? (
+                <p className="text-muted-foreground text-xs">Calculating recipients…</p>
+              ) : (
+                <>
+                  <p className="text-muted-foreground text-xs">Sending to up to <strong className="text-foreground">{recipientCount}</strong> users</p>
+                  <p className="text-muted-foreground text-xs mt-0.5">≈ {recipientCount} integration credits</p>
+                </>
+              )}
+            </div>
             <div className="flex gap-3">
               <button onClick={() => setConfirmPending(null)} className="flex-1 bg-muted text-foreground font-heading font-bold py-3 rounded-xl hover:bg-muted/80 transition-colors">
                 Cancel
               </button>
-              <button onClick={confirmSend} className="flex-1 bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2">
+              <button onClick={confirmSend} disabled={recipientCount === null || sending} className="flex-1 bg-secondary text-white font-heading font-bold py-3 rounded-xl hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                 <Send className="w-4 h-4" /> Send
               </button>
             </div>

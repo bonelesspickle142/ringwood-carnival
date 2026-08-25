@@ -6,12 +6,17 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const { title, content } = await req.json();
+    const { title, content, countOnly } = await req.json();
+
+    const users = await base44.asServiceRole.entities.User.list('-created_date', 1000);
+
+    if (countOnly) {
+      return Response.json({ ok: true, count: users.length });
+    }
+
     if (!title || !content) {
       return Response.json({ error: 'Missing title or content' }, { status: 400 });
     }
-
-    const users = await base44.asServiceRole.entities.User.list('-created_date', 1000);
 
     let sent = 0;
     let failed = 0;
