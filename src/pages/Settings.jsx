@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
-import { MessageCircle, ChevronRight, Trash2 } from "lucide-react";
+import { Bell, ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import {
@@ -49,23 +49,17 @@ export default function Settings() {
       </div>
 
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
-        {/* WhatsApp channel */}
+        {/* Push notifications */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">Stay Updated</h2>
-        <a
-          href="https://whatsapp.com/channel/0029VbDW0xL5vKAI32jD6810"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-card rounded-2xl border border-border overflow-hidden mb-6 flex items-center gap-3 p-4 hover:bg-muted/50 transition-colors"
-        >
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#25D366]/15 flex-shrink-0">
-            <MessageCircle className="w-5 h-5 text-[#25D366]" />
+        <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6 flex items-center gap-3 p-4">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-primary/15 flex-shrink-0">
+            <Bell className="w-5 h-5 text-primary" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-heading font-semibold text-foreground text-sm">Join our WhatsApp Channel</p>
-            <p className="text-muted-foreground text-xs mt-0.5">Get live updates and announcements</p>
+            <p className="font-heading font-semibold text-foreground text-sm">Push Notifications</p>
+            <p className="text-muted-foreground text-xs mt-0.5">Live updates & announcements sent to your device</p>
           </div>
-          <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-        </a>
+        </div>
 
         {/* App info */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">About</h2>

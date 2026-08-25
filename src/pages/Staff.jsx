@@ -169,16 +169,20 @@ export default function Staff() {
     setConfirmPending(null);
     setSending(true);
 
-    // Try browser push notification if permission available
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification(pendingSnapshot.title, { body: pendingSnapshot.body, icon: "/favicon.ico" });
+    try {
+      const res = await base44.functions.invoke("sendPushNotification", {
+        title: pendingSnapshot.title,
+        content: pendingSnapshot.body,
+      });
+      if (!res.data?.ok) throw new Error(res.data?.error || "Send failed");
+      logAction(currentName, `Sent push notification — "${pendingSnapshot.title}": ${pendingSnapshot.body} (sent: ${res.data.sent}/${res.data.total})`);
+      setBody("");
+      setSentBanner(pendingSnapshot);
+      setTimeout(() => setSentBanner(null), 5000);
+    } catch (err) {
+      toast.error("Failed to send notification. Please try again.");
     }
-
-    logAction(currentName, `Sent notification — "${pendingSnapshot.title}": ${pendingSnapshot.body}`);
-    setBody("");
     setSending(false);
-    setSentBanner(pendingSnapshot);
-    setTimeout(() => setSentBanner(null), 5000);
   };
 
   if (!authenticated) {

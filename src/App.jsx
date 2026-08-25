@@ -7,7 +7,6 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from './components/Layout.jsx';
 import CookieBanner from './components/CookieBanner';
-import WhatsAppPrompt from './components/WhatsAppPrompt';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule.jsx';
 import Donate from './pages/Donate';
@@ -79,7 +78,6 @@ function App() {
         </Router>
         <Toaster />
         <CookieBanner />
-        <WhatsAppPrompt />
       </QueryClientProvider>
     </AuthProvider>
   )

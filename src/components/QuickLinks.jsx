@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, ImageIcon, Store, Map, MessageCircle, Beer } from "lucide-react";
+import { Calendar, MapPin, ImageIcon, Store, Map, Beer } from "lucide-react";
 
 const links = [
 {
@@ -39,12 +39,7 @@ const links = [
   label: "Carnival Cups",
   desc: "Find out where to purchase"
 },
-{
-  href: "https://whatsapp.com/channel/0029VbDW0xL5vKAI32jD6810",
-  icon: MessageCircle,
-  label: "WhatsApp Channel",
-  desc: "Live updates"
-}];
+];
 
 
 export default function QuickLinks() {
