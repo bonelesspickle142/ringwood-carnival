@@ -1,9 +1,10 @@
 import { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
-import { Bell, ChevronRight, Trash2 } from "lucide-react";
+import { ChevronRight, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import PushNotificationsToggle from "@/components/PushNotificationsToggle";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -51,15 +52,7 @@ export default function Settings() {
       <div className="px-6 md:px-12 py-8 pb-32 max-w-xl">
         {/* Push notifications */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">Stay Updated</h2>
-        <div className="bg-card rounded-2xl border border-border overflow-hidden mb-6 flex items-center gap-3 p-4">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-primary/15 flex-shrink-0">
-            <Bell className="w-5 h-5 text-primary" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-heading font-semibold text-foreground text-sm">Push Notifications</p>
-            <p className="text-muted-foreground text-xs mt-0.5">Live updates & announcements sent to your device</p>
-          </div>
-        </div>
+        <PushNotificationsToggle />
 
         {/* App info */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">About</h2>
