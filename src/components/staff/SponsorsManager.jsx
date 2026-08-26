@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Pencil, Trash2, X, Save, Award, Loader2, Star, ExternalLink } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Save, Award, Loader2, Star, ExternalLink, Home } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
@@ -9,6 +9,7 @@ const EMPTY_SPONSOR = {
   image_url: "",
   url: "",
   is_headline: false,
+  show_on_home: false,
   sort_order: 0,
 };
 
@@ -78,6 +79,18 @@ function SponsorForm({ sponsor, onSave, onCancel }) {
           />
           <span className="text-sm text-foreground font-heading flex items-center gap-1">
             <Star className="w-3.5 h-3.5 text-secondary" /> Headline sponsor
+          </span>
+        </label>
+
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={form.show_on_home}
+            onChange={(e) => set("show_on_home", e.target.checked)}
+            className="rounded"
+          />
+          <span className="text-sm text-foreground font-heading flex items-center gap-1">
+            <Home className="w-3.5 h-3.5 text-primary" /> Show on home carousel (Gold+)
           </span>
         </label>
 
@@ -216,6 +229,9 @@ export default function SponsorsManager() {
                     <p className="font-heading font-bold text-foreground text-sm truncate">{sponsor.name}</p>
                     {sponsor.is_headline && (
                       <span className="bg-secondary/10 text-secondary text-[10px] font-heading font-bold uppercase px-1.5 py-0.5 rounded flex-shrink-0">Headline</span>
+                    )}
+                    {sponsor.show_on_home && (
+                      <span className="bg-primary/10 text-primary text-[10px] font-heading font-bold uppercase px-1.5 py-0.5 rounded flex-shrink-0">Home</span>
                     )}
                   </div>
                   {sponsor.url && (

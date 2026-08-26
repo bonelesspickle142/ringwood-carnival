@@ -40,7 +40,7 @@ export default function Sponsors() {
           if (!a.is_headline && b.is_headline) return 1;
           return (a.sort_order ?? 999) - (b.sort_order ?? 999);
         });
-        setSponsors(data);
+        setSponsors(data.filter((s) => !s.show_on_home));
       } catch { /* empty */ }
       setLoading(false);
     };

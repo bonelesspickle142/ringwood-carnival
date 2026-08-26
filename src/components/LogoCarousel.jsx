@@ -9,7 +9,7 @@ export default function LogoCarousel() {
     const load = async () => {
       try {
         const data = await base44.entities.Sponsor.list("sort_order", 100);
-        setSponsors(data);
+        setSponsors(data.filter((s) => s.show_on_home));
       } catch { /* empty */ }
     };
     load();
