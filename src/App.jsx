@@ -20,6 +20,7 @@ import MarshalArea from './pages/MarshalArea';
 import Vote from './pages/Vote';
 import MapView from './pages/MapView';
 import Privacy from './pages/Privacy';
+import Sponsors from './pages/Sponsors';
 
 // Sync Tailwind dark class with system color scheme
 if (typeof window !== "undefined") {
@@ -64,6 +65,7 @@ const AuthenticatedApp = () => {
         <Route path="/vote" element={<Vote />} />
         <Route path="/map" element={<MapView />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/sponsors" element={<Sponsors />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

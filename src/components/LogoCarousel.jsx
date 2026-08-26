@@ -1,28 +1,25 @@
-import { useEffect, useRef } from "react";
-
-const SPONSORS = [
-  { name: "Ringwood Accident Repair", logo: "https://ss.charleymurphy.xyz/Ringwood-Accident-Repair.png", url: "https://www.ringwoodaccidentrepair.co.uk" },
-  { name: "Framptons", logo: "https://ss.charleymurphy.xyz/Framptons.jpg", url: "https://framptonsringwood.co.uk" },
-  { name: "Ringwood Motor Company", logo: "https://ss.charleymurphy.xyz/RMC.png", url: "https://www.ringwoodmotorco.co.uk" },
-  { name: "Marilake Aero Systems LTD", logo: "https://ss.charleymurphy.xyz/Marilake.png", url: "https://www.marilake.com" },
-  { name: "Quatuma Advisory LTD", logo: "https://ss.charleymurphy.xyz/Quantuma.jpg", url: "https://www.quantuma.com" },
-  { name: "RoCare", logo: "https://ss.charleymurphy.xyz/rocare-logo-colour.png", url: "https://www.rocare.co.uk" },
-  { name: "Events Insurance Service Limited", logo: "https://ss.charleymurphy.xyz/eis-30-colour.png", url: "https://www.events-insurance.co.uk" },
-  { name: "Ellis Jones", logo: "https://ss.charleymurphy.xyz/Ellis_Jones.png", url: "https://www.ellisjones.co.uk" },
-  { name: "Frettens Solicitors", logo: "https://ss.charleymurphy.xyz/frettens.png", url: "https://www.frettens.co.uk" },
-  { name: "Letchers Solicitors", logo: "https://ss.charleymurphy.xyz/letchers.png", url: "https://www.letchers.co.uk" },
-  { name: "Sandpiper Mortgages", logo: "https://ss.charleymurphy.xyz/Sandpiper.png", url: "https://sandpipermortgages.co.uk" },
-];
-
-// Duplicate for seamless loop
-const ALL = [...SPONSORS, ...SPONSORS];
+import { useEffect, useRef, useState } from "react";
+import { base44 } from "@/api/base44Client";
 
 export default function LogoCarousel() {
   const trackRef = useRef(null);
+  const [sponsors, setSponsors] = useState([]);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await base44.entities.Sponsor.list("sort_order", 100);
+        setSponsors(data);
+      } catch { /* empty */ }
+    };
+    load();
+    const unsubscribe = base44.entities.Sponsor.subscribe(() => load());
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track || sponsors.length === 0) return;
     let pos = 0;
     let paused = false;
     const speed = 1.6;
@@ -57,7 +54,11 @@ export default function LogoCarousel() {
         parent.removeEventListener("touchend", onLeave);
       }
     };
-  }, []);
+  }, [sponsors]);
+
+  if (sponsors.length === 0) return null;
+
+  const ALL = [...sponsors, ...sponsors];
 
   return (
     <div className="overflow-hidden">
@@ -71,7 +72,7 @@ export default function LogoCarousel() {
             className="flex-shrink-0 bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-5 py-3 flex items-center justify-center min-w-[160px] h-20 hover:bg-white/25 transition-colors cursor-pointer"
           >
             <img
-              src={s.logo}
+              src={s.image_url}
               alt={s.name}
               className="max-h-12 max-w-[140px] object-contain"
               onError={(e) => {

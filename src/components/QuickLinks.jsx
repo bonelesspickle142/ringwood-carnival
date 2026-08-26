@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, ImageIcon, Store, Map, Beer } from "lucide-react";
+import { Calendar, MapPin, ImageIcon, Store, Map, Beer, Award } from "lucide-react";
 
 const links = [
 {
@@ -38,6 +38,12 @@ const links = [
   icon: Beer,
   label: "Carnival Cups",
   desc: "Find out where to purchase"
+},
+{
+  to: "/sponsors",
+  icon: Award,
+  label: "Our Sponsors",
+  desc: "Supporting the carnival"
 },
 ];
 
