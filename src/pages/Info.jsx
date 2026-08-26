@@ -6,7 +6,7 @@ const INFO_IMAGE = "https://ss.charleymurphy.xyz/Pirates-infopage_new.jpg";
 const TEAM_PHOTO_URL = "https://base44.app/api/apps/69da7ac3061580afda8ac770/files/mp/public/69da7ac3061580afda8ac770/dcbc6b248_rw-team-photo.jpg";
 const TEAM_TEXT = "The Ringwood Carnival volunteers are the heartbeat of the town's massive end-of-summer celebration, dedicating their time entirely for the love of their community. Behind the scenes, the dedicated committee spends months planning logistical details, coordinating with local groups, and organizing fundraising events to ensure everything runs smoothly and stays financially sustainable.\n\nWhen the third Saturday of September rolls around, a massive wave of event-day volunteers springs into action. They get up to everything from marshalling the spectacular afternoon and evening illuminated processions to managing the lively family zones on the Village Green, dressing the magnificent Carnival Royalty float, and keeping the town tidy. Ultimately, their hard work pays off by creating a completely free \"festival of fun\" for thousands of spectators, with all surplus funds raised being donated back to local charities and good causes.";
 
-const PARKING_MAP = "https://base44.app/api/apps/69da7ac3061580afda8ac770/files/mp/public/69da7ac3061580afda8ac770/b5acd5e55_parking-map.png";
+const PARKING_MAP = "http://ss.charleymurphy.xyz/Road-Closure-Map-Download-pdf.jpg";
 
 function ParkingMap() {
   const [enlarged, setEnlarged] = useState(false);
