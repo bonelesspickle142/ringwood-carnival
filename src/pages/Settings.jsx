@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
-import { ChevronRight, Trash2 } from "lucide-react";
+import { ChevronRight, Trash2, Sun, Moon } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import PushNotificationsToggle from "@/components/PushNotificationsToggle";
@@ -21,6 +22,13 @@ export default function Settings() {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [logoTaps, setLogoTaps] = useState(0);
   const logoTapTimer = useRef(null);
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
+
+  const toggleDark = (checked) => {
+    setIsDark(checked);
+    document.documentElement.classList.toggle("dark", checked);
+    localStorage.setItem("theme", checked ? "dark" : "light");
+  };
 
   const handleLogoTap = () => {
     const newCount = logoTaps + 1;
@@ -53,6 +61,16 @@ export default function Settings() {
         {/* Push notifications */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">Stay Updated</h2>
         <PushNotificationsToggle />
+
+        {/* Appearance */}
+        <h2 className="font-heading font-bold text-foreground text-lg mb-3 mt-8">Appearance</h2>
+        <div className="bg-card rounded-2xl border border-border p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {isDark ? <Moon className="w-4 h-4 text-foreground" /> : <Sun className="w-4 h-4 text-foreground" />}
+            <span className="font-heading text-sm font-medium text-foreground">Dark Mode</span>
+          </div>
+          <Switch checked={isDark} onCheckedChange={toggleDark} />
+        </div>
 
         {/* App info */}
         <h2 className="font-heading font-bold text-foreground text-lg mb-3">About</h2>

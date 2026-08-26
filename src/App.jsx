@@ -22,11 +22,15 @@ import MapView from './pages/MapView';
 import Privacy from './pages/Privacy';
 import Sponsors from './pages/Sponsors';
 
-// Sync Tailwind dark class with system color scheme
+// Sync Tailwind dark class with stored preference or system color scheme
 if (typeof window !== "undefined") {
   const mq = window.matchMedia("(prefers-color-scheme: dark)");
-  const apply = (e) => document.documentElement.classList.toggle("dark", e.matches);
-  apply(mq);
+  const apply = () => {
+    const stored = localStorage.getItem("theme");
+    const isDark = stored ? stored === "dark" : mq.matches;
+    document.documentElement.classList.toggle("dark", isDark);
+  };
+  apply();
   mq.addEventListener("change", apply);
 }
 
