@@ -65,8 +65,8 @@ export default function Layout() {
     // Save current scroll position before leaving
     scrollPositions.current[location.pathname] = window.scrollY;
 
-    // Navigate to the last known path within the destination tab
-    const destination = tabHistory.current[tabPath] ?? tabPath;
+    // Navigate to the last known path within the destination tab (Home always defaults to root)
+    const destination = tabPath === "/" ? "/" : (tabHistory.current[tabPath] ?? tabPath);
     if (destination !== tabPath) {
       e.preventDefault();
       navigate(destination);
