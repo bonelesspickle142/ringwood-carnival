@@ -36,9 +36,9 @@ export default function Schedule() {
 
 
 
+
       // empty
-    }setLoading(false);}, []);useEffect(() => {loadEvents();const unsubscribe = base44.entities.Event.subscribe(() => {loadEvents();});return unsubscribe;
-    }, [loadEvents]);
+    }setLoading(false);}, []);useEffect(() => {loadEvents();const unsubscribe = base44.entities.Event.subscribe(() => {loadEvents();});return unsubscribe;}, [loadEvents]);
 
   const { pulling, pullDistance, refreshing } = usePullToRefresh(loadEvents);
 
@@ -72,7 +72,7 @@ export default function Schedule() {
             
             What's On
           </motion.h1>
-          <p className="text-muted-foreground text-sm mt-0.5">Simply click on the Carnival Week or Carnival Day tabs below to </p>
+          <p className="text-muted-foreground text-sm mt-0.5">Simply click on the Carnival Week or Carnival Day tab below to discover more! </p>
         </div>
 
         {/* Filters */}
