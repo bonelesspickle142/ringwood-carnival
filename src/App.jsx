@@ -6,7 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from './components/Layout.jsx';
-import CookieBanner from './components/CookieBanner';
+
 import PushPermissionRequester from './components/PushPermissionRequester';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule.jsx';
@@ -84,7 +84,6 @@ function App() {
           <AuthenticatedApp />
         </Router>
         <Toaster />
-        <CookieBanner />
         <PushPermissionRequester />
       </QueryClientProvider>
     </AuthProvider>
