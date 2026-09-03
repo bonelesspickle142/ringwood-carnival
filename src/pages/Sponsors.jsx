@@ -12,11 +12,13 @@ function SponsorCard({ sponsor, large }) {
       className={`bg-white border border-white/20 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 transition-transform ${sponsor.url ? "hover:scale-[1.02] cursor-pointer" : ""} ${large ? "min-h-[170px]" : "min-h-[130px]"}`}
     >
       {sponsor.image_url ? (
-        <img
-          src={sponsor.image_url}
-          alt={sponsor.name}
-          className={`object-contain ${large ? "max-h-24 max-w-[220px]" : "max-h-16 max-w-[150px]"}`}
-        />
+        <div className={`w-full flex items-center justify-center ${large ? "h-24" : "h-16"}`}>
+          <img
+            src={sponsor.image_url}
+            alt={sponsor.name}
+            className="max-w-full max-h-full object-contain"
+          />
+        </div>
       ) : (
         <div className="font-heading font-bold text-foreground text-center text-lg">{sponsor.name}</div>
       )}
