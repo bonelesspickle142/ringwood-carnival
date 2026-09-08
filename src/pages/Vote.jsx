@@ -36,21 +36,22 @@ export default function Vote() {
       setVotedId(null);
       await base44.entities.ShopEntry.update(shop.id, { vote_count: newCount });
     } else {
-      // Switch vote: remove old vote first
+      // Switch vote: remove old vote and add new vote in parallel
+      const updates = [];
       if (votedId) {
         const oldShop = shops.find((s) => s.id === votedId);
         if (oldShop) {
           const oldCount = Math.max((oldShop.vote_count || 1) - 1, 0);
           setShops((prev) => prev.map((s) => s.id === votedId ? { ...s, vote_count: oldCount } : s));
-          await base44.entities.ShopEntry.update(votedId, { vote_count: oldCount });
+          updates.push(base44.entities.ShopEntry.update(votedId, { vote_count: oldCount }));
         }
       }
-      // Add new vote
       const newCount = (shop.vote_count || 0) + 1;
       setShops((prev) => prev.map((s) => s.id === shop.id ? { ...s, vote_count: newCount } : s));
       localStorage.setItem(VOTE_KEY, shop.id);
       setVotedId(shop.id);
-      await base44.entities.ShopEntry.update(shop.id, { vote_count: newCount });
+      updates.push(base44.entities.ShopEntry.update(shop.id, { vote_count: newCount }));
+      await Promise.all(updates);
     }
 
     setVoting(null);
