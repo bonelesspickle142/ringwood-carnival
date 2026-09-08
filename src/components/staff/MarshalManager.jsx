@@ -42,6 +42,7 @@ function CopyButton({ text }) {
 
 export default function MarshalManager() {
   const [marshals, setMarshals] = useState([]);
+  const [sectorOptions, setSectorOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newName, setNewName] = useState("");
@@ -68,6 +69,13 @@ export default function MarshalManager() {
     setLoading(true);
     const data = await base44.entities.Marshal.list("-created_date", 100);
     setMarshals(data);
+    try {
+      const sectors = await base44.entities.SectorMarshal.list("sort_order", 50);
+      sectors.sort((a, b) => (a.sort_order ?? 999) - (b.sort_order ?? 999));
+      setSectorOptions(sectors);
+    } catch {
+      // Sector options unavailable — dropdown will simply show none
+    }
     setLoading(false);
   };
 
@@ -152,15 +160,15 @@ export default function MarshalManager() {
               <select
                 value={newSectorMarshal}
                 onChange={(e) => {
-                  const sm = SECTOR_MARSHALS.find(s => s.name === e.target.value);
+                  const sm = sectorOptions.find(s => s.name === e.target.value);
                   setNewSectorMarshal(e.target.value);
                   setNewSectorMarshalContact(sm ? sm.phone : "");
                 }}
                 className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               >
                 <option value="">— No Sector Marshal —</option>
-                {SECTOR_MARSHALS.map(sm => (
-                  <option key={sm.name} value={sm.name}>{sm.name} · {sm.phone}</option>
+                {sectorOptions.map(sm => (
+                  <option key={sm.id} value={sm.name}>{sm.name}{sm.phone ? ` · ${sm.phone}` : ""}</option>
                 ))}
               </select>
               <p className="text-xs text-muted-foreground">A unique password will be auto-generated.</p>

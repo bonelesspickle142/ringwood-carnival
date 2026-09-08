@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Shield, Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, Users, Award } from "lucide-react";
+import { Shield, Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, Users, Award, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import MarshalManager from "./MarshalManager";
 import SponsorsManager from "./SponsorsManager";
+import SectorMarshalManager from "./SectorMarshalManager";
 
 const SU_SESSION_KEY = "suAuth";
 
@@ -200,6 +201,12 @@ export default function AdminArea() {
           <Shield className="w-3.5 h-3.5" /> Committee Logins
         </button>
         <button
+          onClick={() => setAdminTab("sectors")}
+          className={`flex-1 py-2 rounded-lg font-semibold text-xs transition-all flex items-center justify-center gap-1.5 ${adminTab === "sectors" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+        >
+          <Phone className="w-3.5 h-3.5" /> Sector Marshals
+        </button>
+        <button
           onClick={() => setAdminTab("marshals")}
           className={`flex-1 py-2 rounded-lg font-semibold text-xs transition-all flex items-center justify-center gap-1.5 ${adminTab === "marshals" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
         >
@@ -212,6 +219,8 @@ export default function AdminArea() {
           <Award className="w-3.5 h-3.5" /> Sponsors
         </button>
       </div>
+
+      {adminTab === "sectors" && <SectorMarshalManager />}
 
       {adminTab === "marshals" && <MarshalManager />}
 
