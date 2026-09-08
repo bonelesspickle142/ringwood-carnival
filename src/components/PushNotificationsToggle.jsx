@@ -3,6 +3,16 @@ import { Bell } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 
+function isNativeApp() {
+  if (typeof window === "undefined" || !navigator) return false;
+  const ua = navigator.userAgent || "";
+  // iOS WKWebView (native app) — Safari reports "Safari", native webview doesn't
+  const iosWebview = /iPhone|iPad|iPod/.test(ua) && !/Safari/.test(ua);
+  const androidWebview = /wv/.test(ua) || /Base44/.test(ua);
+  const standalone = window.matchMedia?.("(display-mode: standalone)")?.matches;
+  return iosWebview || androidWebview || !!standalone;
+}
+
 function getPermission() {
   if (typeof window === "undefined" || !("Notification" in window)) return "unsupported";
   return Notification.permission;
@@ -10,15 +20,17 @@ function getPermission() {
 
 export default function PushNotificationsToggle() {
   const [permission, setPermission] = useState(getPermission);
+  const native = isNativeApp();
 
   const isGranted = permission === "granted";
   const isDenied = permission === "denied";
-  const isUnsupported = permission === "unsupported";
+  const isUnsupported = permission === "unsupported" && !native;
 
   let helper = "Tap to enable live updates & announcements";
   if (isGranted) helper = "Enabled — you'll receive live updates & announcements";
   if (isDenied) helper = "Blocked — enable notifications in your device settings";
   if (isUnsupported) helper = "Notifications aren't supported on this device";
+  if (native) helper = "Managed by your device — check iOS Settings to keep them on";
 
   const handleToggle = async (checked) => {
     if (isUnsupported || isDenied) return;
@@ -43,9 +55,9 @@ export default function PushNotificationsToggle() {
         <p className="text-muted-foreground text-xs mt-0.5">{helper}</p>
       </div>
       <Switch
-        checked={isGranted}
+        checked={isGranted || native}
         onCheckedChange={handleToggle}
-        disabled={isUnsupported || isDenied}
+        disabled={isUnsupported || isDenied || native}
         aria-label="Toggle push notifications"
       />
     </div>
