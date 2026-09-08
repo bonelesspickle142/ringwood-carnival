@@ -118,7 +118,11 @@ export default function Vote() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   className={`bg-card border rounded-2xl overflow-hidden transition-all duration-200 ${
-                    isVoted ? "border-secondary shadow-lg shadow-secondary/20" : "border-border"
+                    isVoted
+                      ? "border-secondary shadow-lg shadow-secondary/20"
+                      : hasVoted
+                        ? "border-border opacity-40"
+                        : "border-border"
                   }`}
                 >
                   {shop.image_url && (
@@ -138,17 +142,21 @@ export default function Vote() {
                     </div>
                     <button
                       onClick={() => handleVote(shop)}
-                      disabled={voting !== null}
+                      disabled={voting !== null || (hasVoted && !isVoted)}
                       className={`mt-4 w-full flex items-center justify-center gap-2 font-heading font-bold py-3 rounded-xl transition-all text-sm ${
                         isVoted
                           ? "bg-secondary/10 text-secondary border border-secondary/30 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 active:scale-95"
-                          : "bg-secondary text-white hover:bg-secondary/90 active:scale-95"
+                          : hasVoted
+                            ? "bg-muted text-muted-foreground cursor-not-allowed"
+                            : "bg-secondary text-white hover:bg-secondary/90 active:scale-95"
                       } disabled:opacity-50`}
                     >
                       {voting === shop.id ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
                       ) : isVoted ? (
                         <><CheckCircle2 className="w-4 h-4" /> Your Vote — tap to remove</>
+                      ) : hasVoted ? (
+                        <><Heart className="w-4 h-4" /> Remove your vote to choose another</>
                       ) : (
                         <><Heart className="w-4 h-4" /> Vote for this shop</>
                       )}
