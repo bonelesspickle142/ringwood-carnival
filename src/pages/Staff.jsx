@@ -256,13 +256,12 @@ export default function Staff() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-muted rounded-xl p-1 mt-5">
+        <div className="flex gap-1 bg-muted rounded-xl p-1 mt-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {[
             { key: "notifications", icon: Bell, label: "Notify" },
             { key: "events", icon: Calendar, label: "Events" },
             { key: "gallery", icon: ImageIcon, label: "Gallery" },
             { key: "shops", icon: Store, label: "Shops" },
-
             { key: "banner", icon: Megaphone, label: "Banner" },
             { key: "radio", icon: Radio, label: "Radio" },
             { key: "map", icon: MapPin, label: "Map" },
@@ -271,10 +270,10 @@ export default function Staff() {
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`flex-1 min-w-0 py-2 px-1 rounded-lg font-semibold text-xs transition-all flex flex-col items-center justify-center gap-0.5 ${activeTab === key ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+              className={`flex-shrink-0 min-w-[64px] py-2 px-2 rounded-lg font-semibold text-xs transition-all flex flex-col items-center justify-center gap-0.5 ${activeTab === key ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
             >
               <Icon className="w-4 h-4 flex-shrink-0" />
-              <span className="truncate w-full text-center">{label}</span>
+              <span className="text-center">{label}</span>
             </button>
           ))}
         </div>

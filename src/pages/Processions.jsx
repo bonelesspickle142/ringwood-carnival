@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Truck, Crown, Music, Users, Flame } from "lucide-react";
+import { Sparkles, Truck, Crown, Music, Users, Flame, Loader2 } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 import BandCard from "@/components/processions/BandCard";
-import { PROCESSION_BANDS } from "@/data/processionBands";
 
 // Drop your procession photo URLs in here (one per slot). Leave as "" to show a placeholder.
 const PROCESSION_IMAGES = ["", "", ""];
@@ -23,6 +24,22 @@ function ImageSlot({ src, alt, index }) {
 }
 
 export default function Processions() {
+  const [bands, setBands] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await base44.entities.ProcessionBand.list("sort_order", 200);
+        setBands(data);
+      } catch { /* empty */ }
+      setLoading(false);
+    };
+    load();
+    const unsubscribe = base44.entities.ProcessionBand.subscribe(() => load());
+    return unsubscribe;
+  }, []);
+
   return (
     <div className="min-h-screen pb-32">
       {/* Header */}
@@ -113,9 +130,15 @@ export default function Processions() {
             The Bands &amp; Groups
           </h2>
           <div className="space-y-4">
-            {PROCESSION_BANDS.map((band, i) => (
-              <BandCard key={band.name} band={band} index={i} />
-            ))}
+            {loading ? (
+              <div className="flex justify-center py-10"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
+            ) : bands.length === 0 ? (
+              <p className="text-muted-foreground text-sm text-center py-6">Band details coming soon.</p>
+            ) : (
+              bands.map((band, i) => (
+                <BandCard key={band.id} band={band} index={i} />
+              ))
+            )}
           </div>
         </div>
       </div>

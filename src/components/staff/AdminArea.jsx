@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Shield, Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, Users, Award, Phone } from "lucide-react";
+import { Shield, Plus, Trash2, Loader2, Eye, EyeOff, Copy, Check, RefreshCw, Users, Award, Phone, Music } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import MarshalManager from "./MarshalManager";
 import SponsorsManager from "./SponsorsManager";
 import SectorMarshalManager from "./SectorMarshalManager";
+import ProcessionBandsManager from "./ProcessionBandsManager";
 
 const SU_SESSION_KEY = "suAuth";
 
@@ -218,6 +219,12 @@ export default function AdminArea() {
         >
           <Award className="w-3.5 h-3.5" /> Sponsors
         </button>
+        <button
+          onClick={() => setAdminTab("bands")}
+          className={`flex-1 py-2 rounded-lg font-semibold text-xs transition-all flex items-center justify-center gap-1.5 ${adminTab === "bands" ? "bg-white dark:bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}
+        >
+          <Music className="w-3.5 h-3.5" /> Bands
+        </button>
       </div>
 
       {adminTab === "sectors" && <SectorMarshalManager />}
@@ -225,6 +232,8 @@ export default function AdminArea() {
       {adminTab === "marshals" && <MarshalManager />}
 
       {adminTab === "sponsors" && <SponsorsManager />}
+
+      {adminTab === "bands" && <ProcessionBandsManager />}
 
       {adminTab === "logins" && <>
       <AnimatePresence>

@@ -3,6 +3,12 @@ import { Sparkles, ExternalLink } from "lucide-react";
 
 export default function BandCard({ band, index }) {
   const bg = index % 2 === 0 ? "bg-primary" : "bg-secondary";
+
+  const sponsors = [];
+  if (band.afternoon_sponsor) sponsors.push({ period: "Afternoon", name: band.afternoon_sponsor });
+  if (band.evening_sponsor) sponsors.push({ period: "Evening", name: band.evening_sponsor });
+  if (band.sponsor) sponsors.push({ period: null, name: band.sponsor });
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 10 }}
@@ -26,16 +32,18 @@ export default function BandCard({ band, index }) {
         <h3 className="font-heading text-lg font-bold mb-1.5">{band.name}</h3>
 
         {/* Description */}
-        <p className="text-white/85 text-sm leading-relaxed">{band.description}</p>
+        {band.description && (
+          <p className="text-white/85 text-sm leading-relaxed">{band.description}</p>
+        )}
 
         {/* Sponsors */}
-        {band.sponsors?.length > 0 && (
+        {sponsors.length > 0 && (
           <div className="mt-3 pt-3 border-t border-white/20">
             <p className="text-xs font-heading font-semibold uppercase tracking-wide text-white/70 mb-1.5">
               Sponsored by
             </p>
             <div className="flex flex-col gap-1">
-              {band.sponsors.map((s, i) => (
+              {sponsors.map((s, i) => (
                 <p key={i} className="text-sm text-white/90">
                   {s.period ? (
                     <>
