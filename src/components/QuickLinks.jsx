@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, ImageIcon, Store, Map, Award } from "lucide-react";
+import { Calendar, MapPin, ImageIcon, Store, Map, Award, Sparkles, Users } from "lucide-react";
 
 const links = [
 {
@@ -32,6 +32,18 @@ const links = [
   icon: MapPin,
   label: "Getting Here",
   desc: "Travel & parking"
+},
+{
+  to: "/processions",
+  icon: Sparkles,
+  label: "Our Processions",
+  desc: "The heart of the day"
+},
+{
+  to: "/info",
+  icon: Users,
+  label: "Join the Crew",
+  desc: "Volunteer with us"
 },
 {
   to: "/sponsors",

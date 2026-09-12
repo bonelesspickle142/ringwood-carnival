@@ -21,6 +21,7 @@ import Vote from './pages/Vote';
 import MapView from './pages/MapView';
 import Privacy from './pages/Privacy';
 import Sponsors from './pages/Sponsors';
+import Processions from './pages/Processions';
 
 // Sync Tailwind dark class with stored preference or system color scheme
 if (typeof window !== "undefined") {
@@ -70,6 +71,7 @@ const AuthenticatedApp = () => {
         <Route path="/map" element={<MapView />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/sponsors" element={<Sponsors />} />
+        <Route path="/processions" element={<Processions />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
