@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Sparkles, Truck, Crown, Music, Users, Flame } from "lucide-react";
+import BandCard from "@/components/processions/BandCard";
+import { PROCESSION_BANDS } from "@/data/processionBands";
 
 // Drop your procession photo URLs in here (one per slot). Leave as "" to show a placeholder.
 const PROCESSION_IMAGES = ["", "", ""];
@@ -101,6 +103,21 @@ export default function Processions() {
             <ImageSlot src={PROCESSION_IMAGES[2]} alt="Ringwood Carnival procession" index={2} />
           </div>
         </motion.section>
+
+        {/* Bands & Groups */}
+        <div className="pt-2">
+          <h2
+            className="text-xl font-bold text-foreground mb-4 px-1"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "-0.02em" }}
+          >
+            The Bands &amp; Groups
+          </h2>
+          <div className="space-y-4">
+            {PROCESSION_BANDS.map((band, i) => (
+              <BandCard key={band.name} band={band} index={i} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
