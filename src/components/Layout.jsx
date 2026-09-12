@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Home, Calendar, ImageIcon, Info, Settings } from "lucide-react";
 import BackHeader from "./BackHeader";
+import ImagePreloader from "./ImagePreloader";
 
 const navItems = [
   { path: "/", icon: Home, label: "Home" },
@@ -81,6 +82,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-background relative">
+      <ImagePreloader />
       {/* BackHeader: visible on all non-root pages, respects safe-area-inset-top */}
       <BackHeader />
 
