@@ -180,9 +180,12 @@ export default function Staff() {
         content: pendingSnapshot.body,
       });
       if (!res.data?.ok) throw new Error(res.data?.error || "Send failed");
-      logAction(currentName, `Sent push notification — "${pendingSnapshot.title}": ${pendingSnapshot.body} (sent: ${res.data.sent}/${res.data.total})`);
+      const sent = res.data.sent ?? 0;
+      const failed = res.data.failed ?? 0;
+      const total = res.data.total ?? 0;
+      logAction(currentName, `Sent push notification — "${pendingSnapshot.title}": ${pendingSnapshot.body} (sent: ${sent}/${total})`);
       setBody("");
-      setSentBanner(pendingSnapshot);
+      setSentBanner({ ...pendingSnapshot, sent, failed, total });
       setTimeout(() => setSentBanner(null), 5000);
     } catch (err) {
       toast.error("Failed to send notification. Please try again.");
@@ -382,6 +385,10 @@ export default function Staff() {
           <div>
             <p className="font-heading font-bold text-sm">Notification Sent!</p>
             <p className="text-white/80 text-xs mt-0.5">{sentBanner.title} — {sentBanner.body}</p>
+            <p className="text-white/80 text-xs mt-1">
+              Delivered to {sentBanner.sent} of {sentBanner.total} recipient{sentBanner.total === 1 ? "" : "s"}
+              {sentBanner.failed > 0 ? ` (${sentBanner.failed} failed — native app not installed)` : ""}
+            </p>
           </div>
         </motion.div>
       )}
