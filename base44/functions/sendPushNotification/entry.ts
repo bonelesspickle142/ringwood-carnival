@@ -1,6 +1,6 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
-Deno.serve(async (req) => {
+export default async function(req) {
   try {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
@@ -38,4 +38,4 @@ Deno.serve(async (req) => {
     console.error('sendPushNotification error:', error.message);
     return Response.json({ error: error.message }, { status: 500 });
   }
-});
+}
