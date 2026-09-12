@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 export default function BandCard({ band, index }) {
   const bg = index % 2 === 0 ? "bg-primary" : "bg-secondary";
@@ -17,14 +17,9 @@ export default function BandCard({ band, index }) {
     >
       <div className={`${bg} rounded-xl p-4 text-white`}>
         {/* Image */}
-        {band.image_url ? (
+        {band.image_url && (
           <div className="rounded-lg overflow-hidden border border-white/20 mb-3">
             <img src={band.image_url} alt={band.name} className="w-full h-auto object-cover" />
-          </div>
-        ) : (
-          <div className="rounded-lg border border-dashed border-white/30 bg-white/5 p-6 flex flex-col items-center justify-center gap-1 text-white/50 mb-3">
-            <Sparkles className="w-5 h-5" />
-            <p className="text-xs font-heading font-semibold">Photo coming soon</p>
           </div>
         )}
 

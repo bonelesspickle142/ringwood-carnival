@@ -4,25 +4,6 @@ import { Sparkles, Truck, Crown, Music, Users, Flame, Loader2 } from "lucide-rea
 import { base44 } from "@/api/base44Client";
 import BandCard from "@/components/processions/BandCard";
 
-// Drop your procession photo URLs in here (one per slot). Leave as "" to show a placeholder.
-const PROCESSION_IMAGES = ["", "", ""];
-
-function ImageSlot({ src, alt, index }) {
-  if (!src) {
-    return (
-      <div className="rounded-xl border border-dashed border-white/30 bg-white/5 p-8 flex flex-col items-center justify-center gap-2 text-white/60">
-        <Sparkles className="w-6 h-6" />
-        <p className="text-xs font-heading font-semibold">Photo coming soon</p>
-      </div>
-    );
-  }
-  return (
-    <div className="rounded-xl overflow-hidden border border-white/20">
-      <img src={src} alt={alt} className="w-full h-auto object-cover" />
-    </div>
-  );
-}
-
 export default function Processions() {
   const [bands, setBands] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,13 +52,6 @@ export default function Processions() {
           </div>
         </motion.section>
 
-        {/* Image slot 1 — blue tile */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 }}>
-          <div className="bg-primary rounded-xl p-4 text-primary-foreground">
-            <ImageSlot src={PROCESSION_IMAGES[0]} alt="Ringwood Carnival procession" index={0} />
-          </div>
-        </motion.section>
-
         {/* Main description — red tile */}
         <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 }}>
           <div className="bg-secondary rounded-xl p-4 text-white">
@@ -87,13 +61,6 @@ export default function Processions() {
             <p className="text-white/85 text-sm leading-relaxed">
               Our processions are the heart and soul of the day and include our wonderful community floats, feature vehicles, Carnival Court on a horse drawn carriage, marching bands, dance troupes and steam engines together with loud bangs, music and flashing lights &mdash; Ringwood Carnival is very proud of the diversity and strength of our processions.
             </p>
-          </div>
-        </motion.section>
-
-        {/* Image slot 2 — blue tile */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.09 }}>
-          <div className="bg-primary rounded-xl p-4 text-primary-foreground">
-            <ImageSlot src={PROCESSION_IMAGES[1]} alt="Ringwood Carnival procession" index={1} />
           </div>
         </motion.section>
 
@@ -111,13 +78,6 @@ export default function Processions() {
               <li className="flex items-center gap-2"><Music className="w-4 h-4 flex-shrink-0" /> Dance troupes</li>
               <li className="flex items-center gap-2"><Flame className="w-4 h-4 flex-shrink-0" /> Steam engines</li>
             </ul>
-          </div>
-        </motion.section>
-
-        {/* Image slot 3 — blue tile */}
-        <motion.section initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-          <div className="bg-primary rounded-xl p-4 text-primary-foreground">
-            <ImageSlot src={PROCESSION_IMAGES[2]} alt="Ringwood Carnival procession" index={2} />
           </div>
         </motion.section>
 
