@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 export default function BandCard({ band, index }) {
   const bg = index % 2 === 0 ? "bg-primary" : "bg-secondary";
@@ -39,15 +40,16 @@ export default function BandCard({ band, index }) {
             </p>
             <div className="flex flex-col gap-1">
               {sponsors.map((s, i) => (
-                <p key={i} className="text-sm text-white/90">
+                <div key={i} className="text-sm text-white/90 prose prose-sm prose-invert max-w-none [&_*]:my-0 [&_a]:text-white [&_a]:underline">
                   {s.period ? (
                     <>
-                      <span className="font-semibold">{s.period}:</span> {s.name}
+                      <span className="font-semibold">{s.period}:</span>{" "}
+                      <ReactMarkdown>{s.name}</ReactMarkdown>
                     </>
                   ) : (
-                    s.name
+                    <ReactMarkdown>{s.name}</ReactMarkdown>
                   )}
-                </p>
+                </div>
               ))}
             </div>
           </div>
