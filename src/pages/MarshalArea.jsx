@@ -51,6 +51,7 @@ const BRIEFING_POINTS = [
 
 function BriefingTab({ marshal }) {
   const [open, setOpen] = useState(null);
+  const [showPdf, setShowPdf] = useState(false);
 
   return (
     <div className="space-y-5">
@@ -108,10 +109,8 @@ function BriefingTab({ marshal }) {
         <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
           <FileText className="w-4 h-4 text-primary" /> Briefing Document
         </h3>
-        <a
-          href={BRIEFING_PDF_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => setShowPdf((v) => !v)}
           className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group text-left"
         >
           <div className="flex items-center gap-3">
@@ -120,11 +119,31 @@ function BriefingTab({ marshal }) {
             </div>
             <div>
               <p className="font-heading font-bold text-foreground text-sm">Marshal Briefing Pack</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tap to open</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{showPdf ? "Tap to hide" : "Tap to open"}</p>
             </div>
           </div>
-          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-        </a>
+          <ExternalLink className={`w-4 h-4 text-muted-foreground group-hover:text-foreground transition-transform ${showPdf ? "rotate-180" : ""}`} />
+        </button>
+        {showPdf && (
+          <div className="mt-3 -mt-2 bg-card border border-border rounded-2xl overflow-hidden">
+            <iframe
+              src={BRIEFING_PDF_URL}
+              title="Marshal Briefing Pack"
+              className="w-full"
+              style={{ height: "70vh" }}
+            />
+            <div className="p-3 border-t border-border text-center">
+              <a
+                href={BRIEFING_PDF_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-heading font-semibold text-primary hover:underline"
+              >
+                Open in browser ↗
+              </a>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Key briefing points */}
