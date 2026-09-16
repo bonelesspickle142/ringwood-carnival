@@ -34,22 +34,6 @@ async function cachePDF() {
   }
 }
 
-async function openCachedPDF() {
-  try {
-    const cache = await caches.open(PDF_CACHE_NAME);
-    const cached = await cache.match(BRIEFING_PDF_URL);
-    if (cached) {
-      const blob = await cached.blob();
-      const url = URL.createObjectURL(blob);
-      window.open(url, "_blank");
-      return;
-    }
-  } catch {
-    // Fall through to direct link
-  }
-  window.open(BRIEFING_PDF_URL, "_blank");
-}
-
 const CONTACTS = [
   { name: "Control", role: "Event Control", number: "01425 517025" },
 ];
@@ -124,8 +108,10 @@ function BriefingTab({ marshal }) {
         <h3 className="font-heading font-bold text-foreground text-base mb-3 flex items-center gap-2">
           <FileText className="w-4 h-4 text-primary" /> Briefing Document
         </h3>
-        <button
-          onClick={openCachedPDF}
+        <a
+          href={BRIEFING_PDF_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center justify-between w-full bg-card border border-border rounded-2xl p-4 hover:bg-muted/50 transition-colors group text-left"
         >
           <div className="flex items-center gap-3">
@@ -134,11 +120,11 @@ function BriefingTab({ marshal }) {
             </div>
             <div>
               <p className="font-heading font-bold text-foreground text-sm">Marshal Briefing Pack</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Tap to open · saved for offline use</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Tap to open</p>
             </div>
           </div>
           <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-        </button>
+        </a>
       </div>
 
       {/* Key briefing points */}
