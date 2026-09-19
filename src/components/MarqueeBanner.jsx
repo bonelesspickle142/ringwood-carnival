@@ -29,8 +29,10 @@ export default function MarqueeBanner() {
         <span className="font-heading font-bold text-xs uppercase tracking-wide whitespace-nowrap">Update</span>
       </div>
       <div className="overflow-hidden flex-1">
-        <div className="animate-marquee whitespace-nowrap font-heading font-semibold text-sm">
-          {banner.message}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{banner.message}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{banner.message}
+        <div className="animate-marquee whitespace-nowrap font-heading font-semibold text-sm flex">
+          <span className="pr-[100vw]">{banner.message}</span>
+          <span className="pr-[100vw]">{banner.message}</span>
+          <span className="pr-[100vw]">{banner.message}</span>
         </div>
       </div>
     </div>
